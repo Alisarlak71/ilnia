@@ -45,7 +45,7 @@
 - [x] کامپوننت Livewire سبد خرید و آیکون سبد در هدر
 - [x] `SmsService` با دو درایور: `log` برای توسعه و `kavenegar` برای تولید، با ارسال از طریق الگو (verify lookup). کلید API فقط در `.env` قرار می‌گیرد.
 - [x] ورود با موبایل و OTP با درایور log، rate limit و تست
-- [ ] مدیریت آدرس‌ها
+- [x] مدیریت آدرس‌ها
 
 ## فاز ۳: سفارش و پرداخت
 - [ ] مدل‌ها: orders، order_items، payments و shipping_methods، همراه منابع Filament

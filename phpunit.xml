@@ -34,6 +34,7 @@
         <env name="NIGHTWATCH_ENABLED" value="false"/>
         <!-- Ilnia: tests never send real SMS or call real payment/SMS APIs -->
         <env name="SMS_DRIVER" value="log"/>
+        <env name="LOG_CHANNEL" value="null"/>
         <env name="KAVENEGAR_API_KEY" value=""/>
         <env name="ZARINPAL_MERCHANT_ID" value=""/>
     </php>

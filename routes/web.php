@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Livewire\AddressesPage;
 use App\Livewire\CartPage;
 use App\Livewire\LoginPage;
 use Illuminate\Http\Request;
@@ -23,3 +24,8 @@ Route::post('/logout', function (Request $request) {
 
     return redirect()->route('home');
 })->middleware('auth')->name('logout');
+
+// Customer account (logged-in customers only).
+Route::middleware('auth')->prefix('account')->name('account.')->group(function () {
+    Route::livewire('/addresses', AddressesPage::class)->name('addresses');
+});
