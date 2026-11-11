@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Livewire\AddressesPage;
 use App\Livewire\CartPage;
@@ -15,6 +16,10 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/{product:slug}', [ProductController::class, 'show'])->name('products.show');
 Route::livewire('/cart', CartPage::class)->name('cart');
 Route::livewire('/checkout', CheckoutPage::class)->middleware('auth')->name('checkout');
+
+// Return from the payment gateway (no login required; verified on the server).
+Route::get('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
+Route::get('/payment/result/{order:number}', [PaymentController::class, 'result'])->middleware('auth')->name('payment.result');
 
 // Customer login with mobile + one-time code (limits are enforced in OtpService).
 Route::livewire('/login', LoginPage::class)->middleware('guest')->name('login');

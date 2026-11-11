@@ -9,3 +9,7 @@ use Illuminate\Support\Facades\Schedule;
 
 // Delete old one-time login codes (and any other prunable models).
 Schedule::command('model:prune')->daily();
+
+// Run queued jobs (e.g. order confirmation SMS). No Supervisor on shared hosting, so the
+// scheduler starts a short worker every minute that exits when the queue is empty.
+Schedule::command('queue:work --stop-when-empty --max-time=50')->everyMinute()->withoutOverlapping();

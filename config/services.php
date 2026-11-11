@@ -51,4 +51,17 @@ return [
         'timeout' => 10,
     ],
 
+
+    /*
+    | Zarinpal payment gateway (REST v4). Empty merchant id = online payment disabled.
+    | Amounts are sent in RIAL (Toman x 10); the conversion happens only in PaymentService.
+    */
+    'zarinpal' => [
+        'merchant_id' => env('ZARINPAL_MERCHANT_ID'),
+        'sandbox' => (bool) env('ZARINPAL_SANDBOX', true),
+        'production_url' => 'https://payment.zarinpal.com',
+        'sandbox_url' => 'https://sandbox.zarinpal.com',
+        'timeout' => 15,
+    ],
+
 ];
