@@ -1,4 +1,4 @@
-{{-- Dark site header: logo, main menu and cart icon (Livewire, updates live). --}}
+{{-- Dark site header: logo, main menu, login/logout and cart icon (Livewire, updates live). --}}
 @php
     $links = [
         ['route' => 'home', 'label' => __('site.nav_home'), 'active' => request()->routeIs('home')],
@@ -24,7 +24,17 @@
             </ul>
         </nav>
 
+        @auth
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="text-sm transition-colors hover:text-gold">{{ __('otp.logout') }}</button>
+            </form>
+        @else
+            <a href="{{ route('login') }}"
+               @class(['text-sm transition-colors hover:text-gold', 'text-gold' => request()->routeIs('login')])>{{ __('otp.login') }}</a>
+        @endauth
+
         <livewire:cart-icon />
     </div>
-    <div class="h-px bg-gradient-to-l from-transparent via-gold/50 to-transparent"></div>
+    <div class="h-px bg-linear-to-l from-transparent via-gold/50 to-transparent"></div>
 </header>

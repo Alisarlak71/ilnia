@@ -1,6 +1,6 @@
 {{-- Dark site footer. Links to about/contact/terms pages are added in Phase 4. --}}
 <footer class="bg-ink text-cream">
-    <div class="h-px bg-gradient-to-l from-transparent via-gold/50 to-transparent"></div>
+    <div class="h-px bg-linear-to-l from-transparent via-gold/50 to-transparent"></div>
     <div class="mx-auto max-w-6xl px-4 py-10">
         <div class="flex flex-col items-center gap-3 text-center">
             <x-logo :size="40" />

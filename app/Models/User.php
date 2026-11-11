@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 // `is_admin` is intentionally NOT fillable: it can never be set from a request.
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'mobile', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser
 {

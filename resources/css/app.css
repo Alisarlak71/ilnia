@@ -27,6 +27,11 @@
     src: url('/fonts/cinzel-600-latin.woff2') format('woff2');
 }
 
+/* Alpine: hide elements until Alpine has started. */
+[x-cloak] {
+    display: none !important;
+}
+
 @layer base {
     html {
         background-color: var(--color-cream);
