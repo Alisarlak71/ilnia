@@ -2,13 +2,19 @@
 
 namespace Tests\Feature;
 
+use App\Enums\OrderStatus;
+use App\Enums\PaymentStatus;
 use App\Livewire\CheckoutPage;
+use App\Models\Order;
 use App\Models\Address;
 use App\Models\ProductVariant;
 use App\Models\ShippingMethod;
 use App\Models\User;
 use App\Services\CartService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -187,5 +193,129 @@ class CheckoutPageTest extends TestCase
         $this->fillCart();
 
         $this->get('/checkout')->assertSee('پرداخت آنلاین به‌زودی فعال می‌شود.');
+    }
+
+    // --- pay ------------------------------------------------------------------------
+
+    private const REQUEST_URL = 'https://sandbox.zarinpal.com/pg/v4/payment/request.json';
+
+    private function enableGateway(): void
+    {
+        config(['services.zarinpal.merchant_id' => '00000000-0000-0000-0000-000000000000', 'services.zarinpal.sandbox' => true]);
+    }
+
+    public function test_disabled_gateway_creates_no_order_even_if_pay_is_called(): void
+    {
+        Http::fake();
+        $this->actingAs($this->user);
+        Address::factory()->for($this->user)->create();
+        $this->fillCart();
+
+        Livewire::test(CheckoutPage::class)
+            ->assertDontSeeHtml('wire:click="pay"')
+            ->call('pay')
+            ->assertHasErrors('pay')
+            ->assertNoRedirect();
+
+        $this->assertSame(0, Order::count());
+        $this->assertFalse(app(CartService::class)->isEmpty(), 'The cart is kept.');
+        Http::assertNothingSent();
+    }
+
+    public function test_enabled_gateway_shows_active_button(): void
+    {
+        $this->enableGateway();
+        $this->actingAs($this->user);
+        Address::factory()->for($this->user)->create();
+        $this->fillCart();
+
+        $this->get('/checkout')
+            ->assertSeeHtml('wire:click="pay"')
+            ->assertDontSee('پرداخت آنلاین به‌زودی فعال می‌شود.');
+    }
+
+    public function test_pay_creates_order_and_redirects_to_gateway(): void
+    {
+        $this->enableGateway();
+        Http::fake([self::REQUEST_URL => Http::response(['data' => ['code' => 100, 'authority' => 'S000000000000000000000000000000AUTH1'], 'errors' => []])]);
+        $this->actingAs($this->user);
+        $address = Address::factory()->for($this->user)->create();
+        $variant = $this->fillCart(2);
+
+        Livewire::test(CheckoutPage::class)
+            ->set('note', 'عصر تحویل شود')
+            ->call('pay')
+            ->assertRedirect('https://sandbox.zarinpal.com/pg/StartPay/S000000000000000000000000000000AUTH1');
+
+        $order = Order::sole();
+        $this->assertSame(OrderStatus::PendingPayment, $order->status);
+        $this->assertSame(1020000, $order->total);
+        $this->assertSame($address->postal_code, $order->postal_code);
+        $this->assertSame('عصر تحویل شود', $order->customer_note);
+        $this->assertSame(20, $variant->fresh()->stock, 'Stock is reduced only after payment.');
+        $this->assertTrue(app(CartService::class)->isEmpty());
+        $this->assertSame(PaymentStatus::Pending, $order->payments()->sole()->status);
+        Http::assertSent(fn (Request $r) => $r['amount'] === 10200000); // rial, from the saved order
+    }
+
+    public function test_pay_without_address_creates_no_order(): void
+    {
+        $this->enableGateway();
+        Http::fake();
+        $this->actingAs($this->user);
+        $this->fillCart();
+
+        Livewire::test(CheckoutPage::class)->call('pay')->assertHasErrors('pay');
+
+        $this->assertSame(0, Order::count());
+        Http::assertNothingSent();
+    }
+
+    public function test_pay_with_someone_elses_address_creates_no_order(): void
+    {
+        $this->enableGateway();
+        Http::fake();
+        $this->actingAs($this->user);
+        Address::factory()->for($this->user)->create();
+        $other = Address::factory()->create();
+        $this->fillCart();
+
+        Livewire::test(CheckoutPage::class)->set('addressId', $other->id)->call('pay')->assertHasErrors('pay');
+
+        $this->assertSame(0, Order::count());
+    }
+
+    public function test_changed_cart_sends_customer_back_to_cart_with_reason(): void
+    {
+        $this->enableGateway();
+        Http::fake();
+        $this->actingAs($this->user);
+        Address::factory()->for($this->user)->create();
+        $variant = $this->fillCart(5);
+
+        $component = Livewire::test(CheckoutPage::class);
+        $variant->update(['stock' => 2]);
+        $component->call('pay')->assertRedirect(route('cart'));
+
+        $this->assertSame(0, Order::count());
+        Http::assertNothingSent();
+        $this->get('/cart')
+            ->assertSee('موجودی یا قیمت بعضی از محصولات سبد شما تغییر کرده است')
+            ->assertSee('کاهش یافت');
+    }
+
+    public function test_gateway_error_keeps_order_and_shows_message(): void
+    {
+        $this->enableGateway();
+        Http::fake(fn () => throw new ConnectionException('timeout'));
+        $this->actingAs($this->user);
+        Address::factory()->for($this->user)->create();
+        $this->fillCart();
+
+        Livewire::test(CheckoutPage::class)->call('pay')->assertRedirect(route('payment.result', Order::first() ?? 'x'));
+
+        $order = Order::sole();
+        $this->assertSame(OrderStatus::PaymentFailed, $order->status);
+        $this->get(route('payment.result', $order))->assertSee('اتصال به درگاه پرداخت ممکن نشد');
     }
 }

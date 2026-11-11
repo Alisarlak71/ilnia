@@ -44,7 +44,8 @@ class CartPage extends Component
         return view('livewire.cart-page', [
             'lines' => $lines,
             'subtotal' => (int) $lines->sum('lineTotal'),
-            'adjustments' => $cart->pullAdjustments(),
+            // A notice from checkout (cart changed before paying) + automatic corrections.
+            'adjustments' => array_values(array_filter([session()->pull('cart_notice'), ...$cart->pullAdjustments()])),
             'freeShipping' => $this->freeShippingInfo($shipping, (int) $lines->sum('weightGrams')),
         ]);
     }

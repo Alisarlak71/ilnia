@@ -37,6 +37,7 @@ class PaymentController extends Controller
     {
         abort_unless($order->user_id !== null && $order->user_id === $request->user()?->id, 404);
 
-        return view('payment.result', ['order' => $order->load('payments'), 'message' => null]);
+        // payment_error: the gateway could not be reached right after checkout.
+        return view('payment.result', ['order' => $order->load('payments'), 'message' => session('payment_error')]);
     }
 }
