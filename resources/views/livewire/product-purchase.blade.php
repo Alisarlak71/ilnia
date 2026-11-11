@@ -35,11 +35,39 @@
             @endif
         </div>
 
-        {{-- Connected to the cart in Phase 2. --}}
-        <button type="button" disabled
-                class="mt-5 w-full cursor-not-allowed rounded-btn bg-ink/40 px-6 py-3 font-bold text-cream">
-            {{ __('shop.add_to_cart') }}
-        </button>
-        <p class="mt-2 text-center text-xs text-muted">{{ __('shop.cart_coming_soon') }}</p>
+        @if ($selected?->isPurchasable())
+            <div class="mt-5 flex items-stretch gap-3">
+                <div class="inline-flex items-center rounded-btn border border-line bg-cream" role="group" aria-label="{{ __('cart.quantity') }}">
+                    <button type="button" wire:click="increment" @disabled($quantity >= $maxQuantity)
+                            class="px-3 py-2 text-lg leading-none hover:text-gold-deep disabled:opacity-30"
+                            aria-label="{{ __('cart.increase', ['name' => $selected->title]) }}">+</button>
+                    <span class="min-w-8 text-center font-bold" aria-live="polite">{{ \App\Support\Digits::toPersian($quantity) }}</span>
+                    <button type="button" wire:click="decrement" @disabled($quantity <= 1)
+                            class="px-3 py-2 text-lg leading-none hover:text-gold-deep disabled:opacity-30"
+                            aria-label="{{ __('cart.decrease', ['name' => $selected->title]) }}">−</button>
+                </div>
+
+                <button type="button" wire:click="addToCart" wire:loading.attr="disabled"
+                        class="flex-1 rounded-btn border border-ink bg-ink px-6 py-3 font-bold text-cream transition-colors hover:border-gold disabled:opacity-60">
+                    {{ __('shop.add_to_cart') }}
+                </button>
+            </div>
+        @else
+            <button type="button" disabled
+                    class="mt-5 w-full cursor-not-allowed rounded-btn bg-ink/40 px-6 py-3 font-bold text-cream">
+                {{ __('shop.add_to_cart') }}
+            </button>
+        @endif
+
+        @if ($message)
+            <p role="status" class="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-btn border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">
+                <span>{{ $message }}</span>
+                <a href="{{ route('cart') }}" class="font-bold underline underline-offset-4">{{ __('cart.view_cart') }}</a>
+            </p>
+        @endif
+
+        @if ($error)
+            <p role="alert" class="mt-3 rounded-btn border border-danger/30 bg-danger/10 px-4 py-2 text-sm text-danger">{{ $error }}</p>
+        @endif
     @endif
 </div>

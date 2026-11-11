@@ -1,4 +1,4 @@
-{{-- Dark site header. The cart icon is added here in Phase 2. --}}
+{{-- Dark site header: logo, main menu and cart icon (Livewire, updates live). --}}
 @php
     $links = [
         ['route' => 'home', 'label' => __('site.nav_home'), 'active' => request()->routeIs('home')],
@@ -10,7 +10,7 @@
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
         <x-logo />
 
-        <nav aria-label="{{ __('site.main_nav') }}">
+        <nav class="ms-auto" aria-label="{{ __('site.main_nav') }}">
             <ul class="flex items-center gap-5 text-sm sm:gap-6">
                 @foreach ($links as $link)
                     <li>
@@ -23,6 +23,8 @@
                 @endforeach
             </ul>
         </nav>
+
+        <livewire:cart-icon />
     </div>
     <div class="h-px bg-gradient-to-l from-transparent via-gold/50 to-transparent"></div>
 </header>

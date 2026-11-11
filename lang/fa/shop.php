@@ -16,7 +16,6 @@ return [
 
     'choose_weight' => 'انتخاب وزن',
     'add_to_cart' => 'افزودن به سبد خرید',
-    'cart_coming_soon' => 'خرید آنلاین به‌زودی فعال می‌شود.',
     'description' => 'توضیحات',
     'story' => 'از کجا می‌آید؟',
     'storage' => 'شرایط نگهداری',

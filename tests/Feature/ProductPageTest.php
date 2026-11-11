@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
+use App\Services\CartService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -145,15 +146,60 @@ class ProductPageTest extends TestCase
         Livewire::test(ProductPurchase::class, ['product' => $product])->assertSee('قیمت به‌زودی');
     }
 
-    public function test_cart_button_is_disabled_until_phase_two(): void
+    public function test_add_to_cart_adds_selected_weight_and_quantity(): void
     {
         $product = $this->honey();
-        ProductVariant::factory()->for($product)->create();
+        ProductVariant::factory()->for($product)->create(['price' => 480000]);
+        $two = ProductVariant::factory()->for($product)->create(['price' => 930000, 'weight_grams' => 2000, 'sort' => 1]);
 
         Livewire::test(ProductPurchase::class, ['product' => $product])
-            ->assertSee('افزودن به سبد خرید')
-            ->assertSee('خرید آنلاین به‌زودی فعال می‌شود.')
-            ->assertSeeHtml('disabled');
+            ->set('variantId', $two->id)
+            ->call('increment')
+            ->call('increment')
+            ->assertSet('quantity', 3)
+            ->call('addToCart')
+            ->assertSet('message', 'به سبد خرید اضافه شد.')
+            ->assertSet('quantity', 1)
+            ->assertDispatched('cart-updated');
+
+        $this->assertSame([$two->id => 3], app(CartService::class)->raw());
+    }
+
+    public function test_quantity_cannot_go_above_stock_or_below_one(): void
+    {
+        $product = $this->honey();
+        ProductVariant::factory()->for($product)->create(['stock' => 2]);
+
+        Livewire::test(ProductPurchase::class, ['product' => $product])
+            ->call('decrement')
+            ->assertSet('quantity', 1)
+            ->call('increment')
+            ->call('increment')
+            ->call('increment')
+            ->assertSet('quantity', 2);
+    }
+
+    public function test_adding_more_than_stock_shows_error(): void
+    {
+        $product = $this->honey();
+        $variant = ProductVariant::factory()->for($product)->create(['stock' => 2]);
+        app(CartService::class)->add($variant->id, 2);
+
+        Livewire::test(ProductPurchase::class, ['product' => $product])
+            ->call('addToCart')
+            ->assertSet('message', null)
+            ->assertNotDispatched('cart-updated')
+            ->assertSee('فقط ۲ عدد موجود است');
+    }
+
+    public function test_unpurchasable_weight_has_disabled_button(): void
+    {
+        $product = $this->honey();
+        ProductVariant::factory()->for($product)->outOfStock()->create();
+
+        Livewire::test(ProductPurchase::class, ['product' => $product])
+            ->assertSeeHtml('disabled')
+            ->assertDontSeeHtml('wire:click="addToCart"');
     }
 
     public function test_cards_link_to_product_page(): void
