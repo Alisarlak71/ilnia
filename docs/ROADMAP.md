@@ -26,7 +26,7 @@
 - [x] `git init`، `.gitignore` و اولین commit
 - [x] تنظیم `.env` برای SQLite، `APP_LOCALE=fa` و `APP_TIMEZONE=Asia/Tehran`
 - [x] نصب Tailwind، ایمپورت `brand/tokens.css`، کپی لوگوها و فاوآیکن به `public/` و افزودن فونت‌های میزبانی‌شده روی سایت (`brand/README.md`)
-- [ ] ساخت کامپوننت `<x-logo />` (نمونه‌اش در `brand/README.md` هست)
+- [x] ساخت کامپوننت `<x-logo />` (نمونه‌اش در `brand/README.md` هست)
 - [ ] قالب پایهٔ Blade با `lang="fa" dir="rtl"`، هدر و فوتر برند
 - [ ] نصب Livewire
 - [ ] نصب Filament، ساخت کاربر ادمین و فارسی و راست‌به‌چپ کردن پنل

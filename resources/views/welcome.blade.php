@@ -11,9 +11,8 @@
 </head>
 <body class="min-h-screen font-sans">
     <header class="bg-ink px-4 py-5">
-        <div class="mx-auto flex max-w-3xl items-center gap-3">
-            <img src="{{ asset('brand/logo-mark-gold.svg') }}" width="44" height="44" alt="">
-            <span class="font-brand text-3xl leading-none text-cream">ایلنیا</span>
+        <div class="mx-auto max-w-3xl">
+            <x-logo />
         </div>
     </header>
 
@@ -23,6 +22,10 @@
             <p class="mt-3 font-brand text-5xl leading-none">ایلنیا</p>
             <p class="mt-2 font-latin text-xs tracking-[0.55em] text-gold-deep" dir="ltr">ILNIA</p>
             <p class="mt-4 text-muted">به رسم نیاکان</p>
+        </section>
+
+        <section class="flex justify-center">
+            <x-logo variant="light" :size="36" />
         </section>
 
         <section class="rounded-card border border-line bg-paper p-6">
