@@ -1,0 +1,28 @@
+/*
+  Ilnia brand tokens — Tailwind CSS v4.
+  Import from resources/css/app.css:   @import "../../brand/tokens.css";
+  (or copy this block into app.css after `@import "tailwindcss";`)
+*/
+@theme {
+  /* colors */
+  --color-ink: #1E1A16;        /* warm black: dark surfaces, main text */
+  --color-ink-soft: #2A241E;   /* raised dark surfaces */
+  --color-gold: #E2B45A;       /* light gold: ONLY on dark backgrounds */
+  --color-gold-deep: #A8731B;  /* deep gold: on light backgrounds */
+  --color-honey: #C8902E;      /* accents, focus rings */
+  --color-cream: #F6EFE2;      /* main light background */
+  --color-paper: #FBF8F2;      /* cards on cream */
+  --color-muted: #6B6257;      /* secondary text */
+  --color-line: #E4DAC6;       /* dividers, borders */
+  --color-danger: #A63A2B;     /* errors */
+  --color-success: #4F7A3A;    /* success */
+
+  /* fonts (self-hosted; see brand/README.md) */
+  --font-sans: "Vazirmatn", Tahoma, sans-serif;  /* all UI text + headings */
+  --font-brand: "Reem Kufi", "Vazirmatn", sans-serif; /* ONLY the word «ایلنیا» */
+  --font-latin: "Cinzel", Georgia, serif;        /* ONLY the word ILNIA / ilnia.ir */
+
+  /* shape */
+  --radius-card: 14px;
+  --radius-btn: 10px;
+}

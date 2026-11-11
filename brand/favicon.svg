@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- Favicon: simplified, thicker mark on a dark rounded square (readable at 16–32px) -->
+  <rect width="120" height="120" rx="26" fill="#1E1A16"/>
+  <polygon points="60,10 103.3,35 103.3,85 60,110 16.7,85 16.7,35" fill="none" stroke="#E2B45A" stroke-width="7"/>
+  <path d="M60 27 C60 27 51 38 51 44 A9 9 0 0 0 69 44 C69 38 60 27 60 27 Z" fill="#E2B45A"/>
+  <path d="M33 86 L49 66 Q60 58 71 66 L87 86 Z" fill="#F6EFE2"/>
+</svg>

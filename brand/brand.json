@@ -1,0 +1,40 @@
+{
+  "name": {
+    "fa": "ایلنیا",
+    "latin": "Ilnia",
+    "latin_display": "ILNIA",
+    "meaning": "ایل + نیا (نیاکان): به رسم نیاکان ایل"
+  },
+  "domain": "ilnia.ir",
+  "domain_status": "unverified — not yet checked or purchased",
+  "slogans": {
+    "primary": "به رسم نیاکان",
+    "campaign": "اصلش را می‌فروشیم، نه ادعایش را",
+    "casual": "اصلشو می‌فروشیم، نه ادعاشو",
+    "short": "اصل، نه ادعا"
+  },
+  "values": ["اصالت", "صداقت", "لوکس"],
+  "first_product": "عسل اصیل عشایر",
+  "colors": {
+    "ink": "#1E1A16",
+    "ink_soft": "#2A241E",
+    "gold": "#E2B45A",
+    "gold_deep": "#A8731B",
+    "honey": "#C8902E",
+    "cream": "#F6EFE2",
+    "paper": "#FBF8F2",
+    "muted": "#6B6257",
+    "line": "#E4DAC6"
+  },
+  "fonts": {
+    "brand_name_fa": "Reem Kufi 600",
+    "brand_name_latin": "Cinzel 600, letter-spacing 0.55em",
+    "ui": "Vazirmatn (400 text, 800 headings)"
+  },
+  "logo_files": {
+    "mark_on_dark": "brand/logo-mark-gold.svg",
+    "mark_on_light": "brand/logo-mark-ink.svg",
+    "favicon": "brand/favicon.svg",
+    "profile_png": "brand/profile-mark.png"
+  }
+}
