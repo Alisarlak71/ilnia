@@ -1,7 +1,7 @@
 {{--
     Product card for the home page and product list.
     Expects $product with `variants` and `images` loaded.
-    Link to the product page is added when that page exists (Phase 1).
+    The whole card links to the product page.
 --}}
 @props(['product'])
 
@@ -12,7 +12,7 @@
     $available = $activeVariants->contains(fn ($variant) => $variant->isPurchasable());
 @endphp
 
-<article {{ $attributes->merge(['class' => 'group flex flex-col overflow-hidden rounded-card border border-line bg-paper']) }}>
+<article {{ $attributes->merge(['class' => 'group relative flex flex-col overflow-hidden rounded-card border border-line bg-paper transition-colors hover:border-gold-deep focus-within:ring-2 focus-within:ring-honey']) }}>
     <div class="relative aspect-square overflow-hidden">
         @if ($image)
             <img src="{{ $image->url() }}" alt="{{ $image->altText() }}" loading="lazy"
@@ -29,7 +29,10 @@
     </div>
 
     <div class="flex flex-1 flex-col gap-1 p-4">
-        <h3 class="text-base font-bold leading-7">{{ $product->name }}</h3>
+        <h3 class="text-base font-bold leading-7">
+            {{-- The link covers the whole card (after:inset-0). --}}
+            <a href="{{ route('products.show', $product) }}" class="outline-none after:absolute after:inset-0">{{ $product->name }}</a>
+        </h3>
 
         @if ($activeVariants->isNotEmpty())
             <p class="text-sm text-muted">{{ $activeVariants->pluck('title')->join('، ') }}</p>

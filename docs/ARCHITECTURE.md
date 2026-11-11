@@ -21,7 +21,7 @@ lang/fa/             متن‌های فارسی
 | `users` | name, mobile (unique), is_admin | مشتری‌ها و ادمین‌ها. ورود با موبایل است، پس رمز عبور برای مشتری لازم نیست. |
 | `otp_codes` | mobile, code_hash, expires_at, attempts | کد به‌صورت هش ذخیره می‌شود. انقضای کوتاه و تعداد تلاش محدود دارد. |
 | `categories` | name, slug, sort | مثلاً عسل، روغن، لبنیات. دسته‌ای که محصول دارد قابل حذف نیست. |
-| `products` | category_id, name, slug, short_description, description, story, is_active | `story` داستان مبدأ محصول است (منطقه، ایل، روش برداشت). محصول تازه به‌طور پیش‌فرض غیرفعال است. |
+| `products` | category_id, name, slug, short_description, description, story, storage_instructions, is_active | `story` داستان مبدأ محصول است (منطقه، ایل، روش برداشت). محصول تازه به‌طور پیش‌فرض غیرفعال است. |
 | `product_images` | product_id, path, alt, sort | `alt` متن جایگزین فارسی است. اگر خالی باشد، نام محصول استفاده می‌شود. |
 | `product_variants` | product_id, title, weight_grams, price (nullable), stock, sku (unique), is_active, sort | هر وزن یک variant است. **قیمت و موجودی روی variant‌اند، نه روی محصول.** variant بدون قیمت قابل خرید نیست. |
 | `addresses` | user_id, recipient_name, mobile, province, city, address_line, postal_code | |
@@ -128,3 +128,5 @@ lang/fa/             متن‌های فارسی
 | 2026-11-11 | variant‌ها و عکس‌ها داخل همان فرم محصول (Repeater) ویرایش می‌شوند | ساده‌تر برای ادمین: همه‌چیز در یک صفحه |
 | 2026-11-11 | فایل عکس با حذف یا تعویض عکس، و با حذف محصول، از دیسک پاک می‌شود | فایل‌های بی‌صاحب فضای هاست اشتراکی را پر نکنند |
 | 2026-11-11 | دادهٔ نمونه فقط با `DevSampleSeeder` و فقط در `local`؛ همهٔ نام‌ها و متن‌ها برچسب «نمونه» دارند؛ کاربر تستی پیش‌فرض لاراول حذف شد | قانون صداقت؛ کاربر `test@example.com` با رمز `password` روی سرور حفرهٔ امنیتی بود |
+| 2026-11-11 | ستون `products.storage_instructions` برای بخش «شرایط نگهداری» صفحهٔ محصول | `DESIGN.md` آن را می‌خواهد و برای عسل، روغن و کشک متفاوت است |
+| 2026-11-11 | انتخاب وزن در صفحهٔ محصول با کامپوننت Livewire `ProductPurchase`؛ `productId` قفل است و variant نامعتبر نادیده گرفته می‌شود | قیمت همیشه از دیتابیس خوانده می‌شود؛ دکمهٔ سبد در فاز ۲ به همین کامپوننت وصل می‌شود |

@@ -57,6 +57,11 @@ class ProductForm
                             ->helperText('منطقه، ایل و روش برداشت. فقط چیزهایی که واقعی و قابل اثبات‌اند.')
                             ->rows(4)
                             ->columnSpanFull(),
+                        Textarea::make('storage_instructions')
+                            ->label('شرایط نگهداری')
+                            ->placeholder('مثلاً دور از نور مستقیم آفتاب و در دمای اتاق نگهداری شود.')
+                            ->rows(3)
+                            ->columnSpanFull(),
                     ]),
 
                 Section::make('وزن‌ها، قیمت و موجودی')

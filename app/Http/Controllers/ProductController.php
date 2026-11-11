@@ -38,4 +38,14 @@ class ProductController extends Controller
             'category' => $category,
         ]);
     }
+
+    /** Product page: /products/{slug}. Hidden products are not found. */
+    public function show(Product $product): View
+    {
+        abort_unless($product->is_active, 404);
+
+        $product->load(['category', 'images']);
+
+        return view('products.show', ['product' => $product]);
+    }
 }

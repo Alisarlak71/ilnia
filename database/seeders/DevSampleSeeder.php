@@ -71,6 +71,7 @@ class DevSampleSeeder extends Seeder
             'short_description' => 'توضیح کوتاه نمونه برای کارت محصول.',
             'description' => self::SAMPLE_NOTE."\n\nاینجا توضیحات کامل محصول قرار می‌گیرد: طعم، رنگ، شرایط نگهداری و نکته‌های مصرف.",
             'story' => self::SAMPLE_NOTE."\n\nاینجا داستان واقعی محصول نوشته می‌شود: منطقه، ایل و روش برداشت.",
+            'storage_instructions' => 'متن نمونه: اینجا شرایط نگهداری محصول نوشته می‌شود.',
             'is_active' => $active,
         ]);
 

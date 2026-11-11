@@ -14,6 +14,15 @@ return [
     'products_count' => ':count محصول',
     'products_empty' => 'هنوز محصولی اینجا نیست. به‌زودی اضافه می‌شود.',
 
+    'choose_weight' => 'انتخاب وزن',
+    'add_to_cart' => 'افزودن به سبد خرید',
+    'cart_coming_soon' => 'خرید آنلاین به‌زودی فعال می‌شود.',
+    'description' => 'توضیحات',
+    'story' => 'از کجا می‌آید؟',
+    'storage' => 'شرایط نگهداری',
+    'breadcrumb' => 'مسیر صفحه',
+    'gallery_thumb' => 'نمایش عکس :number',
+
     'pagination' => 'صفحه‌بندی',
     'page_of' => 'صفحهٔ :current از :last',
     'previous' => 'قبلی',
