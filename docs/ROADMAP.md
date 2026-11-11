@@ -48,7 +48,7 @@
 - [x] مدیریت آدرس‌ها
 
 ## فاز ۳: سفارش و پرداخت
-- [ ] مدل‌ها: orders، order_items، payments و shipping_methods، همراه منابع Filament
+- [x] مدل‌ها: orders، order_items، payments و shipping_methods، همراه منابع Filament
 - [ ] `ShippingCalculator`: هزینهٔ پست و ارسال رایگان بالای آستانهٔ وزنی (پیش‌فرض ۴۰۰۰ گرم، قابل تنظیم از پنل)، همراه تست
 - [ ] پیام «با افزودن X کیلوگرم دیگر، ارسال رایگان می‌شود» در سبد خرید
 - [ ] صفحهٔ تسویه‌حساب
