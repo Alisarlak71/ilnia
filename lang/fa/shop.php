@@ -7,4 +7,15 @@ return [
     'price_soon' => 'قیمت به‌زودی',
     'out_of_stock' => 'ناموجود',
     'no_image' => 'عکس واقعی این محصول به‌زودی اضافه می‌شود',
+
+    'products_title' => 'محصولات',
+    'all_products' => 'همهٔ محصولات',
+    'category_filter' => 'دسته‌بندی محصولات',
+    'products_count' => ':count محصول',
+    'products_empty' => 'هنوز محصولی اینجا نیست. به‌زودی اضافه می‌شود.',
+
+    'pagination' => 'صفحه‌بندی',
+    'page_of' => 'صفحهٔ :current از :last',
+    'previous' => 'قبلی',
+    'next' => 'بعدی',
 ];

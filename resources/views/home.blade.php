@@ -50,6 +50,13 @@
                         <x-product-card :product="$product" />
                     @endforeach
                 </div>
+
+                <div class="mt-10 text-center">
+                    <a href="{{ route('products.index') }}"
+                       class="inline-block rounded-btn border border-gold-deep px-7 py-3 font-bold transition-colors hover:bg-gold-deep hover:text-cream">
+                        {{ __('shop.all_products') }}
+                    </a>
+                </div>
             @endif
         </div>
     </section>

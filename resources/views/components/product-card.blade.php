@@ -13,10 +13,10 @@
 @endphp
 
 <article {{ $attributes->merge(['class' => 'group flex flex-col overflow-hidden rounded-card border border-line bg-paper']) }}>
-    <div class="relative aspect-square">
+    <div class="relative aspect-square overflow-hidden">
         @if ($image)
             <img src="{{ $image->url() }}" alt="{{ $image->altText() }}" loading="lazy"
-                 class="h-full w-full object-cover">
+                 class="absolute inset-0 h-full w-full object-cover">
         @else
             <x-image-placeholder class="h-full w-full" />
         @endif
