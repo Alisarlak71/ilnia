@@ -45,6 +45,7 @@ KAVENEGAR_ORDER_TEMPLATE=order   # اسم الگوی تأیید سفارش
 SMS_DRIVER=log                   # log | kavenegar
 ZARINPAL_MERCHANT_ID=            # خالی = پرداخت آنلاین غیرفعال
 ZARINPAL_SANDBOX=true
+UNPAID_ORDER_HOURS=24           # سفارش پرداخت‌نشده بعد از این چند ساعت خودکار لغو می‌شود
 ```
 این‌ها را در `.env.example` هم بنویس، **بدون مقدار واقعی**.
 

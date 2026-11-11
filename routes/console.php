@@ -13,3 +13,7 @@ Schedule::command('model:prune')->daily();
 // Run queued jobs (e.g. order confirmation SMS). No Supervisor on shared hosting, so the
 // scheduler starts a short worker every minute that exits when the queue is empty.
 Schedule::command('queue:work --stop-when-empty --max-time=50')->everyMinute()->withoutOverlapping();
+
+// Cancel unpaid orders older than config('shop.unpaid_order_hours') (default 24 hours).
+// Unsettled payments are verified with the gateway first, so a paid order is never cancelled.
+Schedule::command('ilnia:cancel-unpaid-orders')->hourly()->withoutOverlapping();
