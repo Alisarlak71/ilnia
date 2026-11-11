@@ -20,10 +20,10 @@ lang/fa/             متن‌های فارسی
 |---|---|---|
 | `users` | name, mobile (unique), is_admin | مشتری‌ها و ادمین‌ها. ورود با موبایل است، پس رمز عبور برای مشتری لازم نیست. |
 | `otp_codes` | mobile, code_hash, expires_at, attempts | کد به‌صورت هش ذخیره می‌شود. انقضای کوتاه و تعداد تلاش محدود دارد. |
-| `categories` | name, slug | مثلاً عسل، روغن، لبنیات |
-| `products` | category_id, name, slug, short_description, description, story, is_active | `story` داستان مبدأ محصول است (منطقه، ایل، روش برداشت). |
-| `product_images` | product_id, path, sort | |
-| `product_variants` | product_id, title, weight_grams, price, stock, sku, is_active | هر وزن یک variant است. **قیمت و موجودی روی variant‌اند، نه روی محصول.** |
+| `categories` | name, slug, sort | مثلاً عسل، روغن، لبنیات. دسته‌ای که محصول دارد قابل حذف نیست. |
+| `products` | category_id, name, slug, short_description, description, story, is_active | `story` داستان مبدأ محصول است (منطقه، ایل، روش برداشت). محصول تازه به‌طور پیش‌فرض غیرفعال است. |
+| `product_images` | product_id, path, alt, sort | `alt` متن جایگزین فارسی است. اگر خالی باشد، نام محصول استفاده می‌شود. |
+| `product_variants` | product_id, title, weight_grams, price (nullable), stock, sku (unique), is_active, sort | هر وزن یک variant است. **قیمت و موجودی روی variant‌اند، نه روی محصول.** variant بدون قیمت قابل خرید نیست. |
 | `addresses` | user_id, recipient_name, mobile, province, city, address_line, postal_code | |
 | `shipping_methods` | name, cost, free_over_weight_grams, is_active, sort | فعلاً فقط «پست» |
 | `orders` | number, user_id, status, subtotal, shipping_cost, discount, total, shipping_method_name, recipient snapshot, tracking_code, customer_note, paid_at | |
@@ -121,3 +121,6 @@ lang/fa/             متن‌های فارسی
 | 2026-11-11 | Livewire 4 با کامپوننت‌های کلاسی (`app/Livewire` + `resources/views/livewire`)، بدون ایموجی در اسم فایل؛ قالب صفحه‌ای = `components/layouts/app` | راه استاندارد و قابل‌فهم؛ یک قالب برای Blade و Livewire؛ اسم فایل ایموجی‌دار روی ویندوز و هاست مشکل‌ساز است |
 | 2026-11-11 | ورود ادمین به `/admin` با ایمیل و رمز (ورود استاندارد Filament)، فقط برای `is_admin = true`؛ ساخت ادمین با `php artisan ilnia:make-admin` | ورود OTP برای مشتری‌هاست (فاز ۲)؛ `is_admin` در fillable نیست تا از فرم قابل تغییر نباشد |
 | 2026-11-11 | تاریخ شمسی با `IntlDateFormatter` افزونهٔ intl (کلاس `App\Support\Jalali`)، بدون پکیج اضافه | intl را Filament هم لازم دارد، پس روی هاست حتماً هست؛ یک وابستگی کمتر |
+| 2026-11-11 | slug فارسی (`عسل-عشایری`) با trait `HasPersianSlug`؛ اگر خالی باشد از نام ساخته می‌شود و تکراری‌ها شماره می‌گیرند | آدرس خوانا برای مشتری فارسی‌زبان؛ تبدیل لاتین لاراول نتیجهٔ ناخوانا می‌دهد (`aasl-aashayry`) |
+| 2026-11-11 | `product_variants.price` می‌تواند خالی باشد؛ قابل خرید = فعال + قیمت‌دار + موجود | seeder تولید قیمت ندارد و قیمت را ادمین وارد می‌کند |
+| 2026-11-11 | محصول تازه پیش‌فرض غیرفعال است | محصول نیمه‌کاره (بدون عکس یا قیمت) ناخواسته در فروشگاه دیده نشود |

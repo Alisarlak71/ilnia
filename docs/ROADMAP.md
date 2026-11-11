@@ -33,7 +33,7 @@
 - [x] ابزارهای `app/Support`: تبدیل اعداد فارسی و انگلیسی، فرمت تومان، نرمال‌سازی موبایل و تاریخ شمسی، همراه تست
 
 ## فاز ۱: کاتالوگ محصولات
-- [ ] مدل‌ها و migrationها: categories، products، product_images، product_variants
+- [x] مدل‌ها و migrationها: categories، products، product_images، product_variants
 - [ ] منابع Filament برای دسته و محصول، با variant‌ها و تصاویر
 - [ ] seeder نمونه با برچسب «نمونه» و فقط برای توسعه
 - [ ] صفحهٔ اول
