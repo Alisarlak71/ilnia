@@ -27,7 +27,7 @@
 - [x] تنظیم `.env` برای SQLite، `APP_LOCALE=fa` و `APP_TIMEZONE=Asia/Tehran`
 - [x] نصب Tailwind، ایمپورت `brand/tokens.css`، کپی لوگوها و فاوآیکن به `public/` و افزودن فونت‌های میزبانی‌شده روی سایت (`brand/README.md`)
 - [x] ساخت کامپوننت `<x-logo />` (نمونه‌اش در `brand/README.md` هست)
-- [ ] قالب پایهٔ Blade با `lang="fa" dir="rtl"`، هدر و فوتر برند
+- [x] قالب پایهٔ Blade با `lang="fa" dir="rtl"`، هدر و فوتر برند
 - [ ] نصب Livewire
 - [ ] نصب Filament، ساخت کاربر ادمین و فارسی و راست‌به‌چپ کردن پنل
 - [ ] ابزارهای `app/Support`: تبدیل اعداد فارسی و انگلیسی، فرمت تومان، نرمال‌سازی موبایل و تاریخ شمسی، همراه تست
