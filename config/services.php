@@ -35,4 +35,20 @@ return [
         ],
     ],
 
+    /*
+    | SMS (Ilnia). Driver: "log" in development (nothing is sent, the text goes to
+    | storage/logs), "kavenegar" in production. The API key lives only in .env.
+    */
+    'sms' => [
+        'driver' => env('SMS_DRIVER', 'log'),
+    ],
+
+    'kavenegar' => [
+        'api_key' => env('KAVENEGAR_API_KEY'),
+        'otp_template' => env('KAVENEGAR_OTP_TEMPLATE', 'otp'),
+        'order_template' => env('KAVENEGAR_ORDER_TEMPLATE', 'order'),
+        'base_url' => 'https://api.kavenegar.com/v1',
+        'timeout' => 10,
+    ],
+
 ];
