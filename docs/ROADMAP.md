@@ -36,7 +36,7 @@
 - [x] مدل‌ها و migrationها: categories، products، product_images، product_variants
 - [x] منابع Filament برای دسته و محصول، با variant‌ها و تصاویر
 - [x] seeder نمونه با برچسب «نمونه» و فقط برای توسعه
-- [ ] صفحهٔ اول
+- [x] صفحهٔ اول
 - [ ] صفحهٔ فهرست محصولات
 - [ ] صفحهٔ محصول با انتخاب وزن
 
