@@ -92,12 +92,10 @@
                     </div>
                 @endif
 
-                {{-- Enabled in Phase 3 (checkout). --}}
-                <button type="button" disabled
-                        class="mt-5 w-full cursor-not-allowed rounded-btn bg-ink/40 px-6 py-3 font-bold text-cream">
+                <a href="{{ route('checkout') }}"
+                   class="mt-5 block w-full rounded-btn border border-ink bg-ink px-6 py-3 text-center font-bold text-cream transition-colors hover:border-gold">
                     {{ __('cart.checkout') }}
-                </button>
-                <p class="mt-2 text-center text-xs text-muted">{{ __('cart.checkout_soon') }}</p>
+                </a>
 
                 <a href="{{ route('products.index') }}" class="mt-4 block text-center text-sm text-gold-deep hover:underline">
                     {{ __('cart.continue_shopping') }}

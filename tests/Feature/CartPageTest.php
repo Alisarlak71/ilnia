@@ -99,11 +99,11 @@ class CartPageTest extends TestCase
         $this->get('/cart')->assertSee('به ۳ (موجودی فعلی) کاهش یافت');
     }
 
-    public function test_checkout_button_is_disabled_until_phase_three(): void
+    public function test_checkout_button_links_to_checkout(): void
     {
         $this->inCart();
 
-        $this->get('/cart')->assertSee('تسویه‌حساب و پرداخت آنلاین به‌زودی فعال می‌شود.');
+        $this->get('/cart')->assertSee('href="'.route('checkout').'"', false);
     }
 
     public function test_cart_icon_shows_count_and_refreshes(): void

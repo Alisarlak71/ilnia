@@ -27,12 +27,12 @@ class AddressesPageTest extends TestCase
     private function validForm(): array
     {
         return [
-            'recipient_name' => 'علی نمونه',
-            'mobile' => '۰۹۳۵ ۱۲۳ ۴۵۶۷',
-            'province' => 'فارس',
-            'city' => 'شیراز',
-            'address_line' => 'خیابان نمونه، کوچهٔ ۳، پلاک ۱۲',
-            'postal_code' => '۷۱۳۴۵-۶۷۸۹۰',
+            'form.recipient_name' => 'علی نمونه',
+            'form.mobile' => '۰۹۳۵ ۱۲۳ ۴۵۶۷',
+            'form.province' => 'فارس',
+            'form.city' => 'شیراز',
+            'form.address_line' => 'خیابان نمونه، کوچهٔ ۳، پلاک ۱۲',
+            'form.postal_code' => '۷۱۳۴۵-۶۷۸۹۰',
         ];
     }
 
@@ -57,8 +57,8 @@ class AddressesPageTest extends TestCase
         Livewire::test(AddressesPage::class)
             ->call('create')
             ->assertSet('showForm', true)
-            ->assertSet('recipient_name', 'مشتری نمونه')
-            ->assertSet('mobile', '09121234567');
+            ->assertSet('form.recipient_name', 'مشتری نمونه')
+            ->assertSet('form.mobile', '09121234567');
     }
 
     public function test_add_address_normalizes_persian_input(): void
@@ -81,9 +81,9 @@ class AddressesPageTest extends TestCase
     {
         Livewire::test(AddressesPage::class)
             ->call('create')
-            ->set(['recipient_name' => '', 'mobile' => '021', 'province' => 'آتلانتیس', 'city' => '', 'address_line' => 'کوتاه', 'postal_code' => '123'])
+            ->set(['form.recipient_name' => '', 'form.mobile' => '021', 'form.province' => 'آتلانتیس', 'form.city' => '', 'form.address_line' => 'کوتاه', 'form.postal_code' => '123'])
             ->call('save')
-            ->assertHasErrors(['recipient_name', 'mobile', 'province', 'city', 'address_line', 'postal_code'])
+            ->assertHasErrors(['form.recipient_name', 'form.mobile', 'form.province', 'form.city', 'form.address_line', 'form.postal_code'])
             ->assertSee('نام گیرنده را وارد کنید.')
             ->assertSee('شمارهٔ موبایل معتبر نیست')
             ->assertSee('استان انتخاب‌شده معتبر نیست.')
@@ -99,9 +99,9 @@ class AddressesPageTest extends TestCase
         Livewire::test(AddressesPage::class)
             ->call('edit', $address->id)
             ->assertSet('editingId', $address->id)
-            ->assertSet('city', 'تهران')
-            ->set('city', 'کرج')
-            ->set('province', 'البرز')
+            ->assertSet('form.city', 'تهران')
+            ->set('form.city', 'کرج')
+            ->set('form.province', 'البرز')
             ->call('save')
             ->assertHasNoErrors()
             ->assertSee('آدرس به‌روز شد.');

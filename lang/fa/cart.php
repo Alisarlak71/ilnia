@@ -29,7 +29,6 @@ return [
     'subtotal' => 'جمع خرید',
     'shipping_note' => 'هزینهٔ ارسال در مرحلهٔ تسویه‌حساب محاسبه می‌شود.',
     'checkout' => 'تسویه‌حساب',
-    'checkout_soon' => 'تسویه‌حساب و پرداخت آنلاین به‌زودی فعال می‌شود.',
     'free_shipping_remaining_kg' => 'با افزودن :amount کیلوگرم دیگر، ارسال رایگان می‌شود.',
     'free_shipping_remaining_g' => 'با افزودن :amount گرم دیگر، ارسال رایگان می‌شود.',
     'free_shipping_reached' => 'ارسال این سفارش رایگان است.',

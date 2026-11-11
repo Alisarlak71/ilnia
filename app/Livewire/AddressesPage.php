@@ -2,13 +2,9 @@
 
 namespace App\Livewire;
 
-use App\Models\Address;
+use App\Livewire\Forms\AddressForm;
 use App\Support\Digits;
 use App\Support\IranProvinces;
-use App\Support\Mobile;
-use Closure;
-use Illuminate\Support\Collection;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Title;
@@ -23,32 +19,21 @@ class AddressesPage extends Component
 {
     public const MAX_ADDRESSES = 10;
 
+    public AddressForm $form;
+
     public bool $showForm = false;
 
     /** Address being edited (null = new). Set only by the server. */
     #[Locked]
     public ?int $editingId = null;
 
-    public string $recipient_name = '';
-
-    public string $mobile = '';
-
-    public string $province = '';
-
-    public string $city = '';
-
-    public string $address_line = '';
-
-    public string $postal_code = '';
-
     public ?string $message = null;
 
     public function create(): void
     {
-        $this->resetForm();
+        $this->closeForm();
         $this->message = null;
-        $this->recipient_name = (string) auth()->user()->name;
-        $this->mobile = (string) auth()->user()->mobile;
+        $this->form->prefillFor(auth()->user());
         $this->showForm = true;
     }
 
@@ -56,10 +41,10 @@ class AddressesPage extends Component
     {
         $address = auth()->user()->addresses()->findOrFail($id);
 
-        $this->resetForm();
+        $this->closeForm();
         $this->message = null;
         $this->editingId = $address->id;
-        $this->fill($address->only(['recipient_name', 'mobile', 'province', 'city', 'address_line', 'postal_code']));
+        $this->form->fillFrom($address);
         $this->showForm = true;
     }
 
@@ -68,30 +53,12 @@ class AddressesPage extends Component
         $user = auth()->user();
 
         if ($this->editingId === null && $user->addresses()->count() >= self::MAX_ADDRESSES) {
-            $this->addError('recipient_name', __('account.max_addresses', ['max' => Digits::toPersian(self::MAX_ADDRESSES)]));
+            $this->addError('form.recipient_name', __('account.max_addresses', ['max' => Digits::toPersian(self::MAX_ADDRESSES)]));
 
             return;
         }
 
-        // Normalize user input before validating: Persian digits, spaces, dashes, +98…
-        $this->mobile = Mobile::normalize($this->mobile) ?? trim($this->mobile);
-        $this->postal_code = preg_replace('/\D/', '', Digits::toEnglish($this->postal_code));
-        foreach (['recipient_name', 'city', 'address_line'] as $field) {
-            $this->{$field} = trim(preg_replace('/\s+/u', ' ', $this->{$field}));
-        }
-
-        $data = $this->validate([
-            'recipient_name' => ['required', 'string', 'max:100'],
-            'mobile' => ['required', function (string $attribute, mixed $value, Closure $fail) {
-                if (! Mobile::isValid($value)) {
-                    $fail(__('otp.invalid_mobile'));
-                }
-            }],
-            'province' => ['required', Rule::in(IranProvinces::all())],
-            'city' => ['required', 'string', 'max:100'],
-            'address_line' => ['required', 'string', 'min:10', 'max:500'],
-            'postal_code' => ['required', 'digits:10'],
-        ]);
+        $data = $this->form->validated();
 
         if ($this->editingId !== null) {
             $user->addresses()->findOrFail($this->editingId)->update($data);
@@ -101,7 +68,7 @@ class AddressesPage extends Component
             $this->message = __('account.address_added');
         }
 
-        $this->resetForm();
+        $this->closeForm();
     }
 
     public function delete(int $id): void
@@ -109,7 +76,7 @@ class AddressesPage extends Component
         auth()->user()->addresses()->findOrFail($id)->delete();
 
         if ($this->editingId === $id) {
-            $this->resetForm();
+            $this->closeForm();
         }
 
         $this->message = __('account.address_deleted');
@@ -117,12 +84,11 @@ class AddressesPage extends Component
 
     public function cancel(): void
     {
-        $this->resetForm();
+        $this->closeForm();
     }
 
     public function render(): View
     {
-        /** @var Collection<int, Address> $addresses */
         $addresses = auth()->user()->addresses()->get();
 
         return view('livewire.addresses-page', [
@@ -132,9 +98,10 @@ class AddressesPage extends Component
         ]);
     }
 
-    private function resetForm(): void
+    private function closeForm(): void
     {
-        $this->reset(['showForm', 'editingId', 'recipient_name', 'mobile', 'province', 'city', 'address_line', 'postal_code']);
+        $this->reset(['showForm', 'editingId']);
+        $this->form->reset();
         $this->resetValidation();
     }
 }
