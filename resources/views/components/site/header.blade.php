@@ -25,7 +25,7 @@
         </nav>
 
         @auth
-            <a href="{{ route('account.addresses') }}"
+            <a href="{{ route('account.orders') }}"
                @class(['text-sm transition-colors hover:text-gold', 'text-gold' => request()->routeIs('account.*')])>{{ __('account.my_account') }}</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

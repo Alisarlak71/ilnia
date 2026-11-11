@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Account\OrderController as AccountOrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -35,5 +36,7 @@ Route::post('/logout', function (Request $request) {
 
 // Customer account (logged-in customers only).
 Route::middleware('auth')->prefix('account')->name('account.')->group(function () {
+    Route::get('/orders', [AccountOrderController::class, 'index'])->name('orders');
+    Route::get('/orders/{number}', [AccountOrderController::class, 'show'])->name('orders.show');
     Route::livewire('/addresses', AddressesPage::class)->name('addresses');
 });

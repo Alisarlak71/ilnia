@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Orders\Pages;
 
 use App\Enums\OrderStatus;
 use App\Filament\Resources\Orders\OrderResource;
+use App\Support\Digits;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Validation\ValidationException;
 
@@ -29,9 +30,17 @@ class EditOrder extends EditRecord
             throw ValidationException::withMessages(['data.status' => 'این تغییر وضعیت مجاز نیست.']);
         }
 
+        // Persian/Arabic digits → English, spaces removed.
+        $tracking = preg_replace('/\s+/u', '', Digits::toEnglish((string) ($data['tracking_code'] ?? '')));
+        $tracking = $tracking === '' ? null : $tracking;
+
+        if ($requested === OrderStatus::Shipped && $tracking === null) {
+            throw ValidationException::withMessages(['data.tracking_code' => 'برای وضعیت «ارسال‌شده»، کد رهگیری پست را وارد کنید.']);
+        }
+
         return [
             'status' => $requested,
-            'tracking_code' => filled($data['tracking_code'] ?? null) ? trim((string) $data['tracking_code']) : null,
+            'tracking_code' => $tracking,
         ];
     }
 }

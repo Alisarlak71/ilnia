@@ -1,6 +1,7 @@
 <div class="mx-auto max-w-3xl px-4 py-10 sm:py-14">
     <h1 class="text-center text-3xl font-extrabold">{{ __('account.addresses_title') }}</h1>
     <x-ornament class="mt-4" />
+    <x-account-tabs class="mt-8" />
 
     @if ($message)
         <p role="status" class="mt-6 rounded-btn border border-success/30 bg-success/10 px-4 py-3 text-sm text-success">{{ $message }}</p>

@@ -34,7 +34,10 @@ class OrderForm
                             ->required(),
                         TextInput::make('tracking_code')
                             ->label('کد رهگیری پست')
+                            ->helperText('برای وضعیت «ارسال‌شده» لازم است. مشتری آن را در صفحهٔ «سفارش‌های من» می‌بیند.')
                             ->maxLength(100)
+                            ->requiredIf('status', OrderStatus::Shipped->value)
+                            ->validationMessages(['required_if' => 'برای وضعیت «ارسال‌شده»، کد رهگیری پست را وارد کنید.'])
                             ->extraInputAttributes(['dir' => 'ltr']),
                     ]),
 

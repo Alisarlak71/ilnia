@@ -163,6 +163,32 @@ class OrdersAdminTest extends TestCase
         $this->assertSame('123456789012345678', $order->tracking_code);
     }
 
+    public function test_shipping_requires_a_tracking_code(): void
+    {
+        $this->actingAsAdmin();
+        $order = Order::factory()->status(OrderStatus::Paid)->create();
+
+        Livewire::test(EditOrder::class, ['record' => $order->getRouteKey()])
+            ->fillForm(['status' => OrderStatus::Shipped->value, 'tracking_code' => '   '])
+            ->call('save')
+            ->assertHasFormErrors(['tracking_code']);
+
+        $this->assertSame(OrderStatus::Paid, $order->fresh()->status);
+    }
+
+    public function test_tracking_code_with_persian_digits_is_normalized(): void
+    {
+        $this->actingAsAdmin();
+        $order = Order::factory()->status(OrderStatus::Paid)->create();
+
+        Livewire::test(EditOrder::class, ['record' => $order->getRouteKey()])
+            ->fillForm(['status' => OrderStatus::Shipped->value, 'tracking_code' => '۱۲۳۴ ۵۶۷۸ ۹۰'])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $this->assertSame('1234567890', $order->fresh()->tracking_code);
+    }
+
     public function test_admin_cannot_mark_unpaid_order_as_paid(): void
     {
         $this->actingAsAdmin();

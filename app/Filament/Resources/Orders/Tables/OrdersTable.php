@@ -25,6 +25,8 @@ class OrdersTable
                     ->searchable(),
                 TextColumn::make('recipient_name')->label('گیرنده'),
                 TextColumn::make('status')->label('وضعیت')->badge(),
+                TextColumn::make('tracking_code')->label('کد رهگیری')
+                    ->placeholder('—')->copyable()->toggleable(),
                 TextColumn::make('total')->label('مبلغ کل')
                     ->formatStateUsing(fn (int $state) => Toman::format($state)),
                 TextColumn::make('created_at')->label('تاریخ ثبت')
