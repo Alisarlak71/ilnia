@@ -22,6 +22,20 @@ class ProductImage extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        // Remove the file from disk when the image row is deleted or its file is replaced.
+        static::deleted(function (ProductImage $image) {
+            Storage::disk('public')->delete($image->path);
+        });
+
+        static::updated(function (ProductImage $image) {
+            if ($image->wasChanged('path') && filled($image->getOriginal('path'))) {
+                Storage::disk('public')->delete($image->getOriginal('path'));
+            }
+        });
+    }
+
     /** @return BelongsTo<Product, $this> */
     public function product(): BelongsTo
     {

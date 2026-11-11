@@ -34,7 +34,7 @@
 
 ## فاز ۱: کاتالوگ محصولات
 - [x] مدل‌ها و migrationها: categories، products، product_images، product_variants
-- [ ] منابع Filament برای دسته و محصول، با variant‌ها و تصاویر
+- [x] منابع Filament برای دسته و محصول، با variant‌ها و تصاویر
 - [ ] seeder نمونه با برچسب «نمونه» و فقط برای توسعه
 - [ ] صفحهٔ اول
 - [ ] صفحهٔ فهرست محصولات

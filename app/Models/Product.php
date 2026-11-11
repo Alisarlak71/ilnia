@@ -28,6 +28,15 @@ class Product extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        // Delete images one by one so their files are removed from disk too
+        // (the database cascade alone would leave the files behind).
+        static::deleting(function (Product $product) {
+            $product->images()->get()->each->delete();
+        });
+    }
+
     /** @return BelongsTo<Category, $this> */
     public function category(): BelongsTo
     {

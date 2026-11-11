@@ -61,6 +61,7 @@ ZARINPAL_SANDBOX=true
 composer install
 npm install
 php artisan migrate --seed
+php artisan storage:link   # یک بار، برای نمایش عکس‌های آپلودشده
 composer run dev        # سرور + Vite + صف، هم‌زمان (اگر اسکریپت dev در composer.json هست)
 php artisan serve       # فقط سرور
 npm run build           # خروجی نهایی فرانت برای آپلود
