@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="ایلنیا">
+  <!-- Ilnia mark — for LIGHT backgrounds (#F6EFE2 / white) -->
+  <polygon points="60,5 107.6,32.5 107.6,87.5 60,115 12.4,87.5 12.4,32.5" fill="none" stroke="#A8731B" stroke-width="3.2"/>
+  <polygon points="60,12 101.5,36 101.5,84 60,108 18.5,84 18.5,36" fill="none" stroke="#A8731B" stroke-width="1.1" opacity=".55"/>
+  <path d="M60 24 C60 24 52.5 33.5 52.5 38.5 A7.5 7.5 0 0 0 67.5 38.5 C67.5 33.5 60 24 60 24 Z" fill="#A8731B"/>
+  <polyline points="22,82 40,58 50,68 64,50 82,72 88,66 98,82" fill="none" stroke="#A8731B" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M36 88 L49 70 Q60 63 71 70 L84 88 Z" fill="#1E1A16"/>
+  <path d="M56.5 88 L60 76 L63.5 88 Z" fill="#A8731B"/>
+  <line x1="26" y1="88.5" x2="94" y2="88.5" stroke="#A8731B" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
