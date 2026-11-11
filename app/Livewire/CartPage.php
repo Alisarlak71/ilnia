@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use App\Exceptions\CartException;
 use App\Services\CartService;
+use App\Services\ShippingCalculator;
+use App\Support\Toman;
+use App\Support\Weight;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -34,7 +37,7 @@ class CartPage extends Component
         $this->dispatch('cart-updated');
     }
 
-    public function render(CartService $cart): View
+    public function render(CartService $cart, ShippingCalculator $shipping): View
     {
         $lines = $cart->lines();
 
@@ -42,7 +45,36 @@ class CartPage extends Component
             'lines' => $lines,
             'subtotal' => (int) $lines->sum('lineTotal'),
             'adjustments' => $cart->pullAdjustments(),
+            'freeShipping' => $this->freeShippingInfo($shipping, (int) $lines->sum('weightGrams')),
         ]);
+    }
+
+    /**
+     * Encouragement message from the real threshold in the panel.
+     * Null when there is no active method or it has no free-shipping threshold.
+     *
+     * @return array{message: string, free: bool, percent: int}|null
+     */
+    private function freeShippingInfo(ShippingCalculator $shipping, int $weightGrams): ?array
+    {
+        $method = $shipping->defaultMethod();
+        $remaining = $method ? $shipping->remainingForFree($method, $weightGrams) : null;
+
+        if ($method === null || $remaining === null || $weightGrams === 0) {
+            return null;
+        }
+
+        $message = match (true) {
+            $remaining === 0 => __('cart.free_shipping_reached'),
+            $remaining >= 1000 => __('cart.free_shipping_remaining_kg', ['amount' => Weight::kg($remaining)]),
+            default => __('cart.free_shipping_remaining_g', ['amount' => Toman::number($remaining)]),
+        };
+
+        return [
+            'message' => $message,
+            'free' => $remaining === 0,
+            'percent' => (int) min(100, floor($weightGrams * 100 / max(1, $method->free_over_weight_grams))),
+        ];
     }
 
     private function change(int $variantId, int $delta): void

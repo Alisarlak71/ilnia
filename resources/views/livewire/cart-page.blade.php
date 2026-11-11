@@ -81,6 +81,17 @@
                 </div>
                 <p class="mt-2 text-xs text-muted">{{ __('cart.shipping_note') }}</p>
 
+                @if ($freeShipping)
+                    <div class="mt-4 rounded-btn border px-3 py-3 text-sm {{ $freeShipping['free'] ? 'border-success/30 bg-success/10 text-success' : 'border-line bg-cream' }}"
+                         role="status">
+                        <p>{{ $freeShipping['message'] }}</p>
+                        <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-line" aria-hidden="true">
+                            <div class="h-full rounded-full {{ $freeShipping['free'] ? 'bg-success' : 'bg-gold-deep' }}"
+                                 style="width: {{ $freeShipping['percent'] }}%"></div>
+                        </div>
+                    </div>
+                @endif
+
                 {{-- Enabled in Phase 3 (checkout). --}}
                 <button type="button" disabled
                         class="mt-5 w-full cursor-not-allowed rounded-btn bg-ink/40 px-6 py-3 font-bold text-cream">
