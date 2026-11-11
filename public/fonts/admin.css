@@ -1,0 +1,17 @@
+/* Fonts for the Filament admin panel (/admin). Loaded by AdminPanelProvider. */
+@font-face {
+    font-family: 'Vazirmatn';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('vazirmatn-variable.woff2') format('woff2');
+}
+
+/* Reem Kufi — ONLY for the word «ایلنیا» in the panel logo. */
+@font-face {
+    font-family: 'Reem Kufi';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('reem-kufi-600-arabic.woff2') format('woff2');
+}

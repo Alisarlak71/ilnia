@@ -65,6 +65,7 @@ composer run dev        # سرور + Vite + صف، هم‌زمان (اگر اس�
 php artisan serve       # فقط سرور
 npm run build           # خروجی نهایی فرانت برای آپلود
 php artisan test        # اجرای تست‌ها
+php artisan ilnia:make-admin   # ساخت مدیر برای پنل /admin (یا مدیر کردن کاربر موجود)
 ```
 
 ## قواعد کد
