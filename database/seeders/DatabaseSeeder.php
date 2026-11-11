@@ -2,24 +2,22 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
+     *
+     * Production: nothing yet. Real products, prices and the admin user are created
+     * from the admin panel / `php artisan ilnia:make-admin`, never with fake data.
+     * (The shipping method «پست» is added here in Phase 3.)
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Sample catalog («نمونه») — local development only.
+        if (app()->environment('local')) {
+            $this->call(DevSampleSeeder::class);
+        }
     }
 }
