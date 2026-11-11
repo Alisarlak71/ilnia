@@ -352,9 +352,9 @@ class PaymentServiceTest extends TestCase
 
         $this->actingAs($this->user)->get(route('payment.result', $this->order))
             ->assertOk()
-            ->assertSee('پرداخت با موفقیت انجام شد.')
+            ->assertSee('پرداخت موفق بود')
             ->assertSee($this->order->number)
-            ->assertSee('کد پیگیری بانک: ۲۰۱');
+            ->assertSeeInOrder(['کد پیگیری بانک', '۲۰۱']);
     }
 
     public function test_result_page_is_only_for_the_owner(): void

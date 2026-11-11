@@ -20,6 +20,7 @@ Route::livewire('/checkout', CheckoutPage::class)->middleware('auth')->name('che
 // Return from the payment gateway (no login required; verified on the server).
 Route::get('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
 Route::get('/payment/result/{order:number}', [PaymentController::class, 'result'])->middleware('auth')->name('payment.result');
+Route::post('/payment/retry/{order:number}', [PaymentController::class, 'retry'])->middleware(['auth', 'throttle:10,1'])->name('payment.retry');
 
 // Customer login with mobile + one-time code (limits are enforced in OtpService).
 Route::livewire('/login', LoginPage::class)->middleware('guest')->name('login');
