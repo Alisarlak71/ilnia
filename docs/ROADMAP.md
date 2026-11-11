@@ -24,7 +24,7 @@
 ## فاز ۰: راه‌اندازی پروژه
 - [x] ساخت پروژهٔ لاراول در همین پوشه (`ilnia-shop`)، **بدون پاک کردن `AGENTS.md`، `CLAUDE.md` و `docs/`**. اگر نصب‌کننده پوشهٔ خالی خواست، پروژه را در یک پوشهٔ موقت بساز و فایل‌هایش را به اینجا منتقل کن.
 - [x] `git init`، `.gitignore` و اولین commit
-- [ ] تنظیم `.env` برای SQLite، `APP_LOCALE=fa` و `APP_TIMEZONE=Asia/Tehran`
+- [x] تنظیم `.env` برای SQLite، `APP_LOCALE=fa` و `APP_TIMEZONE=Asia/Tehran`
 - [ ] نصب Tailwind، ایمپورت `brand/tokens.css`، کپی لوگوها و فاوآیکن به `public/` و افزودن فونت‌های میزبانی‌شده روی سایت (`brand/README.md`)
 - [ ] ساخت کامپوننت `<x-logo />` (نمونه‌اش در `brand/README.md` هست)
 - [ ] قالب پایهٔ Blade با `lang="fa" dir="rtl"`، هدر و فوتر برند
