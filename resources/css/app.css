@@ -85,3 +85,44 @@
     }
     .page-content hr { border-color: var(--color-line); }
 }
+
+/* ---------------------------------------------------------------------------
+   Home page: minimal-luxury details. Motion is subtle and off for reduced-motion.
+   --------------------------------------------------------------------------- */
+
+/* Gilim-style diamond lattice (decoration only). Colour comes from currentColor via mask. */
+.bg-gilim {
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M24 2 46 24 24 46 2 24Z' fill='none' stroke='%23000' stroke-width='.8'/%3E%3Cpath d='M24 18l6 6-6 6-6-6z' fill='%23000'/%3E%3C/svg%3E") 0 0 / 48px 48px;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M24 2 46 24 24 46 2 24Z' fill='none' stroke='%23000' stroke-width='.8'/%3E%3Cpath d='M24 18l6 6-6 6-6-6z' fill='%23000'/%3E%3C/svg%3E") 0 0 / 48px 48px;
+}
+
+/* Fine paper grain on cream surfaces. */
+.bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .1 0 0 0 0 .08 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    /* Hero entrance (pure CSS, no JS needed). */
+    @keyframes rise {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: none; }
+    }
+    .rise { animation: rise .9s cubic-bezier(.2, .7, .2, 1) both; }
+    .rise-1 { animation-delay: .08s; }
+    .rise-2 { animation-delay: .18s; }
+    .rise-3 { animation-delay: .3s; }
+    .rise-4 { animation-delay: .45s; }
+
+    /* The honey drop in the hero breathes very slowly. */
+    @keyframes glow {
+        0%, 100% { opacity: .55; transform: scale(1); }
+        50% { opacity: .8; transform: scale(1.04); }
+    }
+    .honey-glow { animation: glow 7s ease-in-out infinite; }
+
+    /* Scroll reveal: only hidden when JS has marked the page (html.reveal-ready), so content
+       is always visible without JavaScript. */
+    .reveal-ready .reveal { opacity: 0; transform: translateY(18px); transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1); }
+    .reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
+}

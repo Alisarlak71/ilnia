@@ -1,25 +1,36 @@
 <?php
 
 // Home page copy. Honesty rule (../CLAUDE.md): no claims about lab tests, QR codes,
-// certificates, best-sellers or sales counts until they are real.
+// certificates, best-sellers or sales counts until they are real. Slogans only from brand.json.
 
 return [
-    'hero_eyebrow' => 'محصولات عشایری',
-    'hero_title' => 'اصلش را می‌فروشیم، نه ادعایش را',
+    'hero_eyebrow' => 'عسل و محصولات عشایری',
+    'hero_title_1' => 'اصلش را می‌فروشیم،',
+    'hero_title_2' => 'نه ادعایش را',
     'hero_text' => 'عسل و محصولات عشایری، به همان روشی که نیاکان ایل تولید می‌کردند. بی‌اغراق و بی‌ادعای توخالی.',
     'hero_cta' => 'دیدن محصولات',
+    'hero_secondary' => 'ایلنیا یعنی چه؟',
 
+    'values_eyebrow' => 'سه ارزش',
     'values_title' => 'آنچه ایلنیا را می‌سازد',
+    'values_text' => 'سه اصل که هر محصول ایلنیا باید از آن‌ها بگذرد.',
     'values' => [
         ['title' => 'اصالت', 'text' => 'محصول عشایری و سنتی، به همان رسمی که نسل‌ها در ایل دست‌به‌دست شده است.'],
         ['title' => 'صداقت', 'text' => 'هر چه درباره‌اش می‌گوییم، همان است که هست. ادعایی که نتوانیم پایش بایستیم، نمی‌کنیم.'],
         ['title' => 'لوکس', 'text' => 'کالایی ارزشمند، با بسته‌بندی‌ای درخور آن؛ برای سفرهٔ خودتان یا هدیه به عزیزانتان.'],
     ],
 
+    'products_eyebrow' => 'فروشگاه',
     'products_title' => 'محصولات',
     'products_empty' => 'به‌زودی محصولات ایلنیا اینجا قرار می‌گیرند.',
 
     'story_eyebrow' => 'به رسم نیاکان',
     'story_title' => 'ایلنیا یعنی چه؟',
+    'story_il' => 'ایل؛ عشایر',
+    'story_nia' => 'نیا؛ نیاکان',
     'story_text' => 'ایلنیا از دو واژه آمده است: «ایل» و «نیا». یعنی کاری که به رسم نیاکانِ ایل انجام می‌شود. ما محصولات عشایری را به همان شیوه‌ای عرضه می‌کنیم که از گذشته رسیده است و چیزی را که نیست، به آن نسبت نمی‌دهیم.',
+    'story_more' => 'دربارهٔ ایلنیا',
+
+    'closing_title' => 'به رسم نیاکان',
+    'closing_text' => 'اصلش را می‌فروشیم، نه ادعایش را.',
 ];
