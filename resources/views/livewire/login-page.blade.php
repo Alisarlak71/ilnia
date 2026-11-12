@@ -26,9 +26,18 @@
         @else
             {{-- Step 2: code --}}
             <form wire:submit="verify" class="mt-6">
-                <p role="status" class="text-sm text-muted">
-                    {{ __('otp.code_sent', ['length' => \App\Support\Digits::toPersian($codeLength), 'mobile' => \App\Support\Digits::toPersian($sentTo)]) }}
-                </p>
+                @if ($screenCode)
+                    {{-- SMS_DRIVER=screen: temporary, until the SMS panel is ready. --}}
+                    <div role="status" class="rounded-btn border border-honey/50 bg-honey/10 p-4 text-center">
+                        <p class="text-sm">{{ __('otp.screen_code_label') }}</p>
+                        <p class="mt-1 text-3xl font-extrabold tracking-[0.3em] text-gold-deep" dir="ltr">{{ $screenCode }}</p>
+                        <p class="mt-2 text-xs text-muted">{{ __('otp.screen_code_note') }}</p>
+                    </div>
+                @else
+                    <p role="status" class="text-sm text-muted">
+                        {{ __('otp.code_sent', ['length' => \App\Support\Digits::toPersian($codeLength), 'mobile' => \App\Support\Digits::toPersian($sentTo)]) }}
+                    </p>
+                @endif
                 <label for="code" class="mt-5 block font-bold">{{ __('otp.code_label') }}</label>
                 <input id="code" type="text" wire:model="code" inputmode="numeric" autocomplete="one-time-code" dir="ltr"
                        maxlength="{{ $codeLength }}" required autofocus

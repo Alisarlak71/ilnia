@@ -30,4 +30,8 @@ return [
     // Header
     'login' => 'ورود',
     'logout' => 'خروج',
+
+    // SMS_DRIVER=screen (temporary, no SMS panel yet)
+    'screen_code_label' => 'کد ورود شما:',
+    'screen_code_note' => 'فعلاً پیامک ارسال نمی‌شود و کد اینجا نمایش داده می‌شود (حالت آزمایشی).',
 ];

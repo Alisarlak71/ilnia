@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Exceptions\OtpException;
 use App\Services\OtpService;
+use App\Services\Sms\ScreenSmsDriver;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Attributes\Locked;
@@ -27,6 +28,10 @@ class LoginPage extends Component
 
     public ?string $error = null;
 
+    /** SMS_DRIVER=screen only: the code shown on the page instead of an SMS. Set by the server. */
+    #[Locked]
+    public ?string $screenCode = null;
+
     public function sendCode(OtpService $otp): void
     {
         $this->error = null;
@@ -34,6 +39,9 @@ class LoginPage extends Component
         try {
             $this->sentTo = $otp->send($this->mobile, (string) request()->ip());
             $this->code = '';
+            $this->screenCode = config('services.sms.driver') === 'screen'
+                ? ScreenSmsDriver::pullCodeFor($this->sentTo)
+                : null;
         } catch (OtpException $e) {
             $this->error = $e->getMessage();
         }
@@ -75,6 +83,7 @@ class LoginPage extends Component
     public function changeMobile(): void
     {
         $this->sentTo = null;
+        $this->screenCode = null;
         $this->code = '';
         $this->error = null;
     }

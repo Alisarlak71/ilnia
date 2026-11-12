@@ -42,7 +42,7 @@
 KAVENEGAR_API_KEY=
 KAVENEGAR_OTP_TEMPLATE=otp       # اسم الگوی کد ورود در پنل کاوه‌نگار
 KAVENEGAR_ORDER_TEMPLATE=order   # اسم الگوی تأیید سفارش
-SMS_DRIVER=log                   # log | kavenegar
+SMS_DRIVER=log                   # log | kavenegar | screen (موقت: کد ورود روی صفحه؛ فقط تا راه افتادن پیامک)
 ZARINPAL_MERCHANT_ID=            # خالی = پرداخت آنلاین غیرفعال
 ZARINPAL_SANDBOX=true
 UNPAID_ORDER_HOURS=24           # سفارش پرداخت‌نشده بعد از این چند ساعت خودکار لغو می‌شود

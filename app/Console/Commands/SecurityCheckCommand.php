@@ -34,6 +34,10 @@ class SecurityCheckCommand extends Command
         $this->check(str_starts_with((string) config('app.url'), 'https://'), 'APP_URL با https', 'APP_URL باید با https:// شروع شود (نشانی واقعی سایت).');
         $this->check((bool) config('session.secure'), 'SESSION_SECURE_COOKIE=true', 'SESSION_SECURE_COOKIE=true بگذارید تا کوکی ورود فقط روی HTTPS فرستاده شود.');
 
+        if (config('services.sms.driver') === 'screen') {
+            $this->check(false, '', 'SMS_DRIVER=screen است: کد ورود روی صفحه نمایش داده می‌شود و هر کسی با هر شماره‌ای وارد می‌شود. قبل از پذیرفتن مشتری واقعی، کاوه‌نگار را فعال کنید.');
+        }
+
         $this->check(
             config('services.sms.driver') === 'kavenegar' && filled(config('services.kavenegar.api_key')),
             'پیامک: کاوه‌نگار',

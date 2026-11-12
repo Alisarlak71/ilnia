@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Sms\KavenegarSmsDriver;
 use App\Services\Sms\LogSmsDriver;
+use App\Services\Sms\ScreenSmsDriver;
 use App\Services\Sms\SmsService;
 use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Support\Facades\URL;
@@ -17,10 +18,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // SMS driver from SMS_DRIVER in .env: "log" (development) or "kavenegar" (production).
+        // SMS driver from SMS_DRIVER in .env: "log" (development), "kavenegar" (production) or
+        // "screen" (temporary, no SMS panel yet: the login code is shown on screen).
         $this->app->bind(SmsService::class, fn () => match (config('services.sms.driver')) {
             'log' => new LogSmsDriver,
             'kavenegar' => new KavenegarSmsDriver,
+            'screen' => new ScreenSmsDriver, // temporary: code shown on the login page
             default => throw new InvalidArgumentException('Unknown SMS_DRIVER: '.config('services.sms.driver')),
         });
     }
