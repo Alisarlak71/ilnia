@@ -1,0 +1,1 @@
+{"excludes": ["*.svg", "*.png", "*.jpg", "*.jpeg", "*.webp", "*.ico"], "gitignore": true}
