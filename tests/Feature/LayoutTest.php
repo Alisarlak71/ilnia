@@ -28,7 +28,7 @@ class LayoutTest extends TestCase
         $response->assertSee('id="main"', false);
         $response->assertSee('brand/logo-mark-gold.svg', false);
         $response->assertSee('به رسم نیاکان');
-        $response->assertSee('اصلش را می‌فروشیم، نه ادعایش را');
+        $response->assertSeeInOrder(['اصلش را می‌فروشیم،', 'نه ادعایش را']);
     }
 
     public function test_page_title_can_be_set(): void

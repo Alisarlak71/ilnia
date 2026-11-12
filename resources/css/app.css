@@ -3,8 +3,15 @@
 /* Brand colors, fonts and radii (single source of truth: brand/tokens.css). Do not redefine here. */
 @import '../../brand/tokens.css';
 
-/* Vazirmatn — self-hosted from the `vazirmatn` npm package (variable font, weights 100–900). */
-@import 'vazirmatn/Vazirmatn-Variable-font-face.css';
+/* Vazirmatn — self-hosted variable font (weights 100–900), one file shared with the admin panel.
+   Served from a fixed path in public/fonts so the layout can preload it (no flash of Tahoma). */
+@font-face {
+    font-family: 'Vazirmatn';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/vazirmatn-variable.woff2') format('woff2');
+}
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -84,4 +91,16 @@
         color: var(--color-muted);
     }
     .page-content hr { border-color: var(--color-line); }
+}
+
+/* Home hero: enters once on load, gently. Nothing moves for visitors who prefer reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+    @keyframes hero-rise {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: none; }
+    }
+    .hero-rise { animation: hero-rise .8s cubic-bezier(.2, .7, .2, 1) both; }
+    .hero-rise-1 { animation-delay: .1s; }
+    .hero-rise-2 { animation-delay: .22s; }
+    .hero-rise-3 { animation-delay: .36s; }
 }
