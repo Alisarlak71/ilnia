@@ -6,15 +6,21 @@
         A dark gradient from the right keeps the words readable; on phones it darkens from the foot.
     --}}
     <section class="relative isolate flex min-h-[calc(100svh-4.8rem)] items-end overflow-hidden bg-ink text-cream md:items-center" aria-labelledby="hero-title">
+        {{-- Backdrop: the same photo, blurred and darkened, fills the hero edge to edge --}}
+        <img src="{{ asset('images/hero/bee-comb-768.jpg') }}" alt="" aria-hidden="true" decoding="async"
+             class="absolute inset-0 -z-30 h-full w-full scale-110 object-cover blur-2xl brightness-[.55] saturate-[1.1]">
+
+        {{-- The photo itself, a little smaller ("zoomed out") so the whole bee shows, its edges fading
+             into the backdrop --}}
         <picture>
             <source type="image/webp"
                     srcset="{{ asset('images/hero/bee-comb-768.webp') }} 768w, {{ asset('images/hero/bee-comb-1280.webp') }} 1280w, {{ asset('images/hero/bee-comb-1672.webp') }} 1672w"
-                    sizes="100vw">
+                    sizes="(min-width: 768px) 90vw, 140vw">
             <img src="{{ asset('images/hero/bee-comb-1280.jpg') }}"
                  srcset="{{ asset('images/hero/bee-comb-768.jpg') }} 768w, {{ asset('images/hero/bee-comb-1280.jpg') }} 1280w, {{ asset('images/hero/bee-comb-1672.jpg') }} 1672w"
-                 sizes="100vw" width="1672" height="941" fetchpriority="high" decoding="async"
+                 sizes="(min-width: 768px) 90vw, 140vw" width="1672" height="941" fetchpriority="high" decoding="async"
                  alt="{{ __('home.hero_image_alt') }}"
-                 class="hero-photo absolute inset-0 -z-20 h-full w-full object-cover object-[28%_50%] md:object-[8%_50%] xl:object-[28%_50%]">
+                 class="hero-photo hero-photo-fade absolute -z-20 max-w-none">
         </picture>
 
         {{-- Readability: dark from the right (text side) on wide screens, from the foot on phones --}}

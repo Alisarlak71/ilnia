@@ -111,3 +111,28 @@
     }
     .hero-photo { animation: hero-photo-settle 2.6s cubic-bezier(.2, .7, .2, 1) both; }
 }
+
+/* Home hero photo, "zoomed out": smaller than the hero, anchored where the bee stays whole, its
+   edges fading into the blurred backdrop (no hard frame). Phone: across the top, fading downwards.
+   Wider screens: from the bottom-left corner, fading to the right (text side) and to the top. */
+.hero-photo-fade {
+    top: 3%;
+    left: -12%;
+    width: 132%;
+    height: auto;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
+}
+@media (min-width: 768px) {
+    .hero-photo-fade {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: auto;
+        height: 92%;
+        -webkit-mask-image: linear-gradient(to left, transparent 0, #000 32%), linear-gradient(to bottom, transparent 0, #000 16%);
+        -webkit-mask-composite: source-in;
+        mask-image: linear-gradient(to left, transparent 0, #000 32%), linear-gradient(to bottom, transparent 0, #000 16%);
+        mask-composite: intersect;
+    }
+}
