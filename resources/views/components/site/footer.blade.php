@@ -104,7 +104,12 @@
             @endif
         </div>
 
-        <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t border-cream/10 pt-6 text-xs text-cream/50 sm:flex-row">
+        @if (trim($__env->yieldPushContent('footer-credits')) !== '')
+            {{-- Photograph credits required by their licence, one line (pages push them). --}}
+            <p class="mt-10 text-center text-[0.7rem] text-cream/40 sm:text-start">@stack('footer-credits')</p>
+        @endif
+
+        <div class="mt-6 flex flex-col items-center justify-between gap-3 border-t border-cream/10 pt-6 text-xs text-cream/50 sm:flex-row">
             <p>{{ __('site.footer_rights') }}</p>
             <x-ornament tone="light" class="opacity-50" />
         </div>

@@ -11,7 +11,9 @@ return [
     'hero_cta' => 'دیدن محصولات',
     'hero_secondary' => 'ایلنیا یعنی چه؟',
     'hero_fact' => 'ارسال رایگان برای سفارش‌های :weight کیلوگرم و بیشتر',
-    'hero_image_alt' => 'شیشهٔ عسل ایلنیا با برچسب «عسل اصیل عشایر»، روی میز چوبی و کوه‌ها در پس‌زمینه (تصویرسازی)',
+    'hero_image_alt' => 'زنبور عسل روی شانِ پر از عسل',
+    // Licence attribution for the hero photograph (Wikimedia Commons), one footer line.
+    'hero_image_credit' => 'عکس شان عسل: Matthew T Rader، ویکی‌مدیا کامنز (CC BY-SA 4.0)',
 
     'values_title' => 'آنچه ایلنیا را می‌سازد',
     'values' => [

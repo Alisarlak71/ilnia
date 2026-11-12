@@ -2,8 +2,9 @@
 <x-layouts.app>
     {{--
         Hero: dark, continuing the header, like the brand's Instagram post (ilnia-post-2).
-        The picture is the brand's own illustrated jar (rendered from ilnia-post-2.html, with the logo's
-        mountain line behind it), not a photograph. Swap it for a real product photo once one exists.
+        The picture is a licensed Wikimedia Commons photograph of honeycomb (Matthew T Rader, CC BY-SA 4.0),
+        cropped and warm-graded; credited in the footer. Honey itself, not passed off as our product.
+        Swap it for a real product photo once one exists.
     --}}
     <section class="relative isolate overflow-hidden bg-ink text-cream" aria-labelledby="hero-title">
         {{-- Warm light behind the jar --}}
@@ -48,12 +49,12 @@
             <div class="hero-rise hero-rise-2 relative mx-auto w-full max-w-sm md:max-w-md">
                 <picture>
                     <source type="image/webp"
-                            srcset="{{ asset('images/hero/ilnia-jar-640.webp') }} 640w, {{ asset('images/hero/ilnia-jar-960.webp') }} 960w, {{ asset('images/hero/ilnia-jar-1440.webp') }} 1440w"
+                            srcset="{{ asset('images/hero/honeycomb-640.webp') }} 640w, {{ asset('images/hero/honeycomb-960.webp') }} 960w, {{ asset('images/hero/honeycomb-1170.webp') }} 1170w"
                             sizes="(min-width: 768px) 28rem, 90vw">
-                    <img src="{{ asset('images/hero/ilnia-jar-960.jpg') }}"
-                         srcset="{{ asset('images/hero/ilnia-jar-640.jpg') }} 640w, {{ asset('images/hero/ilnia-jar-960.jpg') }} 960w, {{ asset('images/hero/ilnia-jar-1440.jpg') }} 1440w"
+                    <img src="{{ asset('images/hero/honeycomb-960.jpg') }}"
+                         srcset="{{ asset('images/hero/honeycomb-640.jpg') }} 640w, {{ asset('images/hero/honeycomb-960.jpg') }} 960w, {{ asset('images/hero/honeycomb-1170.jpg') }} 1170w"
                          sizes="(min-width: 768px) 28rem, 90vw"
-                         width="1440" height="1800" fetchpriority="high" decoding="async"
+                         width="1170" height="1463" fetchpriority="high" decoding="async"
                          alt="{{ __('home.hero_image_alt') }}"
                          class="aspect-[4/5] w-full rounded-card object-cover shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)] ring-1 ring-gold/15">
                 </picture>
@@ -112,4 +113,7 @@
             <p class="mt-6 leading-8 text-cream/80">{{ __('home.story_text') }}</p>
         </div>
     </section>
+    @push('footer-credits')
+        {{ __('home.hero_image_credit') }}
+    @endpush
 </x-layouts.app>
