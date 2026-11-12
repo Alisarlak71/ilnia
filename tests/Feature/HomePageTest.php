@@ -46,7 +46,7 @@ class HomePageTest extends TestCase
         $response = $this->get('/');
 
         $response->assertSee('از ۴۸۰٬۰۰۰ تومان');
-        $response->assertSee('۱ کیلوگرم · ۲ کیلوگرم');
+        $response->assertSee('۱ کیلوگرم، ۲ کیلوگرم');
         $response->assertDontSee('ناموجود');
     }
 
