@@ -40,7 +40,10 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            // Uploaded product photos. Normally storage/app/public, exposed by `storage:link`.
+            // Hosts without symlinks: set PUBLIC_STORAGE_PATH to the absolute path of the web
+            // root's "storage" folder (e.g. /home/USER/public_html/storage). See docs/DEPLOY.md.
+            'root' => env('PUBLIC_STORAGE_PATH') ?: storage_path('app/public'),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,
