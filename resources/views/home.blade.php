@@ -1,63 +1,59 @@
 {{-- Home page: hero · three brand values · products · story («به رسم نیاکان»). See docs/DESIGN.md. --}}
 <x-layouts.app>
     {{--
-        Hero: dark, continuing the header, like the brand's Instagram post (ilnia-post-2).
-        The picture is a licensed Wikimedia Commons photograph of honeycomb (Matthew T Rader, CC BY-SA 4.0),
-        cropped and warm-graded; credited in the footer. Honey itself, not passed off as our product.
-        Swap it for a real product photo once one exists.
+        Hero: one full-bleed photograph (a bee on honeycomb, supplied by the owner), mirrored so the bee
+        sits on the left and the calm, blurred greenery on the right holds the Persian text.
+        A dark gradient from the right keeps the words readable; on phones it darkens from the foot.
     --}}
-    <section class="relative isolate overflow-hidden bg-ink text-cream" aria-labelledby="hero-title">
-        {{-- Warm light behind the jar --}}
-        <div class="pointer-events-none absolute -z-10 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle,rgba(200,144,46,0.28),transparent_62%)] max-md:left-1/2 max-md:top-[58%] max-md:-translate-x-1/2 md:left-[4%] md:top-1/2 md:-translate-y-1/2"
-             aria-hidden="true"></div>
+    <section class="relative isolate flex min-h-[calc(100svh-4.8rem)] items-end overflow-hidden bg-ink text-cream md:items-center" aria-labelledby="hero-title">
+        <picture>
+            <source type="image/webp"
+                    srcset="{{ asset('images/hero/bee-comb-768.webp') }} 768w, {{ asset('images/hero/bee-comb-1280.webp') }} 1280w, {{ asset('images/hero/bee-comb-1672.webp') }} 1672w"
+                    sizes="100vw">
+            <img src="{{ asset('images/hero/bee-comb-1280.jpg') }}"
+                 srcset="{{ asset('images/hero/bee-comb-768.jpg') }} 768w, {{ asset('images/hero/bee-comb-1280.jpg') }} 1280w, {{ asset('images/hero/bee-comb-1672.jpg') }} 1672w"
+                 sizes="100vw" width="1672" height="941" fetchpriority="high" decoding="async"
+                 alt="{{ __('home.hero_image_alt') }}"
+                 class="hero-photo absolute inset-0 -z-20 h-full w-full object-cover object-[28%_50%] md:object-[8%_50%] xl:object-[28%_50%]">
+        </picture>
 
-        <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-12 sm:pb-20 sm:pt-16 md:grid-cols-2 md:gap-12 lg:min-h-[calc(100svh-4.8rem)] lg:py-16">
-            <div class="text-center md:text-start">
+        {{-- Readability: dark from the right (text side) on wide screens, from the foot on phones --}}
+        <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/70 to-ink/10 md:bg-gradient-to-l md:from-ink/95 md:via-ink/70 md:to-transparent xl:from-ink/90 xl:via-ink/55" aria-hidden="true"></div>
+        <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-ink/60 to-transparent" aria-hidden="true"></div>
+
+        <div class="mx-auto w-full max-w-6xl px-4 pb-12 pt-[40svh] md:py-20">
+            <div class="max-w-xl text-center md:text-start">
                 <div class="hero-rise flex items-center justify-center gap-3 md:justify-start">
                     <span class="font-latin ps-[0.55em] text-xs tracking-[0.55em] text-gold" dir="ltr">ILNIA</span>
-                    <span class="h-px w-10 bg-gold/40" aria-hidden="true"></span>
-                    <span class="text-sm text-cream/70">{{ __('home.hero_eyebrow') }}</span>
+                    <span class="h-px w-10 bg-gold/50" aria-hidden="true"></span>
+                    <span class="text-sm text-cream/80">{{ __('home.hero_eyebrow') }}</span>
                 </div>
 
-                <h1 id="hero-title" class="hero-rise hero-rise-1 mt-6 text-[2.5rem] font-black leading-[1.3] sm:text-5xl lg:text-[3.5rem] lg:leading-[1.3] xl:text-[3.75rem]">
+                <h1 id="hero-title" class="hero-rise hero-rise-1 mt-6 text-[2.5rem] font-black leading-[1.3] drop-shadow-[0_2px_18px_rgba(0,0,0,0.45)] sm:text-5xl lg:text-[3.75rem] lg:leading-[1.25]">
                     <span class="block text-gold lg:whitespace-nowrap">{{ __('home.hero_title_1') }}</span>
                     <span class="block lg:whitespace-nowrap">{{ __('home.hero_title_2') }}</span>
                 </h1>
 
-                <p class="hero-rise hero-rise-2 mx-auto mt-6 max-w-md text-lg leading-9 text-cream/75 md:mx-0">{{ __('home.hero_text') }}</p>
+                <p class="hero-rise hero-rise-2 mx-auto mt-6 max-w-md text-lg leading-9 text-cream/85 md:mx-0">{{ __('home.hero_text') }}</p>
 
                 <div class="hero-rise hero-rise-3 mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
                     <a href="#products"
-                       class="group inline-flex w-full items-center justify-center gap-3 rounded-btn border border-gold bg-gold px-8 py-3.5 font-bold text-ink transition hover:-translate-y-px hover:bg-cream hover:border-cream active:translate-y-px sm:w-auto">
+                       class="group inline-flex w-full items-center justify-center gap-3 rounded-btn border border-gold bg-gold px-8 py-3.5 font-bold text-ink shadow-[0_10px_30px_-10px_rgba(226,180,90,0.6)] transition hover:-translate-y-px hover:border-cream hover:bg-cream active:translate-y-px sm:w-auto">
                         {{ __('home.hero_cta') }}
                         <span class="transition-transform group-hover:-translate-x-1" aria-hidden="true">←</span>
                     </a>
                     <a href="#story"
-                       class="inline-flex w-full items-center justify-center rounded-btn border border-cream/25 px-8 py-3.5 transition hover:-translate-y-px hover:border-gold hover:text-gold active:translate-y-px sm:w-auto">
+                       class="inline-flex w-full items-center justify-center rounded-btn border border-cream/35 bg-ink/20 px-8 py-3.5 backdrop-blur-sm transition hover:-translate-y-px hover:border-gold hover:text-gold active:translate-y-px sm:w-auto">
                         {{ __('home.hero_secondary') }}
                     </a>
                 </div>
 
                 @if ($shippingMethod?->free_over_weight_grams)
-                    <p class="hero-rise hero-rise-3 mt-8 flex items-center justify-center gap-2 text-sm text-cream/60 md:justify-start">
+                    <p class="hero-rise hero-rise-3 mt-8 flex items-center justify-center gap-2 text-sm text-cream/75 md:justify-start">
                         <span class="size-1.5 rounded-full bg-gold" aria-hidden="true"></span>
                         {{ __('home.hero_fact', ['weight' => \App\Support\Weight::kg($shippingMethod->free_over_weight_grams)]) }}
                     </p>
                 @endif
-            </div>
-
-            <div class="hero-rise hero-rise-2 relative mx-auto w-full max-w-sm md:max-w-md">
-                <picture>
-                    <source type="image/webp"
-                            srcset="{{ asset('images/hero/honeycomb-640.webp') }} 640w, {{ asset('images/hero/honeycomb-960.webp') }} 960w, {{ asset('images/hero/honeycomb-1170.webp') }} 1170w"
-                            sizes="(min-width: 768px) 28rem, 90vw">
-                    <img src="{{ asset('images/hero/honeycomb-960.jpg') }}"
-                         srcset="{{ asset('images/hero/honeycomb-640.jpg') }} 640w, {{ asset('images/hero/honeycomb-960.jpg') }} 960w, {{ asset('images/hero/honeycomb-1170.jpg') }} 1170w"
-                         sizes="(min-width: 768px) 28rem, 90vw"
-                         width="1170" height="1463" fetchpriority="high" decoding="async"
-                         alt="{{ __('home.hero_image_alt') }}"
-                         class="aspect-[4/5] w-full rounded-card object-cover shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)] ring-1 ring-gold/15">
-                </picture>
             </div>
         </div>
     </section>
@@ -137,7 +133,4 @@
             <p class="mt-6 leading-8 text-cream/80">{{ __('home.story_text') }}</p>
         </div>
     </section>
-    @push('footer-credits')
-        {{ __('home.hero_image_credit') }}
-    @endpush
 </x-layouts.app>

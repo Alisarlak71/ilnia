@@ -103,4 +103,11 @@
     .hero-rise-1 { animation-delay: .1s; }
     .hero-rise-2 { animation-delay: .22s; }
     .hero-rise-3 { animation-delay: .36s; }
+
+    /* The full-bleed hero photo settles in once, very slowly. */
+    @keyframes hero-photo-settle {
+        from { transform: scale(1.06); }
+        to { transform: scale(1); }
+    }
+    .hero-photo { animation: hero-photo-settle 2.6s cubic-bezier(.2, .7, .2, 1) both; }
 }
