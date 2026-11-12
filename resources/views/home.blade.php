@@ -20,8 +20,8 @@
                 </div>
 
                 <h1 id="hero-title" class="hero-rise hero-rise-1 mt-6 text-[2.5rem] font-black leading-[1.3] sm:text-5xl lg:text-[3.5rem] lg:leading-[1.3] xl:text-[3.75rem]">
-                    <span class="block lg:whitespace-nowrap">{{ __('home.hero_title_1') }}</span>
-                    <span class="block text-gold lg:whitespace-nowrap">{{ __('home.hero_title_2') }}</span>
+                    <span class="block text-gold lg:whitespace-nowrap">{{ __('home.hero_title_1') }}</span>
+                    <span class="block lg:whitespace-nowrap">{{ __('home.hero_title_2') }}</span>
                 </h1>
 
                 <p class="hero-rise hero-rise-2 mx-auto mt-6 max-w-md text-lg leading-9 text-cream/75 md:mx-0">{{ __('home.hero_text') }}</p>
