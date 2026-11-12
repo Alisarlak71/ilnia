@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Account\OrderController as AccountOrderController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Livewire\AddressesPage;
@@ -16,6 +17,12 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product:slug}', [ProductController::class, 'show'])->name('products.show');
 Route::livewire('/cart', CartPage::class)->name('cart');
+
+// Content pages (edited in the panel; 404 until published, except for admins previewing).
+Route::get('/about', [PageController::class, 'show'])->defaults('slug', 'about')->name('pages.about');
+Route::get('/contact', [PageController::class, 'show'])->defaults('slug', 'contact')->name('pages.contact');
+Route::get('/shipping', [PageController::class, 'show'])->defaults('slug', 'shipping')->name('pages.shipping');
+Route::get('/terms', [PageController::class, 'show'])->defaults('slug', 'terms')->name('pages.terms');
 Route::livewire('/checkout', CheckoutPage::class)->middleware('auth')->name('checkout');
 
 // Return from the payment gateway (no login required; verified on the server).

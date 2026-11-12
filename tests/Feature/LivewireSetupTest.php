@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 use Livewire\Livewire;
@@ -9,6 +10,8 @@ use Tests\TestCase;
 
 class LivewireSetupTest extends TestCase
 {
+    use RefreshDatabase; // the footer reads published pages
+
     public function test_full_page_components_use_the_site_layout(): void
     {
         Livewire::component('setup-check', SetupCheckComponent::class);

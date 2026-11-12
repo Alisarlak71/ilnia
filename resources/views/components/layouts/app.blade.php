@@ -6,7 +6,7 @@
         </x-layouts.app>
     Without a title, the browser tab shows «ایلنیا | به رسم نیاکان».
 --}}
-@props(['title' => null])
+@props(['title' => null, 'description' => null])
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -15,6 +15,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1E1A16">
     <title>{{ $title ? $title.' | '.__('site.name') : __('site.name').' | '.__('site.slogan_primary') }}</title>
+    @if ($description)
+        <meta name="description" content="{{ $description }}">
+    @endif
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">

@@ -42,3 +42,46 @@
         line-height: 1.9;
     }
 }
+
+/* Content pages written in Markdown in the panel (about, contact, terms, shipping). */
+@layer components {
+    .page-content {
+        line-height: 2;
+    }
+    .page-content > * + * {
+        margin-top: 1rem;
+    }
+    .page-content > :first-child {
+        margin-top: 0;
+    }
+    .page-content h2 {
+        margin-top: 2.25rem;
+        font-size: 1.25rem;
+        font-weight: 800;
+    }
+    .page-content h3 {
+        margin-top: 1.75rem;
+        font-size: 1.1rem;
+        font-weight: 800;
+    }
+    .page-content ul,
+    .page-content ol {
+        padding-inline-start: 1.5rem;
+    }
+    .page-content ul { list-style: disc; }
+    .page-content ol { list-style: persian; }
+    .page-content li + li { margin-top: 0.35rem; }
+    .page-content li::marker { color: var(--color-gold-deep); }
+    .page-content strong { font-weight: 800; }
+    .page-content a {
+        color: var(--color-gold-deep);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+    .page-content blockquote {
+        border-inline-start: 3px solid var(--color-gold-deep);
+        padding-inline-start: 1rem;
+        color: var(--color-muted);
+    }
+    .page-content hr { border-color: var(--color-line); }
+}
