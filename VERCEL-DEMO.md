@@ -20,3 +20,6 @@ git add -f public/build
 git commit -m "Update demo" && git push
 ```
 متغیرهای محیطی روی پروژهٔ Vercel تنظیم شده‌اند (Preview، شاخهٔ `vercel-demo`).
+- `PUBLIC_STORAGE_PATH=/var/task/user/public/storage`: لازم است، چون فایل‌سیستم Vercel فقط‌خواندنی است و لاراول در غیر این صورت سعی می‌کند پوشهٔ `storage/app/public` را بسازد و خطای ۵۰۰ می‌دهد.
+
+لینک ثابت دمو: https://ilnia-git-vercel-demo-ali-sarlaks-projects.vercel.app
