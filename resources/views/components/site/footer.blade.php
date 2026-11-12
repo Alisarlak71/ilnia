@@ -1,7 +1,8 @@
 {{--
     Dark site footer: brand · quick menu · info pages (published ones only) · social accounts.
-    Social accounts come from config('shop.social') (.env SOCIAL_*); an empty one is not shown,
-    so the footer never links to an account that does not exist yet.
+    Social accounts come from config('shop.social') (.env SOCIAL_*). In production an empty one is
+    not shown, so the live site never links to an account that does not exist; outside production
+    it shows with a "#" link, so the design can be seen before the real accounts are set.
 --}}
 @php
     $pages = \App\Models\Page::published()->get(['slug', 'title'])
@@ -17,11 +18,16 @@
     ];
 
     $handles = config('shop.social', []);
-    $social = array_values(array_filter([
-        filled($handles['instagram'] ?? null) ? ['key' => 'instagram', 'url' => 'https://instagram.com/'.rawurlencode($handles['instagram']), 'handle' => $handles['instagram']] : null,
-        filled($handles['telegram'] ?? null) ? ['key' => 'telegram', 'url' => 'https://t.me/'.rawurlencode($handles['telegram']), 'handle' => $handles['telegram']] : null,
-        filled($handles['bale'] ?? null) ? ['key' => 'bale', 'url' => 'https://ble.ir/'.rawurlencode($handles['bale']), 'handle' => $handles['bale']] : null,
-    ]));
+    $bases = ['instagram' => 'https://instagram.com/', 'telegram' => 'https://t.me/', 'bale' => 'https://ble.ir/'];
+    $social = [];
+    foreach ($bases as $key => $base) {
+        $handle = $handles[$key] ?? '';
+        if (filled($handle)) {
+            $social[] = ['key' => $key, 'url' => $base.rawurlencode($handle), 'handle' => $handle];
+        } elseif (! app()->isProduction()) {
+            $social[] = ['key' => $key, 'url' => '#', 'handle' => null]; // placeholder until set in .env
+        }
+    }
 
     $link = 'text-cream/75 transition-colors hover:text-gold focus-visible:text-gold';
 @endphp
@@ -68,7 +74,7 @@
                     <ul class="mt-4 space-y-3 text-sm">
                         @foreach ($social as $account)
                             <li>
-                                <a href="{{ $account['url'] }}" target="_blank" rel="noopener"
+                                <a href="{{ $account['url'] }}" @if ($account['handle']) target="_blank" rel="noopener" @endif
                                    aria-label="{{ __('site.social_open', ['name' => __('site.social_'.$account['key'])]) }}"
                                    class="group inline-flex items-center gap-3 {{ $link }}">
                                     <span class="flex size-9 shrink-0 items-center justify-center rounded-full border border-cream/15 text-cream/80 transition-colors group-hover:border-gold group-hover:text-gold" aria-hidden="true">
@@ -86,7 +92,9 @@
                                     </span>
                                     <span>
                                         <span class="block">{{ __('site.social_'.$account['key']) }}</span>
-                                        <span class="block text-xs text-cream/45" dir="ltr">{{ '@'.$account['handle'] }}</span>
+                                        @if ($account['handle'])
+                                            <span class="block text-xs text-cream/45" dir="ltr">{{ '@'.$account['handle'] }}</span>
+                                        @endif
                                     </span>
                                 </a>
                             </li>

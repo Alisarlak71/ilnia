@@ -36,8 +36,21 @@ class FooterTest extends TestCase
         $this->assertStringNotContainsString('ورود به حساب', $footer);
     }
 
-    public function test_social_links_are_hidden_until_configured(): void
+    public function test_unset_social_links_show_as_placeholders_outside_production(): void
     {
+        config(['shop.social' => ['instagram' => '', 'telegram' => '', 'bale' => '']]);
+        $footer = $this->footer();
+
+        $this->assertStringContainsString('ما را دنبال کنید', $footer);
+        $this->assertStringContainsString('اینستاگرام', $footer);
+        $this->assertStringContainsString('تلگرام', $footer);
+        $this->assertStringContainsString('بله', $footer);
+        $this->assertStringContainsString('href="#"', $footer);
+    }
+
+    public function test_unset_social_links_are_hidden_in_production(): void
+    {
+        $this->app['env'] = 'production';
         config(['shop.social' => ['instagram' => '', 'telegram' => '', 'bale' => '']]);
         $footer = $this->footer();
 
@@ -60,8 +73,9 @@ class FooterTest extends TestCase
         $this->assertStringContainsString('@ilnia_sample', $footer);
     }
 
-    public function test_only_the_configured_networks_are_shown(): void
+    public function test_only_the_configured_networks_are_shown_in_production(): void
     {
+        $this->app['env'] = 'production';
         config(['shop.social' => ['instagram' => 'ilnia_sample', 'telegram' => '', 'bale' => '']]);
         $footer = $this->footer();
 
