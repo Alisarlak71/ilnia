@@ -13,10 +13,10 @@
 @endphp
 
 <article {{ $attributes->merge(['class' => 'group relative flex flex-col']) }}>
-    <div class="relative aspect-[4/5] overflow-hidden rounded-card bg-paper ring-1 ring-line/80 transition duration-500 ease-out group-hover:-translate-y-1 group-hover:shadow-[0_22px_40px_-24px_rgba(30,26,22,0.45)] group-hover:ring-gold-deep/40 group-focus-within:ring-2 group-focus-within:ring-honey">
+    <div class="relative aspect-[4/5] overflow-hidden rounded-card bg-paper ring-1 ring-line/80 transition duration-500 ease-out group-hover:-translate-y-0.5 group-hover:shadow-[0_22px_40px_-24px_rgba(30,26,22,0.45)] group-hover:ring-gold-deep/40 group-focus-within:ring-2 group-focus-within:ring-honey">
         @if ($image)
             <img src="{{ $image->url() }}" alt="{{ $image->altText() }}" loading="lazy"
-                 class="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]">
+                 class="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]">
         @else
             <x-image-placeholder class="absolute inset-0 h-full w-full" />
         @endif

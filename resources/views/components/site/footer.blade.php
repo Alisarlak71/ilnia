@@ -14,6 +14,8 @@
 @endphp
 
 <footer class="relative overflow-hidden bg-ink text-cream">
+    {{-- A page may open the footer with its close (the home page: a photograph and one action). --}}
+    @stack('footer-closing')
     <div class="h-px bg-linear-to-l from-transparent via-gold/50 to-transparent"></div>
 
     {{-- Large, very faint mark as a watermark --}}
@@ -50,7 +52,12 @@
             @endif
         </div>
 
-        <div class="mt-16 flex flex-col items-center justify-between gap-4 border-t border-cream/10 pt-6 text-xs text-cream/45 sm:flex-row">
+        @if (trim($__env->yieldPushContent('footer-credits')) !== '')
+            {{-- Photograph credits (licence attribution), one line. --}}
+            <p class="mt-12 text-center text-[0.7rem] leading-6 text-cream/40 sm:text-start">@stack('footer-credits')</p>
+        @endif
+
+        <div class="mt-6 flex flex-col items-center justify-between gap-4 border-t border-cream/10 pt-6 text-xs text-cream/45 sm:flex-row">
             <p>{{ __('site.footer_rights') }}</p>
             <x-ornament tone="light" class="opacity-50" />
             <p>{{ __('site.slogan_primary') }}</p>

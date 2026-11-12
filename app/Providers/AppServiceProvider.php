@@ -35,8 +35,12 @@ class AppServiceProvider extends ServiceProvider
     {
         // Real site on https://… : every generated link and redirect uses HTTPS, even when the
         // host's proxy talks to PHP over plain HTTP.
+        // Also build every link from APP_URL itself: tunnels and some proxies (e.g. VS Code port
+        // forwarding) pass "localhost:8000" as the host, which would send visitors' browsers to
+        // their own machine for CSS, JS, fonts and images.
         if (str_starts_with((string) config('app.url'), 'https://')) {
             URL::forceScheme('https');
+            URL::forceRootUrl((string) config('app.url'));
         }
 
         // Behind a CDN / reverse proxy (e.g. ArvanCloud, Cloudflare), the visitor's real IP is in a

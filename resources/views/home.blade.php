@@ -1,171 +1,162 @@
 {{--
-    Home page, minimal-luxury layout: hero (typography + brand arch) · three values (editorial list)
-    · products · name story («ایل + نیا») · closing line. See docs/DESIGN.md.
-    Honesty rule: no product photo in the hero until a real one exists (no stock photos), no claims.
+    Home page, built with taste-skill 2.5 (kind: product, site-kind other).
+    Deal: hero photo (full-bleed photograph, words in a solid box on the calm side) · moment
+    pinned-chapters · nav split (site header) · footer columns · close photo · rhythm dark-band ·
+    buttons arrow. Palette and type: the brand's own (brand/tokens.css, Vazirmatn); flat grounds.
+
+    Photographs: licensed Wikimedia Commons STAND-INS of the setting (nomad camp, black tent, Zagros
+    valley, a bee on a flower, a flock), approved by the owner; no jar or honey that could pass for our
+    product (honesty rule). Credits: one footer line. Replace with the owner's own photographs.
 --}}
 @php
-    use App\Support\Digits;
+    use App\Support\Weight;
 
-    $aboutPage = \App\Models\Page::published()->where('slug', 'about')->first();
+    $img = fn (string $name) => asset('images/landing/'.$name);
 @endphp
 
 <x-layouts.app>
-    {{-- ============================== Hero ============================== --}}
-    <section class="bg-grain relative overflow-hidden">
-        <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-12 sm:pb-24 sm:pt-16 lg:grid-cols-12 lg:gap-8 lg:pb-28 lg:pt-20">
-            {{-- Text --}}
-            <div class="text-center lg:col-span-7 lg:text-start">
-                <div class="rise flex items-center justify-center gap-3 lg:justify-start">
-                    <span class="font-latin ps-[0.55em] text-xs tracking-[0.55em] text-gold-deep" dir="ltr">ILNIA</span>
-                    <span class="h-px w-10 bg-gold-deep/40" aria-hidden="true"></span>
-                    <span class="text-sm text-muted">{{ __('home.hero_eyebrow') }}</span>
-                </div>
+    <x-slot:head>
+        <link rel="preload" as="image" href="{{ $img('hero-camp-1920.jpg') }}" imagesrcset="{{ $img('hero-camp-960.jpg') }} 960w, {{ $img('hero-camp-1280.jpg') }} 1280w, {{ $img('hero-camp-1920.jpg') }} 1920w" imagesizes="100vw">
+        <link rel="modulepreload" href="{{ asset('assets/moments/moments.js') }}">
+        <link rel="modulepreload" href="{{ asset('assets/moments/lib.js') }}">
+        <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+        <script type="module" src="{{ asset('assets/moments/moments.js') }}"></script>
+    </x-slot:head>
 
-                <h1 class="rise rise-1 mt-7 text-[2.4rem] font-black leading-[1.35] tracking-tight sm:text-6xl sm:leading-[1.3] lg:text-[3.4rem] xl:text-[3.9rem]">
-                    <span class="block sm:whitespace-nowrap">{{ __('home.hero_title_1') }}</span>
-                    <span class="block text-gold-deep sm:whitespace-nowrap">{{ __('home.hero_title_2') }}</span>
+    {{-- ============================== Hero: one screen ============================== --}}
+    <section class="relative flex h-[calc(100svh-4.8rem)] min-h-[34rem] flex-col overflow-hidden bg-cream lg:block" aria-labelledby="hero-title">
+        <img src="{{ $img('hero-camp-1920.jpg') }}"
+             srcset="{{ $img('hero-camp-960.jpg') }} 960w, {{ $img('hero-camp-1280.jpg') }} 1280w, {{ $img('hero-camp-1920.jpg') }} 1920w"
+             sizes="100vw" width="1920" height="1081" fetchpriority="high" decoding="async"
+             alt="{{ __('home.hero_alt') }}"
+             class="h-[36svh] w-full shrink-0 object-cover object-[72%_50%] sm:h-[50svh] lg:absolute lg:inset-0 lg:h-full">
+
+        <div class="relative mx-auto flex w-full max-w-6xl flex-1 px-4 lg:h-full lg:items-center">
+            <div class="w-full py-6 lg:ms-auto lg:max-w-[34rem] lg:rounded-card lg:bg-cream lg:p-12">
+                @if ($shippingMethod?->free_over_weight_grams)
+                    <p class="rise text-sm text-gold-deep">
+                        {{ __('home.hero_fact', ['weight' => Weight::kg($shippingMethod->free_over_weight_grams)]) }}
+                    </p>
+                @endif
+                <h1 id="hero-title" class="rise rise-1 mt-3 text-[2.15rem] font-extrabold leading-[1.35] sm:text-5xl sm:leading-[1.3] lg:text-[3.35rem]">
+                    <span class="block">{{ __('home.hero_title_1') }}</span>
+                    <span class="block">{{ __('home.hero_title_2') }}</span>
                 </h1>
-
-                <p class="rise rise-2 mx-auto mt-7 max-w-md text-lg leading-9 text-muted lg:mx-0">{{ __('home.hero_text') }}</p>
-
-                <div class="rise rise-3 mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
+                <p class="rise rise-2 mt-4 max-w-md leading-8 text-muted sm:text-lg sm:leading-9 lg:mt-6">{{ __('home.hero_text') }}</p>
+                <div class="rise rise-3 mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 lg:mt-9">
                     <a href="#products"
-                       class="group inline-flex items-center gap-3 rounded-btn border border-ink bg-ink px-8 py-3.5 font-bold text-cream transition-colors duration-300 hover:border-gold">
-                        {{ __('home.hero_cta') }}
-                        <span class="transition-transform duration-300 group-hover:-translate-x-1" aria-hidden="true">←</span>
+                       class="btn-step inline-flex items-center justify-center gap-3 rounded-btn border border-ink bg-ink px-7 py-3.5 font-bold text-cream hover:border-gold">
+                        {{ __('home.hero_cta') }} <span aria-hidden="true">←</span>
                     </a>
-                    <a href="#story" class="border-b border-gold-deep/40 pb-0.5 text-sm transition-colors hover:border-gold-deep hover:text-gold-deep">
-                        {{ __('home.hero_secondary') }}
-                    </a>
-                </div>
-            </div>
-
-            {{-- Brand arch: the black tent's doorway, with the mark and a soft honey glow. --}}
-            <div class="rise rise-2 lg:col-span-5">
-                <div class="relative mx-auto aspect-[4/5] w-full max-w-[22rem] overflow-hidden rounded-t-full rounded-b-card bg-ink shadow-[0_40px_80px_-40px_rgba(30,26,22,0.6)] lg:max-w-none">
-                    <div class="bg-gilim absolute inset-0 text-gold/[0.06]" aria-hidden="true"></div>
-                    <div class="honey-glow absolute left-1/2 top-[42%] size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(226,180,90,0.38),transparent_65%)]" aria-hidden="true"></div>
-
-                    {{-- Thin double frame following the arch --}}
-                    <div class="absolute inset-4 rounded-t-full rounded-b-[10px] border border-gold/25" aria-hidden="true"></div>
-                    <div class="absolute inset-6 rounded-t-full rounded-b-[8px] border border-gold/10" aria-hidden="true"></div>
-
-                    <div class="relative flex h-full flex-col items-center justify-center px-8 text-center">
-                        <img src="{{ asset('brand/logo-mark-gold.svg') }}" width="132" height="132" alt="" class="w-28 sm:w-32">
-                        <p class="mt-6 font-brand text-4xl leading-none text-cream">{{ __('site.name') }}</p>
-                        <p class="font-latin mt-3 ps-[0.55em] text-[0.7rem] tracking-[0.55em] text-gold" dir="ltr">ILNIA</p>
-                        <x-ornament tone="light" class="mt-6 opacity-80" />
-                        <p class="mt-5 text-gold">{{ __('site.slogan_primary') }}</p>
-                    </div>
+                    <a href="#story" class="link-draw self-center py-2 text-sm font-bold">{{ __('home.hero_secondary') }}</a>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- ============================== Values ============================== --}}
-    <section class="border-y border-line bg-paper" aria-labelledby="values-title">
-        <div class="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:py-28 lg:grid-cols-12 lg:gap-8">
-            <div class="reveal lg:col-span-4">
-                <div class="lg:sticky lg:top-10">
-                    <p class="text-sm font-bold text-gold-deep">{{ __('home.values_eyebrow') }}</p>
-                    <h2 id="values-title" class="mt-3 text-3xl font-black leading-snug sm:text-4xl">{{ __('home.values_title') }}</h2>
-                    <p class="mt-5 max-w-xs leading-8 text-muted">{{ __('home.values_text') }}</p>
-                </div>
-            </div>
-
-            <ol class="lg:col-span-7 lg:col-start-6">
-                @foreach (__('home.values') as $i => $value)
-                    <li class="reveal group grid grid-cols-[auto_1fr] gap-x-6 border-t border-line py-9 first:border-t-0 first:pt-0 sm:gap-x-10 sm:py-11">
-                        <span class="text-5xl font-black leading-none text-gold-deep/25 transition-colors duration-500 group-hover:text-gold-deep sm:text-6xl" aria-hidden="true">
-                            {{ Digits::toPersian($i + 1) }}
-                        </span>
-                        <div>
-                            <h3 class="text-2xl font-extrabold sm:text-3xl">{{ $value['title'] }}</h3>
-                            <p class="mt-3 max-w-md leading-8 text-muted">{{ $value['text'] }}</p>
-                        </div>
-                    </li>
-                @endforeach
-            </ol>
-        </div>
-    </section>
-
-    {{-- ============================== Products ============================== --}}
-    <section id="products" class="scroll-mt-6" aria-labelledby="products-title">
-        <div class="mx-auto max-w-6xl px-4 py-20 sm:py-28">
-            <div class="reveal flex flex-col items-center gap-6 text-center sm:flex-row sm:items-end sm:justify-between sm:text-start">
+    {{-- ============================== Products: one screen ============================== --}}
+    <section id="products" class="flex min-h-svh flex-col bg-paper" aria-labelledby="products-title">
+        <div class="mx-auto w-full max-w-6xl px-4 pb-16 pt-20 sm:pt-28">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                    <p class="text-sm font-bold text-gold-deep">{{ __('home.products_eyebrow') }}</p>
-                    <h2 id="products-title" class="mt-3 text-3xl font-black sm:text-4xl">{{ __('home.products_title') }}</h2>
+                    <h2 id="products-title" class="text-3xl font-extrabold sm:text-[2.6rem] sm:leading-tight">{{ __('home.products_title') }}</h2>
+                    <p class="mt-3 max-w-lg leading-8 text-muted">{{ __('home.products_text') }}</p>
                 </div>
                 @if ($products->isNotEmpty())
-                    <a href="{{ route('products.index') }}"
-                       class="group inline-flex items-center gap-2 border-b border-gold-deep/40 pb-0.5 text-sm font-bold transition-colors hover:border-gold-deep hover:text-gold-deep">
-                        {{ __('shop.all_products') }}
-                        <span class="transition-transform duration-300 group-hover:-translate-x-1" aria-hidden="true">←</span>
+                    <a href="{{ route('products.index') }}" class="link-draw self-start py-2 text-sm font-bold sm:self-auto">
+                        {{ __('shop.all_products') }} <span aria-hidden="true">←</span>
                     </a>
                 @endif
             </div>
 
             @if ($products->isEmpty())
-                <div class="reveal mx-auto mt-14 max-w-md rounded-card border border-line bg-paper p-10 text-center">
+                <div class="mt-12 rounded-card bg-cream p-10 text-center">
                     <img src="{{ asset('brand/logo-mark-ink.svg') }}" width="48" height="48" alt="" class="mx-auto opacity-30">
                     <p class="mt-4 text-muted">{{ __('home.products_empty') }}</p>
                 </div>
             @else
-                <div class="mt-14 grid grid-cols-2 gap-x-4 gap-y-12 sm:gap-x-8 lg:grid-cols-4">
+                <div class="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-6 lg:gap-x-8">
                     @foreach ($products as $product)
-                        <x-product-card :product="$product" class="reveal" />
+                        <x-product-card :product="$product" />
                     @endforeach
                 </div>
             @endif
         </div>
     </section>
 
-    {{-- ============================== Story: ایل + نیا ============================== --}}
-    <section id="story" class="relative scroll-mt-6 overflow-hidden bg-ink text-cream" aria-labelledby="story-title">
-        <div class="bg-gilim absolute inset-0 text-gold/[0.04]" aria-hidden="true"></div>
-        <div class="relative mx-auto grid max-w-6xl items-center gap-14 px-4 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
-            {{-- The name, as an equation --}}
-            <div class="reveal flex min-w-0 items-end justify-center gap-3 sm:gap-8 lg:justify-start" aria-hidden="true">
-                <div class="text-center">
-                    <p class="text-4xl font-black leading-none sm:text-6xl lg:text-7xl">ایل</p>
-                    <p class="mt-3 whitespace-nowrap text-[0.7rem] text-cream/60 sm:mt-4 sm:text-xs">{{ __('home.story_il') }}</p>
-                </div>
-                <p class="pb-8 text-xl font-light text-gold/70 sm:pb-9 sm:text-3xl">+</p>
-                <div class="text-center">
-                    <p class="text-4xl font-black leading-none sm:text-6xl lg:text-7xl">نیا</p>
-                    <p class="mt-3 whitespace-nowrap text-[0.7rem] text-cream/60 sm:mt-4 sm:text-xs">{{ __('home.story_nia') }}</p>
-                </div>
-                <p class="pb-8 text-xl font-light text-gold/70 sm:pb-9 sm:text-3xl">=</p>
-                <div class="text-center">
-                    <p class="font-brand text-4xl leading-none text-gold sm:text-6xl lg:text-7xl">{{ __('site.name') }}</p>
-                    <p class="mt-3 whitespace-nowrap text-[0.7rem] text-gold/80 sm:mt-4 sm:text-xs">{{ __('site.slogan_primary') }}</p>
-                </div>
+    {{-- ============================== Values: the dealt moment (pinned-chapters), two screens live ============================== --}}
+    <section id="values" class="moment-tokens relative bg-cream" data-moment="pinned-chapters" aria-labelledby="values-title">
+        <div class="mo-pc__grid mx-auto w-full max-w-6xl px-4 py-20 sm:py-28">
+            <div class="mo-pc__text">
+                <h2 id="values-title" class="text-3xl font-extrabold sm:text-[2.6rem] sm:leading-tight">{{ __('home.values_title') }}</h2>
+                <ol class="mo-pc__steps">
+                    @foreach (__('home.values') as $value)
+                        <li class="mo-pc__step">
+                            <h3>{{ $value['title'] }}</h3>
+                            <p>{{ $value['text'] }}</p>
+                            <figure class="mo-pc__visual">
+                                <img src="{{ $img($value['image'].'-1280.jpg') }}"
+                                     srcset="{{ $img($value['image'].'-960.jpg') }} 960w, {{ $img($value['image'].'-1280.jpg') }} 1280w"
+                                     sizes="(max-width: 1023px) 100vw, 50vw" width="1280" height="853" loading="lazy" decoding="async"
+                                     alt="{{ $value['alt'] }}" style="object-position: {{ $value['position'] }}">
+                            </figure>
+                        </li>
+                    @endforeach
+                </ol>
             </div>
+            <div class="mo-pc__visuals overflow-hidden rounded-card"></div>
+        </div>
+    </section>
 
-            <div class="reveal min-w-0 text-center lg:text-start">
-                <p class="text-sm font-bold text-gold">{{ __('home.story_eyebrow') }}</p>
-                <h2 id="story-title" class="mt-3 text-3xl font-black leading-snug sm:text-4xl">{{ __('home.story_title') }}</h2>
-                <p class="mx-auto mt-6 max-w-lg leading-9 text-cream/75 lg:mx-0">{{ __('home.story_text') }}</p>
+    {{-- ============================== Story: the dark band, one screen ============================== --}}
+    <section id="story" class="flex min-h-svh items-center bg-ink text-cream" aria-labelledby="story-title">
+        <div class="mx-auto grid w-full max-w-6xl items-center gap-12 px-4 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
+            <div class="min-w-0">
+                <h2 id="story-title" class="text-3xl font-extrabold sm:text-[2.6rem] sm:leading-tight">{{ __('home.story_title') }}</h2>
+
+                {{-- The name, read right to left: ایل + نیا = ایلنیا --}}
+                <p class="mt-10 flex flex-wrap items-baseline gap-x-4 gap-y-2 text-4xl font-extrabold sm:text-6xl" aria-label="{{ __('home.story_equation_label') }}">
+                    <span>ایل</span><span class="text-2xl font-normal text-gold/70 sm:text-4xl" aria-hidden="true">+</span>
+                    <span>نیا</span><span class="text-2xl font-normal text-gold/70 sm:text-4xl" aria-hidden="true">=</span>
+                    <span class="font-brand text-gold">{{ __('site.name') }}</span>
+                </p>
+
+                <p class="mt-8 max-w-lg leading-9 text-cream/75">{{ __('home.story_text') }}</p>
                 @if ($aboutPage)
-                    <a href="{{ $aboutPage->url() }}" class="mt-8 inline-flex items-center gap-2 border-b border-gold/40 pb-0.5 text-sm text-gold transition-colors hover:border-gold">
+                    <a href="{{ $aboutPage->url() }}" class="link-draw mt-8 inline-block py-2 text-sm font-bold text-gold">
                         {{ __('home.story_more') }} <span aria-hidden="true">←</span>
                     </a>
                 @endif
             </div>
+
+            <figure class="group overflow-hidden rounded-card">
+                <img src="{{ $img('flock-1280.jpg') }}"
+                     srcset="{{ $img('flock-960.jpg') }} 960w, {{ $img('flock-1280.jpg') }} 1280w"
+                     sizes="(max-width: 1023px) 100vw, 50vw" width="1280" height="719" loading="lazy" decoding="async"
+                     alt="{{ __('home.story_alt') }}"
+                     class="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-[1.03] lg:aspect-[4/5]">
+            </figure>
         </div>
     </section>
 
-    {{-- ============================== Closing line ============================== --}}
-    <section class="bg-grain border-b border-line">
-        <div class="reveal mx-auto max-w-3xl px-4 py-20 text-center sm:py-24">
-            <x-ornament />
-            <p class="mt-8 text-3xl font-black leading-snug sm:text-5xl sm:leading-tight">{{ __('home.closing_title') }}</p>
-            <p class="mx-auto mt-5 max-w-md leading-8 text-muted">{{ __('home.closing_text') }}</p>
-            <a href="{{ route('products.index') }}"
-               class="mt-9 inline-block rounded-btn border border-ink bg-ink px-8 py-3.5 font-bold text-cream transition-colors duration-300 hover:border-gold">
-                {{ __('home.hero_cta') }}
-            </a>
+    {{-- The close (photo) opens the footer: one screen with the footer's columns. --}}
+    @push('footer-closing')
+        <div class="relative isolate overflow-hidden">
+            <img src="{{ $img('ridge-1280.jpg') }}" srcset="{{ $img('ridge-960.jpg') }} 960w, {{ $img('ridge-1280.jpg') }} 1280w" sizes="100vw" width="1280" height="853" loading="lazy" decoding="async" alt="{{ __('home.closing_alt') }}"
+                 class="absolute inset-0 -z-10 h-full w-full object-cover">
+            <div class="mx-auto flex max-w-6xl px-4 py-16 sm:py-20">
+                <div class="w-full rounded-card bg-ink px-8 py-10 sm:w-auto sm:min-w-[26rem] sm:px-12">
+                    <p class="text-3xl font-extrabold text-cream sm:text-4xl">{{ __('site.slogan_primary') }}</p>
+                    <a href="{{ route('products.index') }}"
+                       class="btn-step mt-7 inline-flex items-center gap-3 rounded-btn border border-gold bg-gold px-7 py-3.5 font-bold text-ink hover:bg-cream">
+                        {{ __('home.closing_cta') }} <span aria-hidden="true">←</span>
+                    </a>
+                </div>
+            </div>
         </div>
-    </section>
+    @endpush
+
+    @push('footer-credits')
+        {{ __('home.photo_credits') }}
+    @endpush
 </x-layouts.app>
