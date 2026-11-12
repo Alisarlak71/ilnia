@@ -10,6 +10,9 @@ return [
     'slogan_primary' => 'به رسم نیاکان',
     'slogan_campaign' => 'اصلش را می‌فروشیم، نه ادعایش را',
 
+    // Default description for search engines and link previews (pages without their own).
+    'meta_description' => 'ایلنیا؛ محصولات کشاورزی و عشایری به رسم نیاکان. اصلش را می‌فروشیم، نه ادعایش را.',
+
     'skip_to_content' => 'رفتن به محتوای اصلی',
     'main_nav' => 'منوی اصلی',
     'nav_home' => 'خانه',

@@ -44,7 +44,7 @@ class ProductController extends Controller
     {
         abort_unless($product->is_active, 404);
 
-        $product->load(['category', 'images']);
+        $product->load(['category', 'images', 'variants']);
 
         return view('products.show', ['product' => $product]);
     }

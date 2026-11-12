@@ -1,5 +1,38 @@
 {{-- Product page: gallery · weight picker & price · description · story · storage. See docs/DESIGN.md. --}}
-<x-layouts.app :title="$product->name">
+@php
+    $mainImage = $product->mainImage();
+    $offers = $product->variants->filter(fn ($v) => $v->is_active && $v->price !== null);
+
+    // Structured data for Google (real data only: no ratings or reviews).
+    // schema.org needs an ISO currency, so prices are given in Rial (Toman × 10).
+    $jsonLd = array_filter([
+        '@context' => 'https://schema.org',
+        '@type' => 'Product',
+        'name' => $product->name,
+        'description' => $product->short_description ?: null,
+        'image' => $mainImage?->url(),
+        'brand' => ['@type' => 'Brand', 'name' => __('site.name')],
+        'category' => $product->category->name,
+        'offers' => $offers->map(fn ($v) => [
+            '@type' => 'Offer',
+            'name' => $v->title,
+            'price' => $v->price * 10,
+            'priceCurrency' => 'IRR',
+            'availability' => $v->inStock() ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+            'url' => route('products.show', $product),
+        ])->values()->all() ?: null,
+    ]);
+@endphp
+<x-layouts.app :title="$product->name"
+               :description="$product->short_description ?: __('shop.meta_product', ['name' => $product->name])"
+               :image="$mainImage?->url()"
+               :image-alt="$mainImage?->altText()"
+               type="product"
+               :canonical="route('products.show', $product)">
+    <x-slot:head>
+        <script type="application/ld+json">@json($jsonLd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)</script>
+    </x-slot:head>
+
     <div class="mx-auto max-w-6xl px-4 py-8 sm:py-12">
         {{-- Breadcrumb --}}
         <nav aria-label="{{ __('shop.breadcrumb') }}" class="text-sm text-muted">

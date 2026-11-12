@@ -4,7 +4,7 @@
     use App\Support\Weight;
 @endphp
 
-<x-layouts.app :title="$page->title" :description="$page->meta_description">
+<x-layouts.app :title="$page->title" :description="$page->meta_description" :noindex="! $page->is_published">
     <article class="mx-auto max-w-3xl px-4 py-10 sm:py-14">
         @unless ($page->is_published)
             <p role="status" class="mb-8 rounded-btn border border-honey/40 bg-honey/10 px-4 py-3 text-sm">

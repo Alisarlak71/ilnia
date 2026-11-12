@@ -6,7 +6,26 @@
         </x-layouts.app>
     Without a title, the browser tab shows «ایلنیا | به رسم نیاکان».
 --}}
-@props(['title' => null, 'description' => null])
+@props([
+    'title' => null,
+    'description' => null,
+    'image' => null,       // absolute URL for the link preview; default: brand mark
+    'imageAlt' => null,
+    'type' => 'website',   // og:type (product pages: 'product')
+    'canonical' => null,   // default: current URL without query string
+    'noindex' => false,
+])
+
+@php
+    $siteName = __('site.name');
+    $pageTitle = $title ? $title.' | '.$siteName : $siteName.' | '.__('site.slogan_primary');
+    $metaDescription = \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/u', ' ', strip_tags((string) ($description ?: __('site.meta_description'))))), 160, '…');
+    $ogImage = $image ?: asset('brand/profile-mark.png');
+
+    // Private pages are never indexed (cart, checkout, login, account, payment results).
+    $noindex = $noindex || request()->routeIs('cart', 'checkout', 'login', 'account.*', 'payment.*');
+    $canonicalUrl = $canonical ?: url()->current();
+@endphp
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -14,10 +33,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1E1A16">
-    <title>{{ $title ? $title.' | '.__('site.name') : __('site.name').' | '.__('site.slogan_primary') }}</title>
-    @if ($description)
-        <meta name="description" content="{{ $description }}">
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
+
+    @if ($noindex)
+        <meta name="robots" content="noindex, nofollow">
+    @else
+        <link rel="canonical" href="{{ $canonicalUrl }}">
     @endif
+
+    {{-- Link previews (Telegram, WhatsApp, Instagram DMs…) --}}
+    <meta property="og:site_name" content="{{ $siteName }}">
+    <meta property="og:locale" content="fa_IR">
+    <meta property="og:type" content="{{ $type }}">
+    <meta property="og:title" content="{{ $title ?: $siteName.' | '.__('site.slogan_primary') }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta property="og:image:alt" content="{{ $imageAlt ?: $siteName }}">
+    <meta name="twitter:card" content="{{ $image ? 'summary_large_image' : 'summary' }}">
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">

@@ -26,4 +26,8 @@ return [
     'page_of' => 'صفحهٔ :current از :last',
     'previous' => 'قبلی',
     'next' => 'بعدی',
+
+    // Search engines / link previews
+    'meta_products' => ':category ایلنیا؛ محصولات کشاورزی و عشایری به رسم نیاکان.',
+    'meta_product' => ':name از ایلنیا؛ به رسم نیاکان.',
 ];

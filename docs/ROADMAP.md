@@ -62,7 +62,7 @@
 
 ## فاز ۴: آماده‌سازی برای انتشار
 - [x] صفحه‌های دربارهٔ ما، تماس، قوانین و شرایط ارسال
-- [ ] سئوی پایه: title و description، Open Graph، sitemap.xml و robots.txt
+- [x] سئوی پایه: title و description، Open Graph، sitemap.xml و robots.txt
 - [ ] صفحه‌های خطای ۴۰۴ و ۵۰۰ با طراحی برند
 - [ ] چک‌لیست امنیت: `APP_DEBUG=false`، HTTPS، rate limit‌ها و دسترسی ادمین
 - [ ] راهنمای استقرار روی هاست در `docs/DEPLOY.md`: آپلود، `.env` تولید، migrate، کرون و build فرانت

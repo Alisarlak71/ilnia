@@ -1,5 +1,14 @@
 {{-- Product list: /products, optional ?category=slug filter. --}}
-<x-layouts.app :title="$category ? $category->name : __('shop.products_title')">
+@php
+    // Canonical: the list itself (with ?category= and ?page= only when they matter).
+    $canonical = route('products.index', array_filter([
+        'category' => $category?->slug,
+        'page' => $products->currentPage() > 1 ? $products->currentPage() : null,
+    ]));
+@endphp
+<x-layouts.app :title="$category ? $category->name : __('shop.products_title')"
+               :description="__('shop.meta_products', ['category' => $category?->name ?? __('shop.products_title')])"
+               :canonical="$canonical">
     <section class="mx-auto max-w-6xl px-4 py-10 sm:py-14">
         <header class="text-center">
             <h1 class="text-3xl font-extrabold">{{ $category?->name ?? __('shop.products_title') }}</h1>
