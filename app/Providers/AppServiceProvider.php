@@ -35,19 +35,21 @@ class AppServiceProvider extends ServiceProvider
     {
         // Real site on https://… : every generated link and redirect uses HTTPS, even when the
         // host's proxy talks to PHP over plain HTTP.
-        // Also build every link from APP_URL itself: tunnels and some proxies (e.g. VS Code port
-        // forwarding) pass "localhost:8000" as the host, which would send visitors' browsers to
-        // their own machine for CSS, JS, fonts and images.
-        if (str_starts_with((string) config('app.url'), 'https://')) {
+        if (app()->isProduction() && str_starts_with((string) config('app.url'), 'https://')) {
             URL::forceScheme('https');
-            URL::forceRootUrl((string) config('app.url'));
         }
 
         // Behind a CDN / reverse proxy (e.g. ArvanCloud, Cloudflare), the visitor's real IP is in a
         // header set by the proxy. Without this, every visitor would share the proxy's IP and the
         // OTP limits per IP would block everyone. Set TRUSTED_PROXIES only when there is a proxy.
-        if (filled(config('app.trusted_proxies'))) {
-            TrustProxies::at(config('app.trusted_proxies'));
+        //
+        // Local development: always trust the forwarding headers, so a tunnel (VS Code dev tunnel,
+        // ngrok…) gets links, CSS and fonts on the tunnel's https address while http://localhost:8000
+        // keeps its own. (Pinning every link to APP_URL broke fonts on one of the two: a font from
+        // another origin is blocked by the browser without CORS.)
+        $proxies = app()->isLocal() ? '*' : config('app.trusted_proxies');
+        if (filled($proxies)) {
+            TrustProxies::at($proxies);
         }
     }
 }

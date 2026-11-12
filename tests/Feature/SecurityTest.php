@@ -38,12 +38,28 @@ class SecurityTest extends TestCase
         $this->get('https://localhost/')->assertHeader('Strict-Transport-Security', 'max-age=31536000');
     }
 
-    public function test_https_app_url_forces_https_links(): void
+    public function test_https_app_url_forces_https_links_in_production(): void
     {
+        $this->app['env'] = 'production';
         config(['app.url' => 'https://ilnia.ir']);
         (new AppServiceProvider($this->app))->boot();
 
         $this->assertStringStartsWith('https://', route('products.index'));
+    }
+
+    public function test_local_development_follows_the_tunnel_host(): void
+    {
+        $this->app['env'] = 'local';
+        (new AppServiceProvider($this->app))->boot();
+
+        // Through a dev tunnel: links, CSS and fonts on the tunnel's https address.
+        $this->get('/', ['X-Forwarded-Host' => 'abc-8000.devtunnels.ms', 'X-Forwarded-Proto' => 'https', 'X-Forwarded-Port' => '443'])
+            ->assertSee('https://abc-8000.devtunnels.ms/fonts/vazirmatn-variable.woff2', false);
+
+        // Straight to localhost: everything stays on localhost.
+        $this->get('http://localhost:8000/')
+            ->assertSee('http://localhost:8000/fonts/vazirmatn-variable.woff2', false)
+            ->assertDontSee('devtunnels', false);
     }
 
     public function test_trusted_proxy_gives_real_visitor_ip(): void
