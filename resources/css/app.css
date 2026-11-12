@@ -116,7 +116,7 @@
    edges fading into the blurred backdrop (no hard frame). Phone: across the top, fading downwards.
    Wider screens: from the bottom-left corner, fading to the right (text side) and to the top. */
 .hero-photo-fade {
-    top: 3%;
+    top: 0;
     left: -12%;
     width: 132%;
     height: auto;
