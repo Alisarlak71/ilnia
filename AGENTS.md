@@ -68,6 +68,7 @@ php artisan serve       # فقط سرور
 npm run build           # خروجی نهایی فرانت برای آپلود
 php artisan test        # اجرای تست‌ها
 php artisan ilnia:make-admin   # ساخت مدیر برای پنل /admin (یا مدیر کردن کاربر موجود)
+php artisan ilnia:security-check   # چک تنظیمات امنیتی تولید (docs/SECURITY.md)
 ```
 
 ## قواعد کد
