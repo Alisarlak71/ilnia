@@ -7,8 +7,8 @@ use Illuminate\Support\Str;
 
 /**
  * Fill the `slug` column from `name` when it is left empty, keeping Persian letters:
- *   «عسل عشایری» → "عسل-عشایری"   (not the unreadable transliteration "aasl-aashayry")
- * Duplicate slugs get a number: "عسل-عشایری-2".
+ *   «عسل طبیعی» → "عسل-طبیعی"   (not the unreadable transliteration "asl-tabiei")
+ * Duplicate slugs get a number: "عسل-طبیعی-2".
  */
 trait HasPersianSlug
 {

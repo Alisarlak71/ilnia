@@ -34,7 +34,7 @@ class DevSampleSeeder extends Seeder
         $other = Category::updateOrCreate(['slug' => 'نمونه-سایر'], ['name' => 'سایر محصولات (نمونه)', 'sort' => 2]);
 
         // 1) Normal product with two weights.
-        $this->product($honey, 'نمونه-عسل-عشایری', 'عسل عشایری (نمونه)', active: true, variants: [
+        $this->product($honey, 'نمونه-عسل-طبیعی', 'عسل طبیعی (نمونه)', active: true, variants: [
             ['title' => '۱ کیلوگرم', 'weight_grams' => 1000, 'price' => 480000, 'stock' => 20],
             ['title' => '۲ کیلوگرم', 'weight_grams' => 2000, 'price' => 930000, 'stock' => 8],
         ]);

@@ -24,7 +24,7 @@ class DevSampleSeederTest extends TestCase
         $this->assertSame(5, Product::count());
         $this->assertSame(4, Product::active()->count());
 
-        $twoWeights = Product::where('slug', 'نمونه-عسل-عشایری')->firstOrFail();
+        $twoWeights = Product::where('slug', 'نمونه-عسل-طبیعی')->firstOrFail();
         $this->assertCount(2, $twoWeights->variants);
         $this->assertSame(480000, $twoWeights->startingPrice());
 

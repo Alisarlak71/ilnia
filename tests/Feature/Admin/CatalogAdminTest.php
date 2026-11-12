@@ -85,7 +85,7 @@ class CatalogAdminTest extends TestCase
 
         Livewire::test(CreateProduct::class)
             ->fillForm([
-                'name' => 'عسل عشایری',
+                'name' => 'عسل طبیعی',
                 'category_id' => $category->id,
                 'is_active' => true,
                 'variants' => [
@@ -99,8 +99,8 @@ class CatalogAdminTest extends TestCase
 
         $undoRepeaterFake();
 
-        $product = Product::where('name', 'عسل عشایری')->firstOrFail();
-        $this->assertSame('عسل-عشایری', $product->slug);
+        $product = Product::where('name', 'عسل طبیعی')->firstOrFail();
+        $this->assertSame('عسل-طبیعی', $product->slug);
         $this->assertTrue($product->is_active);
 
         $variants = $product->variants;

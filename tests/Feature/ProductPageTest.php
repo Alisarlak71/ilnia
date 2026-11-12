@@ -21,7 +21,7 @@ class ProductPageTest extends TestCase
         $category = Category::create(['name' => 'عسل']);
 
         return Product::factory()->for($category)->create($attributes + [
-            'name' => 'عسل عشایری نمونه',
+            'name' => 'عسل طبیعی نمونه',
             'short_description' => 'توضیح کوتاه نمونه',
             'description' => "خط اول\nخط دوم",
             'story' => 'داستان نمونه',
@@ -33,9 +33,9 @@ class ProductPageTest extends TestCase
     {
         $product = $this->honey();
 
-        $this->get('/products/'.rawurlencode('عسل-عشایری-نمونه'))
+        $this->get('/products/'.rawurlencode('عسل-طبیعی-نمونه'))
             ->assertOk()
-            ->assertSee('<title>عسل عشایری نمونه | ایلنیا</title>', false)
+            ->assertSee('<title>عسل طبیعی نمونه | ایلنیا</title>', false)
             ->assertSee('<h1', false);
 
         $this->assertSame(route('products.show', $product), url('/products/'.rawurlencode($product->slug)));

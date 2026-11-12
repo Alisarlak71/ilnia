@@ -24,7 +24,7 @@ class ProductForm
                     ->schema([
                         TextInput::make('name')
                             ->label('نام محصول')
-                            ->placeholder('مثلاً عسل عشایری')
+                            ->placeholder('مثلاً عسل طبیعی کوهستان')
                             ->required()
                             ->maxLength(255),
                         Select::make('category_id')

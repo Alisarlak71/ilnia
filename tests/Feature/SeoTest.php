@@ -19,7 +19,7 @@ class SeoTest extends TestCase
     {
         $category = Category::factory()->create(['name' => 'عسل', 'slug' => 'honey']);
         $product = Product::factory()->for($category)->create($attributes + [
-            'name' => 'عسل عشایری نمونه', 'slug' => 'nomad-honey', 'is_active' => true,
+            'name' => 'عسل طبیعی نمونه', 'slug' => 'natural-honey', 'is_active' => true,
             'short_description' => 'عسل طبیعی از کوه‌های زاگرس.',
         ]);
         ProductVariant::factory()->for($product)->create(['title' => '۱ کیلوگرم', 'price' => 480000, 'stock' => 3, 'is_active' => true]);
@@ -31,7 +31,7 @@ class SeoTest extends TestCase
     {
         $this->get('/')
             ->assertSee('<title>ایلنیا | به رسم نیاکان</title>', false)
-            ->assertSee('<meta name="description" content="ایلنیا؛ محصولات کشاورزی و عشایری', false)
+            ->assertSee('<meta name="description" content="ایلنیا؛ عسل طبیعی و محصولات اصیل', false)
             ->assertSee('<link rel="canonical" href="'.url('/').'">', false)
             ->assertSee('<meta property="og:locale" content="fa_IR">', false)
             ->assertSee('<meta property="og:image" content="'.asset('brand/profile-mark.png').'">', false)
@@ -52,7 +52,7 @@ class SeoTest extends TestCase
         $data = json_decode($m[1], true);
 
         $this->assertSame('Product', $data['@type']);
-        $this->assertSame('عسل عشایری نمونه', $data['name']);
+        $this->assertSame('عسل طبیعی نمونه', $data['name']);
         $this->assertSame(4800000, $data['offers'][0]['price']); // Rial
         $this->assertSame('IRR', $data['offers'][0]['priceCurrency']);
         $this->assertSame('https://schema.org/InStock', $data['offers'][0]['availability']);

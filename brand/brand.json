@@ -3,7 +3,7 @@
     "fa": "ایلنیا",
     "latin": "Ilnia",
     "latin_display": "ILNIA",
-    "meaning": "ایل + نیا (نیاکان): به رسم نیاکان ایل"
+    "meaning": "به رسم نیاکان"
   },
   "domain": "ilnia.ir",
   "domain_status": "unverified — not yet checked or purchased",
@@ -14,7 +14,7 @@
     "short": "اصل، نه ادعا"
   },
   "values": ["اصالت", "صداقت", "لوکس"],
-  "first_product": "عسل اصیل عشایر",
+  "first_product": "عسل طبیعی",
   "colors": {
     "ink": "#1E1A16",
     "ink_soft": "#2A241E",

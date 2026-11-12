@@ -28,6 +28,6 @@ return [
     'next' => 'بعدی',
 
     // Search engines / link previews
-    'meta_products' => ':category ایلنیا؛ محصولات کشاورزی و عشایری به رسم نیاکان.',
+    'meta_products' => ':category ایلنیا؛ عسل طبیعی و محصولات اصیل، به رسم نیاکان.',
     'meta_product' => ':name از ایلنیا؛ به رسم نیاکان.',
 ];

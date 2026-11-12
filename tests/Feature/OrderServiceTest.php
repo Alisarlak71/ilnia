@@ -43,7 +43,7 @@ class OrderServiceTest extends TestCase
 
     private function variant(array $attributes = []): ProductVariant
     {
-        $product = Product::factory()->create(['name' => 'عسل عشایری نمونه']);
+        $product = Product::factory()->create(['name' => 'عسل طبیعی نمونه']);
 
         return ProductVariant::factory()->for($product)->create($attributes + [
             'title' => '۱ کیلوگرم', 'price' => 480000, 'weight_grams' => 1000, 'stock' => 10,
@@ -151,7 +151,7 @@ class OrderServiceTest extends TestCase
 
         $item = $order->items->first();
         $this->assertSame($variant->id, $item->product_variant_id);
-        $this->assertSame('عسل عشایری نمونه', $item->product_name);
+        $this->assertSame('عسل طبیعی نمونه', $item->product_name);
         $this->assertSame('۱ کیلوگرم', $item->variant_title);
         $this->assertSame(1000, $item->weight_grams);
         $this->assertSame(480000, $item->unit_price);
@@ -175,7 +175,7 @@ class OrderServiceTest extends TestCase
         $this->assertSame(540000, $order->total);
         $this->assertSame('شیراز', $order->city);
         $this->assertSame('پست', $order->shipping_method_name);
-        $this->assertSame('عسل عشایری نمونه', $item->product_name);
+        $this->assertSame('عسل طبیعی نمونه', $item->product_name);
         $this->assertSame(480000, $item->unit_price);
     }
 

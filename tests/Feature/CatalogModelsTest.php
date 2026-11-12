@@ -29,10 +29,10 @@ class CatalogModelsTest extends TestCase
     public function test_persian_slug_is_generated_from_name(): void
     {
         $category = Category::create(['name' => 'عسل']);
-        $product = Product::create(['category_id' => $category->id, 'name' => 'عسل عشایری ۱ کیلویی']);
+        $product = Product::create(['category_id' => $category->id, 'name' => 'عسل طبیعی ۱ کیلویی']);
 
         $this->assertSame('عسل', $category->slug);
-        $this->assertSame('عسل-عشایری-1-کیلویی', $product->slug);
+        $this->assertSame('عسل-طبیعی-1-کیلویی', $product->slug);
     }
 
     public function test_zwnj_is_removed_from_slug(): void
@@ -62,9 +62,9 @@ class CatalogModelsTest extends TestCase
 
     public function test_custom_slug_is_kept(): void
     {
-        $product = Product::factory()->create(['name' => 'عسل', 'slug' => 'tribal-honey']);
+        $product = Product::factory()->create(['name' => 'عسل', 'slug' => 'natural-honey']);
 
-        $this->assertSame('tribal-honey', $product->slug);
+        $this->assertSame('natural-honey', $product->slug);
     }
 
     public function test_new_products_are_inactive_by_default(): void

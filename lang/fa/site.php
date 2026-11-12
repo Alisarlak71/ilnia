@@ -11,14 +11,14 @@ return [
     'slogan_campaign' => 'اصلش را می‌فروشیم، نه ادعایش را',
 
     // Default description for search engines and link previews (pages without their own).
-    'meta_description' => 'ایلنیا؛ محصولات کشاورزی و عشایری به رسم نیاکان. اصلش را می‌فروشیم، نه ادعایش را.',
+    'meta_description' => 'ایلنیا؛ عسل طبیعی و محصولات اصیل، به رسم نیاکان. اصلش را می‌فروشیم، نه ادعایش را.',
 
     'skip_to_content' => 'رفتن به محتوای اصلی',
     'main_nav' => 'منوی اصلی',
     'nav_home' => 'خانه',
     'nav_products' => 'محصولات',
 
-    'footer_about' => 'محصولات کشاورزی و عشایری، به همان روشی که نیاکان ایل تولید می‌کردند.',
+    'footer_about' => 'عسل طبیعی و محصولات اصیل؛ همان‌طور که طبیعت می‌دهد، بی‌اغراق و بی‌ادعای توخالی.',
     'footer_nav' => 'پیوندهای فوتر',
     'footer_menu' => 'دسترسی سریع',
     'footer_info' => 'اطلاعات',
