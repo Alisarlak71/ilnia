@@ -72,13 +72,10 @@
         <div class="mt-12 grid gap-6 sm:grid-cols-3">
             @foreach (__('home.values') as $i => $value)
                 {{-- Card: soft shadow at rest; on hover it lifts, a gold line draws across the top,
-                     the icon fills with gold and the faint number warms up. --}}
+                     the icon fills with gold. --}}
                 <div class="value-card group relative isolate overflow-hidden rounded-card border border-line bg-paper px-6 pb-8 pt-9 text-center shadow-[0_1px_2px_rgba(30,26,22,0.05),0_8px_24px_-16px_rgba(30,26,22,0.25)] transition duration-500 ease-out hover:-translate-y-1.5 hover:border-gold-deep/40 hover:shadow-[0_2px_4px_rgba(30,26,22,0.05),0_28px_50px_-24px_rgba(168,115,27,0.45)] active:translate-y-0 active:scale-[.99] motion-reduce:transform-none motion-reduce:transition-none">
                     {{-- Gold line drawn from the centre on hover --}}
                     <span class="absolute inset-x-0 top-0 mx-auto h-0.5 w-0 bg-gradient-to-l from-transparent via-gold-deep to-transparent transition-all duration-700 ease-out group-hover:w-full" aria-hidden="true"></span>
-
-                    {{-- Large faint number in the corner --}}
-                    <span class="pointer-events-none absolute -bottom-6 end-3 -z-10 select-none text-[7rem] font-black leading-none text-gold-deep/[0.06] transition duration-700 group-hover:-translate-y-2 group-hover:text-gold-deep/[0.14]" aria-hidden="true">{{ \App\Support\Digits::toPersian($i + 1) }}</span>
 
                     {{-- Icon badge --}}
                     <span class="mx-auto flex size-14 items-center justify-center rounded-full border border-gold-deep/30 bg-cream text-gold-deep transition duration-500 group-hover:rotate-[8deg] group-hover:scale-110 group-hover:border-gold-deep group-hover:bg-gold-deep group-hover:text-cream" aria-hidden="true">
