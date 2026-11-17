@@ -31,7 +31,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1E1A16">
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
@@ -59,11 +59,19 @@
     {{-- Fonts first, so text never flashes in a fallback face (slow connections, tunnels). --}}
     <link rel="preload" href="{{ asset('fonts/vazirmatn-variable.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ asset('fonts/reem-kufi-600-arabic.woff2') }}" as="font" type="font/woff2" crossorigin>
+    {{-- Declared here (not in app.css) so the URLs are on this site's own address, also under `npm run dev`
+         where app.css comes from the Vite server. Files: public/fonts (self-hosted, OFL). --}}
+    <style>
+        @font-face { font-family: 'Vazirmatn'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('{{ asset('fonts/vazirmatn-variable.woff2') }}') format('woff2'); }
+        @font-face { font-family: 'Reem Kufi'; font-style: normal; font-weight: 600; font-display: swap; src: url('{{ asset('fonts/reem-kufi-600-arabic.woff2') }}') format('woff2'); }
+        @font-face { font-family: 'Cinzel'; font-style: normal; font-weight: 600; font-display: swap; src: url('{{ asset('fonts/cinzel-600-latin.woff2') }}') format('woff2'); }
+    </style>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{ $head ?? '' }}
 </head>
-<body class="flex min-h-screen flex-col bg-cream font-sans text-ink antialiased">
+{{-- Bottom padding on phones = height of the bottom bar (h-16) + the iPhone home indicator. --}}
+<body class="flex min-h-screen flex-col bg-cream pb-[calc(4rem+env(safe-area-inset-bottom))] font-sans text-ink antialiased md:pb-0">
     <a href="#main"
        class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-btn focus:bg-paper focus:px-4 focus:py-2 focus:text-ink">
         {{ __('site.skip_to_content') }}
@@ -76,5 +84,7 @@
     </main>
 
     <x-site.footer />
+
+    <x-site.bottom-nav />
 </body>
 </html>

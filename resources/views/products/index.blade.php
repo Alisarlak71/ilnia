@@ -9,24 +9,25 @@
 <x-layouts.app :title="$category ? $category->name : __('shop.products_title')"
                :description="__('shop.meta_products', ['category' => $category?->name ?? __('shop.products_title')])"
                :canonical="$canonical">
-    <section class="mx-auto max-w-6xl px-4 py-10 sm:py-14">
-        <header class="text-center">
-            <h1 class="text-3xl font-extrabold">{{ $category?->name ?? __('shop.products_title') }}</h1>
-            <x-ornament class="mt-4" />
+    <section class="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+        {{-- Shop-style heading: title at the start, product count beside it --}}
+        <header class="flex items-end justify-between gap-4 border-b border-line pb-4">
+            <h1 class="text-2xl font-extrabold sm:text-3xl">{{ $category?->name ?? __('shop.products_title') }}</h1>
             @if ($products->total() > 0)
-                <p class="mt-4 text-sm text-muted">
+                <p class="shrink-0 text-sm text-muted">
                     {{ __('shop.products_count', ['count' => \App\Support\Digits::toPersian($products->total())]) }}
                 </p>
             @endif
         </header>
 
         @if ($categories->count() > 1)
-            <nav aria-label="{{ __('shop.category_filter') }}" class="mt-8">
-                <ul class="flex flex-wrap justify-center gap-2">
+            <nav aria-label="{{ __('shop.category_filter') }}" class="mt-5">
+                {{-- One row that scrolls sideways on phones --}}
+                <ul class="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:flex-wrap">
                     <li>
                         <a href="{{ route('products.index') }}"
                            @class([
-                               'inline-block rounded-btn border px-4 py-2 text-sm transition-colors',
+                               'inline-block whitespace-nowrap rounded-full border px-4 py-2 text-sm transition-colors',
                                'border-ink bg-ink text-cream' => ! $category,
                                'border-line bg-paper hover:border-gold-deep' => $category,
                            ])
@@ -39,7 +40,7 @@
                         <li>
                             <a href="{{ route('products.index', ['category' => $item->slug]) }}"
                                @class([
-                                   'inline-block rounded-btn border px-4 py-2 text-sm transition-colors',
+                                   'inline-block whitespace-nowrap rounded-full border px-4 py-2 text-sm transition-colors',
                                    'border-ink bg-ink text-cream' => $current,
                                    'border-line bg-paper hover:border-gold-deep' => ! $current,
                                ])
@@ -58,7 +59,7 @@
                 <p class="mt-4 text-muted">{{ __('shop.products_empty') }}</p>
             </div>
         @else
-            <div class="mt-10 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+            <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
                 @foreach ($products as $product)
                     <x-product-card :product="$product" />
                 @endforeach

@@ -8,10 +8,13 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 
 /**
- * Cart icon with item count in the header. Refreshes when a "cart-updated" event is dispatched.
+ * Cart link with item count. Refreshes when a "cart-updated" event is dispatched.
+ * Two looks: "header" (icon in the top bar, desktop) and "tab" (icon + label in the phone bottom bar).
  */
 class CartIcon extends Component
 {
+    public string $variant = 'header';
+
     #[On('cart-updated')]
     public function refreshCount(): void
     {
