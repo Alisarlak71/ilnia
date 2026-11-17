@@ -1,6 +1,4 @@
 {
-  "0": "Cart & Storefront Livewire",
-  "3": "Order Status Lifecycle",
   "6": "Filament Resources",
   "7": "Address Book Tests",
   "11": "Admin Tables",
@@ -8,7 +6,6 @@
   "13": "Payment Service Tests",
   "15": "Frontend Build Tooling",
   "16": "Orders Admin Tests",
-  "18": "Storefront Controllers",
   "20": "SMS Service & Kavenegar",
   "21": "Admin Panel Access",
   "23": "Shipping Calculator",
@@ -17,7 +14,6 @@
   "27": "Input Normalizers (Mobile, Weight)",
   "28": "Product Page Tests",
   "29": "Admin List Pages",
-  "30": "Product Variants & Cart Lines",
   "31": "App Boot & Security",
   "37": "0001_01_01_000000_create_users_table",
   "40": "CartPageTest",
