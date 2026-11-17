@@ -60,6 +60,16 @@ class FooterTest extends TestCase
         $this->assertStringNotContainsString('ble.ir', $footer);
     }
 
+    public function test_demo_flag_shows_placeholders_in_production(): void
+    {
+        $this->app['env'] = 'production';
+        config(['shop.social' => ['instagram' => '', 'telegram' => '', 'bale' => ''], 'shop.placeholder_links' => true]);
+        $footer = $this->footer();
+
+        $this->assertStringContainsString('ما را دنبال کنید', $footer);
+        $this->assertStringContainsString('href="#"', $footer);
+    }
+
     public function test_configured_social_links_are_shown(): void
     {
         config(['shop.social' => ['instagram' => 'ilnia_sample', 'telegram' => 'ilnia_sample', 'bale' => 'ilnia_sample']]);
