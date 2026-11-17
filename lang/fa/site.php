@@ -8,10 +8,11 @@ return [
     'name_latin' => 'ILNIA',
 
     'slogan_primary' => 'به رسم نیاکان',
-    'slogan_campaign' => 'اصلش را می‌فروشیم، نه ادعایش را',
+    // Site uses the colloquial version (owner's decision, 1405/08/26); packaging keeps brand.json's formal one.
+    'slogan_campaign' => 'اصلشو می‌فروشیم، نه ادعاشو',
 
     // Default description for search engines and link previews (pages without their own).
-    'meta_description' => 'ایلنیا؛ عسل طبیعی و محصولات اصیل، به رسم نیاکان. اصلش را می‌فروشیم، نه ادعایش را.',
+    'meta_description' => 'ایلنیا؛ عسل طبیعی و محصولات اصیل، به رسم نیاکان. اصلشو می‌فروشیم، نه ادعاشو.',
 
     'skip_to_content' => 'رفتن به محتوای اصلی',
     'main_nav' => 'منوی اصلی',

@@ -17,7 +17,7 @@ class HomePageTest extends TestCase
         $response = $this->get('/');
 
         $response->assertOk();
-        $response->assertSeeInOrder(['اصلش را می‌فروشیم،', 'نه ادعایش را']);
+        $response->assertSeeInOrder(['اصلشو می‌فروشیم،', 'نه ادعاشو']);
         $response->assertSee('اصالت');
         $response->assertSee('صداقت');
         $response->assertSee('لوکس');
