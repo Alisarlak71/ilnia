@@ -59,6 +59,13 @@
     {{-- Fonts first, so text never flashes in a fallback face (slow connections, tunnels). --}}
     <link rel="preload" href="{{ asset('fonts/vazirmatn-variable.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ asset('fonts/reem-kufi-600-arabic.woff2') }}" as="font" type="font/woff2" crossorigin>
+    {{-- Declared here (not in app.css) so the URLs are on this site's own address, also under `npm run dev`
+         where app.css comes from the Vite server. Files: public/fonts (self-hosted, OFL). --}}
+    <style>
+        @font-face { font-family: 'Vazirmatn'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('{{ asset('fonts/vazirmatn-variable.woff2') }}') format('woff2'); }
+        @font-face { font-family: 'Reem Kufi'; font-style: normal; font-weight: 600; font-display: swap; src: url('{{ asset('fonts/reem-kufi-600-arabic.woff2') }}') format('woff2'); }
+        @font-face { font-family: 'Cinzel'; font-style: normal; font-weight: 600; font-display: swap; src: url('{{ asset('fonts/cinzel-600-latin.woff2') }}') format('woff2'); }
+    </style>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{ $head ?? '' }}
