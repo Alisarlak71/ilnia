@@ -15,6 +15,10 @@ return [
         'bale' => ltrim((string) env('SOCIAL_BALE', ''), '@'),
     ],
 
+    // Demo sites only (e.g. the Vercel demo): show social/support links that are not set yet, with a
+    // "#" link, even in production, so the design can be seen. Keep false on the real site (honesty rule).
+    'placeholder_links' => (bool) env('SHOW_PLACEHOLDER_LINKS', false),
+
     // Floating support button (bottom right): WhatsApp mobile number (any format, e.g. 0912…),
     // Telegram and Bale usernames (no @). Empty = that link is not shown on the live site; if all
     // are empty the button is hidden. Outside production empty ones show with a "#" link (design preview).

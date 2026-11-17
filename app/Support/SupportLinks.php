@@ -6,8 +6,8 @@ namespace App\Support;
  * Links for the floating support button, built from config('shop.support') (.env SUPPORT_*).
  *
  * Honesty rule: in production an empty or invalid account is left out, so the site never links to
- * an account that does not exist. Outside production it is kept with a "#" link, so the design can
- * be seen before the real accounts are set.
+ * an account that does not exist. Outside production (or on a demo with SHOW_PLACEHOLDER_LINKS=true)
+ * it is kept with a "#" link, so the design can be seen before the real accounts are set.
  *
  *   SupportLinks::all()  // [['key' => 'whatsapp', 'url' => 'https://wa.me/98912…'], …]
  */
@@ -24,12 +24,18 @@ final class SupportLinks
 
             if ($url !== null) {
                 $links[] = ['key' => $key, 'url' => $url];
-            } elseif (! app()->isProduction()) {
+            } elseif (self::showPlaceholders()) {
                 $links[] = ['key' => $key, 'url' => '#'];
             }
         }
 
         return $links;
+    }
+
+    /** Show not-yet-set accounts as "#" links: outside production, or on a demo site. */
+    public static function showPlaceholders(): bool
+    {
+        return ! app()->isProduction() || (bool) config('shop.placeholder_links');
     }
 
     private static function url(string $key, string $value): ?string

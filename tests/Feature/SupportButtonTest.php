@@ -44,6 +44,15 @@ class SupportButtonTest extends TestCase
         $this->assertSame(['#', '#', '#'], array_column(SupportLinks::all(), 'url'));
     }
 
+    public function test_demo_flag_shows_placeholders_in_production(): void
+    {
+        config(['shop.support' => ['whatsapp' => '', 'telegram' => 'ilnia', 'bale' => ''], 'shop.placeholder_links' => true]);
+        $this->app['env'] = 'production';
+
+        $this->assertSame(['#', 'https://t.me/ilnia', '#'], array_column(SupportLinks::all(), 'url'));
+        $this->assertStringContainsString('support-links', (string) $this->blade('<x-site.support-button />'));
+    }
+
     public function test_button_is_rendered_with_links(): void
     {
         config(['shop.support' => ['whatsapp' => '09123456789', 'telegram' => 'ilnia_support', 'bale' => '']]);

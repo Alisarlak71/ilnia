@@ -2,7 +2,8 @@
     Dark site footer: brand · quick menu · info pages (published ones only) · social accounts.
     Social accounts come from config('shop.social') (.env SOCIAL_*). In production an empty one is
     not shown, so the live site never links to an account that does not exist; outside production
-    it shows with a "#" link, so the design can be seen before the real accounts are set.
+    it shows with a "#" link, so the design can be seen before the real accounts are set (also on a demo
+    site with SHOW_PLACEHOLDER_LINKS=true).
 --}}
 @php
     $pages = \App\Models\Page::published()->get(['slug', 'title'])
@@ -24,7 +25,7 @@
         $handle = $handles[$key] ?? '';
         if (filled($handle)) {
             $social[] = ['key' => $key, 'url' => $base.rawurlencode($handle), 'handle' => $handle];
-        } elseif (! app()->isProduction()) {
+        } elseif (\App\Support\SupportLinks::showPlaceholders()) {
             $social[] = ['key' => $key, 'url' => '#', 'handle' => null]; // placeholder until set in .env
         }
     }
