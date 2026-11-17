@@ -48,4 +48,15 @@ class BottomNavTest extends TestCase
 
         $this->get('/')->assertSee('ارسال رایگان برای سفارش‌های ۴ کیلوگرم و بیشتر');
     }
+
+    public function test_cart_icon_has_a_single_root_element_in_both_looks(): void
+    {
+        // An @if at the root makes Livewire nest the updated link inside the old one ("سبد خرید" twice).
+        foreach (['header', 'tab'] as $variant) {
+            $html = trim(Livewire::test(CartIcon::class, ['variant' => $variant])->html());
+
+            $this->assertStringStartsWith('<div', $html, "variant {$variant}");
+            $this->assertStringEndsWith('</div>', $html, "variant {$variant}");
+        }
+    }
 }
