@@ -86,5 +86,7 @@
     <x-site.footer />
 
     <x-site.bottom-nav />
+
+    <x-site.support-button />
 </body>
 </html>
