@@ -3,36 +3,11 @@
 /* Brand colors, fonts and radii (single source of truth: brand/tokens.css). Do not redefine here. */
 @import '../../brand/tokens.css';
 
-/* Vazirmatn — self-hosted variable font (weights 100–900), one file shared with the admin panel.
-   Served from a fixed path in public/fonts so the layout can preload it (no flash of Tahoma). */
-@font-face {
-    font-family: 'Vazirmatn';
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('/fonts/vazirmatn-variable.woff2') format('woff2');
-}
+/* Fonts (Vazirmatn, Reem Kufi, Cinzel) are declared in the layout <head>, not here: under `npm run dev`
+   this file is served by Vite on another port, where /fonts/... does not exist (fonts fell back to Tahoma). */
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
-
-/* Reem Kufi — ONLY for the word «ایلنیا». Self-hosted in public/fonts (OFL). */
-@font-face {
-    font-family: 'Reem Kufi';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url('/fonts/reem-kufi-600-arabic.woff2') format('woff2');
-}
-
-/* Cinzel — ONLY for the Latin word ILNIA / ilnia.ir. Self-hosted in public/fonts (OFL). */
-@font-face {
-    font-family: 'Cinzel';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url('/fonts/cinzel-600-latin.woff2') format('woff2');
-}
 
 /* Alpine: hide elements until Alpine has started. */
 [x-cloak] {

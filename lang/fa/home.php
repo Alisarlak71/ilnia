@@ -6,8 +6,8 @@
 
 return [
     'hero_eyebrow' => 'عسل طبیعی و محصولات اصیل',
-    'hero_title_1' => 'اصلش را می‌فروشیم،',
-    'hero_title_2' => 'نه ادعایش را',
+    'hero_title_1' => 'اصلشو می‌فروشیم،',
+    'hero_title_2' => 'نه ادعاشو',
     'hero_text' => 'عسل و محصولات طبیعی، همان‌طور که از دل طبیعت به دست می‌آیند. بی‌اغراق و بی‌ادعای توخالی.',
     'hero_cta' => 'دیدن محصولات',
     'hero_secondary' => 'ایلنیا یعنی چه؟',
@@ -21,7 +21,19 @@ return [
         ['title' => 'لوکس', 'text' => 'کالایی ارزشمند، با بسته‌بندی‌ای درخور آن؛ برای سفرهٔ خودتان یا هدیه به عزیزانتان.'],
     ],
 
-    'products_title' => 'محصولات',
+    // Shop services strip under the hero: facts that are true today only (no gateway/payment claims yet).
+    'services_title' => 'خرید از ایلنیا',
+    'services' => [
+        'post' => ['title' => 'ارسال با پست', 'text' => 'هزینهٔ ارسال پیش از پرداخت روشن است'],
+        'free' => ['title' => 'ارسال رایگان', 'text' => 'برای سفارش‌های :weight کیلوگرم و بیشتر'],
+        'weight' => ['title' => 'وزن دلخواه', 'text' => 'هر محصول را در وزن دلخواهتان بخرید'],
+        'login' => ['title' => 'خرید ساده', 'text' => 'ورود فقط با شمارهٔ موبایل'],
+    ],
+    'categories_title' => 'دسته‌بندی‌ها',
+
+    'products_title' => 'تازه‌ترین محصولات',
+    'products_subtitle' => 'وزن را در صفحهٔ هر محصول انتخاب کنید',
+    'products_all' => 'مشاهدهٔ همه',
     'products_empty' => 'به‌زودی محصولات ایلنیا اینجا قرار می‌گیرند.',
 
     'story_eyebrow' => 'به رسم نیاکان',

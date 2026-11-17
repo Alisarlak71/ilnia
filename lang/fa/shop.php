@@ -11,6 +11,8 @@ return [
     'products_title' => 'محصولات',
     'all_products' => 'همهٔ محصولات',
     'view_product' => 'مشاهدهٔ محصول',
+    'choose_and_buy' => 'انتخاب و خرید',
+    'notify_soon' => 'به‌زودی',
     'category_filter' => 'دسته‌بندی محصولات',
     'products_count' => ':count محصول',
     'products_empty' => 'هنوز محصولی اینجا نیست. به‌زودی اضافه می‌شود.',

@@ -6,7 +6,7 @@
 | `cinzel-600-latin.woff2` | Cinzel 600، زیرمجموعهٔ لاتین | Google Fonts (fonts.gstatic.com، v26) | SIL Open Font License 1.1 |
 
 - Reem Kufi **فقط** برای کلمهٔ «ایلنیا» و Cinzel **فقط** برای ILNIA استفاده می‌شوند.
-- Vazirmatn اینجا نیست؛ از پکیج npm `vazirmatn` می‌آید و Vite آن را در `public/build` می‌گذارد.
+- هر سه فونت سایت در `<head>` فایل `resources/views/components/layouts/app.blade.php` تعریف می‌شوند، نه در `app.css`. در حالت `npm run dev` فایل CSS از سرور Vite (پورت دیگر) می‌آید و آنجا مسیر `/fonts/` وجود ندارد.
 
 ## پنل مدیریت (`/admin`)
 - `admin.css` فونت‌های پنل Filament را تعریف می‌کند و `AdminPanelProvider` آن را بارگذاری می‌کند.

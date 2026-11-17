@@ -14,4 +14,13 @@ return [
         'telegram' => ltrim((string) env('SOCIAL_TELEGRAM', ''), '@'),
         'bale' => ltrim((string) env('SOCIAL_BALE', ''), '@'),
     ],
+
+    // Floating support button (bottom right): WhatsApp mobile number (any format, e.g. 0912…),
+    // Telegram and Bale usernames (no @). Empty = that link is not shown on the live site; if all
+    // are empty the button is hidden. Outside production empty ones show with a "#" link (design preview).
+    'support' => [
+        'whatsapp' => (string) env('SUPPORT_WHATSAPP', ''),
+        'telegram' => ltrim((string) env('SUPPORT_TELEGRAM', ''), '@'),
+        'bale' => ltrim((string) env('SUPPORT_BALE', ''), '@'),
+    ],
 ];

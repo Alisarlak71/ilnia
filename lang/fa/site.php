@@ -8,15 +8,17 @@ return [
     'name_latin' => 'ILNIA',
 
     'slogan_primary' => 'به رسم نیاکان',
-    'slogan_campaign' => 'اصلش را می‌فروشیم، نه ادعایش را',
+    // Site uses the colloquial version (owner's decision, 1405/08/26); packaging keeps brand.json's formal one.
+    'slogan_campaign' => 'اصلشو می‌فروشیم، نه ادعاشو',
 
     // Default description for search engines and link previews (pages without their own).
-    'meta_description' => 'ایلنیا؛ عسل طبیعی و محصولات اصیل، به رسم نیاکان. اصلش را می‌فروشیم، نه ادعایش را.',
+    'meta_description' => 'ایلنیا؛ عسل طبیعی و محصولات اصیل، به رسم نیاکان. اصلشو می‌فروشیم، نه ادعاشو.',
 
     'skip_to_content' => 'رفتن به محتوای اصلی',
     'main_nav' => 'منوی اصلی',
     'nav_home' => 'خانه',
     'nav_products' => 'محصولات',
+    'bottom_nav' => 'منوی پایین',
 
     'footer_about' => 'عسل طبیعی و محصولات اصیل؛ همان‌طور که طبیعت می‌دهد، بی‌اغراق و بی‌ادعای توخالی.',
     'footer_nav' => 'پیوندهای فوتر',
@@ -29,6 +31,13 @@ return [
     'social_instagram' => 'اینستاگرام',
     'social_telegram' => 'تلگرام',
     'social_bale' => 'بله',
+    'support_title' => 'پشتیبانی ایلنیا',
+    'support_open' => 'پشتیبانی: باز کردن راه‌های تماس',
+    'support_close' => 'بستن راه‌های تماس',
+    'support_via' => 'پشتیبانی در :name (در صفحهٔ تازه)',
+    'support_whatsapp' => 'واتس‌اپ',
+    'support_telegram' => 'تلگرام',
+    'support_bale' => 'بله',
     'social_open' => ':name ایلنیا (در صفحهٔ تازه)',
     'page_draft' => 'پیش‌نویس: این صفحه هنوز منتشر نشده و فقط مدیر آن را می‌بیند. بعد از کامل کردن جاهای [ ] در پنل، «منتشر شود» را روشن کنید.',
     'shipping_cost_label' => 'هزینهٔ ارسال با :method',
