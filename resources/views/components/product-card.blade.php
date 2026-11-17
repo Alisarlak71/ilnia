@@ -33,25 +33,26 @@
         @endif
     </div>
 
+    {{-- Every row below has a fixed height (title: always 2 lines, weights: 1 line, price: 1 line), so all
+         cards are exactly the same size whatever the name length, number of weights or price. --}}
     <div class="flex flex-1 flex-col p-3 sm:p-4">
-        <h3 class="text-sm font-extrabold leading-6 transition-colors duration-500 group-hover:text-gold-deep sm:text-base sm:leading-7">
+        <h3 class="line-clamp-2 min-h-12 text-sm font-extrabold leading-6 transition-colors duration-500 group-hover:text-gold-deep sm:min-h-14 sm:text-base sm:leading-7">
             {{-- The link covers the whole card (after:inset-0). --}}
-            <a href="{{ route('products.show', $product) }}" class="outline-none after:absolute after:inset-0">{{ $product->name }}</a>
+            <a href="{{ route('products.show', $product) }}" title="{{ $product->name }}" class="outline-none after:absolute after:inset-0">{{ $product->name }}</a>
         </h3>
 
-        @if ($activeVariants->isNotEmpty())
-            <ul class="mt-2 flex flex-wrap gap-1" aria-label="{{ __('shop.choose_weight') }}">
-                @foreach ($activeVariants->take(3) as $variant)
-                    <li class="rounded-full border border-line bg-cream px-2 py-0.5 text-[0.7rem] leading-5 text-muted">{{ $variant->title }}</li>
-                @endforeach
-                @if ($activeVariants->count() > 3)
-                    <li class="px-1 text-[0.7rem] leading-5 text-muted">+{{ \App\Support\Digits::toPersian($activeVariants->count() - 3) }}</li>
-                @endif
-            </ul>
-        @endif
+        {{-- Weights: one line only; extra ones become "+n" --}}
+        <ul class="mt-2 flex h-6 flex-nowrap items-center gap-1 overflow-hidden" aria-label="{{ __('shop.choose_weight') }}">
+            @foreach ($activeVariants->take(2) as $variant)
+                <li class="shrink-0 whitespace-nowrap rounded-full border border-line bg-cream px-2 text-[0.7rem] leading-5 text-muted">{{ $variant->title }}</li>
+            @endforeach
+            @if ($activeVariants->count() > 2)
+                <li class="shrink-0 px-1 text-[0.7rem] leading-5 text-muted">+{{ \App\Support\Digits::toPersian($activeVariants->count() - 2) }}</li>
+            @endif
+        </ul>
 
-        <div class="mt-auto pt-3">
-            <p class="text-base font-black text-ink sm:text-lg">
+        <div class="mt-auto pt-2">
+            <p class="flex h-7 items-center truncate text-base font-black text-ink sm:h-8 sm:text-lg">
                 @if ($startingPrice !== null)
                     {{ __('shop.from_price', ['price' => \App\Support\Toman::format($startingPrice)]) }}
                 @else
@@ -62,7 +63,7 @@
             {{-- Decorative: the whole card is already the link --}}
             <span @class([
                     'mt-3 flex items-center justify-center gap-2 rounded-btn py-2 text-sm font-bold transition-colors duration-300',
-                    'bg-ink text-cream group-hover:bg-gold-deep' => $available,
+                    'border border-transparent bg-ink text-cream group-hover:bg-gold-deep' => $available, // same border width as the other state, so heights match
                     'border border-line text-muted' => ! $available,
                   ]) aria-hidden="true">
                 @if ($available)

@@ -59,7 +59,7 @@
                 <p class="mt-4 text-muted">{{ __('shop.products_empty') }}</p>
             </div>
         @else
-            <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
+            <div class="mt-6 grid auto-rows-fr grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
                 @foreach ($products as $product)
                     <x-product-card :product="$product" />
                 @endforeach
