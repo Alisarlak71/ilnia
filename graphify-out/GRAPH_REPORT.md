@@ -1,17 +1,17 @@
 # Graph Report - ilnia-shop  (2026-11-17)
 
 ## Corpus Check
-- 239 files · ~48,924 words
+- 239 files · ~49,015 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 24 file(s) not represented in the graph (top: (none) 17, .woff2 3, .css 2)
 
 ## Summary
-- 1521 nodes · 3232 edges · 160 communities (47 shown, 113 thin omitted)
+- 1522 nodes · 3233 edges · 152 communities (49 shown, 103 thin omitted)
 - Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 190 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `28c505d1`
+- Built from commit: `6d180567`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -24,8 +24,8 @@
 - OrderForm.php
 - Filament Resources
 - Address Book Tests
-- Illuminate\Database\Eloquent\Model
-- PaymentStatus
+- Illuminate\Database\Eloquent\Factories\HasFactory
+- CatalogAdminTest.php
 - web.php
 - Admin Tables
 - Order Relation Managers
@@ -34,12 +34,12 @@
 - Frontend Build Tooling
 - Orders Admin Tests
 - Digits
-- AddressesPageTest
+- TestCase
 - Illuminate\Database\Eloquent\Factories\Factory
 - SMS Service & Kavenegar
 - Admin Panel Access
 - PaymentServiceTest.php
-- Shipping Calculator
+- ShippingMethod
 - Product Images
 - Catalog Model Tests
 - CatalogAdminTest
@@ -49,42 +49,37 @@
 - SupportButtonTest
 - App Boot & Security
 - AGENTS.md (Agent Guide)
-- PageResource.php
+- Filament\Tables\Table
 - SmsException
 - Product
-- LivewireSetupTest.php
+- ErrorPagesTest.php
 - 0001_01_01_000000_create_users_table
-- AddressesPage
-- DashboardTest
+- ProductVariant
+- Page
 - CartPageTest
 - StoreStats
 - AccountOrdersTest
 - Category
-- Filament\Resources\Pages\CreateRecord
-- CancelUnpaidOrdersTest.php
+- PaymentController.php
+- PHPUnit\Framework\TestCase
 - FreeShippingMessageTest
 - HasPersianSlug
 - Filament\Resources\Pages\EditRecord
-- KavenegarSmsDriver
-- IntegerInput
+- SeoController
+- IntegerInput.php
 - composer.json
 - composer.json (2)
 - OrdersAdminTest.php
 - ProductListPageTest
-- UserFactory.php
 - app
 - composer.json (3)
 - AdminPanelAccessTest
 - Filament\Schemas\Schema
-- Livewire\Component
 - SendOrderConfirmationSms
 - composer.json (4)
 - Illuminate\Database\Eloquent\Builder
 - composer.json (5)
 - ProductVariantFactory
-- ErrorPagesTest
-- CheckoutPage.php
-- User
 - addresses-page
 - composer.json (6)
 - 0001_01_01_000001_create_cache_table
@@ -95,7 +90,7 @@
 - 2026_11_12_000958_add_mobile_to_users_table
 - PagesTest
 - product-purchase
-- Illuminate\Http\Request
+- Order
 - checkout-page
 - 2026_11_11_232037_create_product_images_table
 - 2026_11_11_232039_create_product_variants_table
@@ -115,11 +110,9 @@
 - show
 - 500
 - 503
-- CheckoutPage
 - PageResource
 - PaymentService
-- BottomNavTest
-- ScreenSmsDriver
+- KavenegarSmsDriver
 - FooterTest
 - SeoTest
 - ScreenSmsDriverTest
@@ -152,42 +145,42 @@
 ## Import Cycles
 - None detected.
 
-## Communities (160 total, 113 thin omitted)
+## Communities (152 total, 103 thin omitted)
 
 ### Community 0 - "ProductVariant"
-Cohesion: 0.06
-Nodes (10): CartException, CartPage, {closure#1}(), ProductPurchase, {closure#2}(), ProductVariant, CartLine, CartService (+2 more)
+Cohesion: 0.09
+Nodes (5): CartException, CartPage, CartService, CartServiceTest, OrderServiceTest
 
 ### Community 1 - "OtpLoginTest"
 Cohesion: 0.08
 Nodes (16): LoginPage, OtpService, {closure#1}(), {closure#10}(), {closure#11}(), {closure#12}(), {closure#2}(), {closure#3}() (+8 more)
 
 ### Community 3 - "OrderStatus"
-Cohesion: 0.12
-Nodes (12): OrderStatus, Cancelled, Delivered, NeedsAttention, Paid, PaymentFailed, PendingPayment, Processing (+4 more)
+Cohesion: 0.06
+Nodes (20): OrderStatus, Cancelled, Delivered, NeedsAttention, Paid, PaymentFailed, PendingPayment, Processing (+12 more)
 
 ### Community 4 - "TestCase"
 Cohesion: 0.12
-Nodes (6): EditPage, CartIcon, LayoutTest, LogoComponentTest, OrderPricingTest, TestCase
+Nodes (4): EditPage, CartIcon, BottomNavTest, OrderPricingTest
 
 ### Community 5 - "OrderForm.php"
-Cohesion: 0.12
-Nodes (15): {closure#1}(), {closure#2}(), {closure#3}(), {closure#1}(), {closure#10}(), {closure#2}(), {closure#3}(), {closure#4}() (+7 more)
+Cohesion: 0.13
+Nodes (11): {closure#1}(), {closure#2}(), {closure#3}(), {closure#1}(), {closure#7}(), {closure#8}(), {closure#5}(), {closure#2}() (+3 more)
 
 ### Community 6 - "Filament Resources"
-Cohesion: 0.19
-Nodes (6): CategoryResource, CategoriesTable, ProductResource, ProductsTable, ShippingMethodResource, ShippingMethodsTable
+Cohesion: 0.22
+Nodes (6): CategoryResource, CreateCategory, CreateProduct, ProductResource, CreateShippingMethod, ShippingMethodResource
 
-### Community 8 - "Illuminate\Database\Eloquent\Model"
-Cohesion: 0.15
-Nodes (5): Address, OrderItem, {closure#1}(), {closure#2}(), ProductImage
+### Community 8 - "Illuminate\Database\Eloquent\Factories\HasFactory"
+Cohesion: 0.17
+Nodes (3): Address, OrderItem, AddressFactory
 
-### Community 9 - "PaymentStatus"
-Cohesion: 0.20
-Nodes (6): PaymentStatus, Cancelled, Failed, Paid, Pending, CancelUnpaidOrdersTest
+### Community 9 - "CatalogAdminTest.php"
+Cohesion: 0.21
+Nodes (4): {closure#1}(), {closure#2}(), ProductImage, ProductImageFactory
 
 ### Community 10 - "web.php"
-Cohesion: 0.15
+Cohesion: 0.16
 Nodes (6): OrderController, Controller, HomeController, PageController, ProductController, POST /logout()
 
 ### Community 11 - "Admin Tables"
@@ -199,28 +192,32 @@ Cohesion: 0.15
 Nodes (9): {closure#1}(), {closure#2}(), {closure#3}(), {closure#5}(), {closure#6}(), {closure#2}(), {closure#3}(), Jalali (+1 more)
 
 ### Community 14 - "DevSampleSeederTest.php"
-Cohesion: 0.11
-Nodes (4): DatabaseSeeder, DevSampleSeeder, PageSeeder, DevSampleSeederTest
+Cohesion: 0.12
+Nodes (4): DatabaseSeeder, DevSampleSeeder, ShippingMethodSeeder, DevSampleSeederTest
 
 ### Community 15 - "Frontend Build Tooling"
 Cohesion: 0.09
 Nodes (23): dependencies, vazirmatn, devDependencies, concurrently, laravel-vite-plugin, tailwindcss, @tailwindcss/vite, vite (+15 more)
 
+### Community 17 - "Digits"
+Cohesion: 0.15
+Nodes (7): {closure#10}(), {closure#2}(), {closure#3}(), {closure#4}(), {closure#9}(), Digits, DigitsTest
+
+### Community 18 - "TestCase"
+Cohesion: 0.19
+Nodes (3): LayoutTest, LogoComponentTest, TestCase
+
 ### Community 19 - "Illuminate\Database\Eloquent\Factories\Factory"
-Cohesion: 0.10
-Nodes (7): AddressFactory, CategoryFactory, OrderItemFactory, PaymentFactory, ProductFactory, ProductImageFactory, ShippingMethodFactory
+Cohesion: 0.12
+Nodes (5): CategoryFactory, OrderItemFactory, PaymentFactory, ProductFactory, ShippingMethodFactory
 
 ### Community 22 - "PaymentServiceTest.php"
 Cohesion: 0.11
-Nodes (8): {closure#1}(), {closure#1}(), {closure#1}(), {closure#3}(), {closure#5}(), {closure#6}(), {closure#3}(), {closure#4}()
+Nodes (9): {closure#1}(), {closure#1}(), {closure#1}(), {closure#1}(), {closure#3}(), {closure#5}(), {closure#6}(), {closure#3}() (+1 more)
 
-### Community 23 - "Shipping Calculator"
-Cohesion: 0.21
-Nodes (3): ShippingMethod, ShippingCalculator, ShippingCalculatorTest
-
-### Community 27 - "Input Normalizers (Mobile, Weight)"
-Cohesion: 0.17
-Nodes (3): Weight, MobileTest, WeightTest
+### Community 23 - "ShippingMethod"
+Cohesion: 0.05
+Nodes (10): AddressesPage, CheckoutPage, AddressForm, ShippingMethod, OrderPricing, OrderService, OrderTotals, ShippingCalculator (+2 more)
 
 ### Community 29 - "Admin List Pages"
 Cohesion: 0.19
@@ -234,33 +231,45 @@ Nodes (3): AppServiceProvider, GET /__ip(), SecurityTest
 Cohesion: 0.11
 Nodes (14): AGENTS.md (Agent Guide), Project .env Variables (KAVENEGAR_*, SMS_DRIVER, ZARINPAL_*), Fixed Tech Stack (PHP 8.5 + Laravel + Livewire + Filament + Tailwind), Brand Sheet Preview (preview.html), Brand Color Palette (ink, ink-soft, gold, gold-deep, honey, cream, paper, muted), Brand Assets README, brand.json (name, slogans, colors, paths), Logo Mark SVGs (logo-mark-gold / logo-mark-ink / favicon) (+6 more)
 
-### Community 33 - "PageResource.php"
+### Community 33 - "Filament\Tables\Table"
+Cohesion: 0.11
+Nodes (9): CategoriesTable, {closure#2}(), {closure#2}(), {closure#3}(), {closure#4}(), OrdersTable, ProductsTable, {closure#1}() (+1 more)
+
+### Community 34 - "SmsException"
 Cohesion: 0.16
-Nodes (4): {closure#2}(), {closure#2}(), {closure#4}(), {closure#1}()
+Nodes (4): OrderException, OtpException, SmsException, Mobile
 
 ### Community 35 - "Product"
-Cohesion: 0.13
+Cohesion: 0.18
 Nodes (6): {closure#2}(), {closure#3}(), {closure#4}(), {closure#6}(), {closure#1}(), Product
+
+### Community 36 - "ErrorPagesTest.php"
+Cohesion: 0.14
+Nodes (3): ErrorPagesTest, LivewireSetupTest, SetupCheckComponent
 
 ### Community 37 - "0001_01_01_000000_create_users_table"
 Cohesion: 0.23
 Nodes (6): {closure#1}(), {closure#2}(), {closure#3}(), {closure#1}(), {closure#2}(), {closure#3}()
 
-### Community 43 - "Category"
-Cohesion: 0.21
-Nodes (4): {closure#2}(), {closure#3}(), SeoController, Category
+### Community 38 - "ProductVariant"
+Cohesion: 0.27
+Nodes (3): {closure#1}(), ProductVariant, CartLine
 
-### Community 44 - "Filament\Resources\Pages\CreateRecord"
-Cohesion: 0.43
-Nodes (3): CreateCategory, CreateProduct, CreateShippingMethod
+### Community 39 - "Page"
+Cohesion: 0.29
+Nodes (4): {closure#3}(), {closure#4}(), Page, PageSeeder
+
+### Community 43 - "Category"
+Cohesion: 0.18
+Nodes (4): {closure#2}(), {closure#3}(), Category, HasPersianSlug
 
 ### Community 48 - "Filament\Resources\Pages\EditRecord"
-Cohesion: 0.14
-Nodes (4): EditCategory, EditOrder, EditProduct, EditShippingMethod
+Cohesion: 0.24
+Nodes (3): EditCategory, EditProduct, EditShippingMethod
 
-### Community 50 - "IntegerInput"
-Cohesion: 0.12
-Nodes (6): {closure#3}(), {closure#4}(), SecurityHeaders, {closure#1}(), Toman, TomanTest
+### Community 50 - "IntegerInput.php"
+Cohesion: 0.24
+Nodes (4): {closure#3}(), {closure#4}(), SecurityHeaders, {closure#1}()
 
 ### Community 51 - "composer.json"
 Cohesion: 0.22
@@ -272,7 +281,7 @@ Nodes (9): scripts, dev, post-autoload-dump, post-create-project-cmd, post-root-
 
 ### Community 53 - "OrdersAdminTest.php"
 Cohesion: 0.22
-Nodes (3): ItemsRelationManager, PaymentsRelationManager, ShippingMethodSeeder
+Nodes (3): EditOrder, ItemsRelationManager, PaymentsRelationManager
 
 ### Community 56 - "app"
 Cohesion: 0.32
@@ -283,24 +292,16 @@ Cohesion: 0.25
 Nodes (8): require-dev, fakerphp/faker, laravel/pail, laravel/pao, laravel/pint, mockery/mockery, nunomaduro/collision, phpunit/phpunit
 
 ### Community 59 - "Filament\Schemas\Schema"
-Cohesion: 0.15
+Cohesion: 0.13
 Nodes (4): IntegerInput, CategoryForm, ProductForm, ShippingMethodForm
 
 ### Community 62 - "composer.json (4)"
 Cohesion: 0.29
 Nodes (7): pestphp/pest-plugin, php-http/discovery, config, allow-plugins, optimize-autoloader, preferred-install, sort-packages
 
-### Community 63 - "Illuminate\Database\Eloquent\Builder"
-Cohesion: 0.14
-Nodes (4): {closure#3}(), {closure#4}(), OtpCode, Page
-
 ### Community 64 - "composer.json (5)"
 Cohesion: 0.33
 Nodes (6): require, filament/filament, laravel/framework, laravel/tinker, livewire/livewire, php
-
-### Community 67 - "CheckoutPage.php"
-Cohesion: 0.20
-Nodes (4): OrderException, OrderPricing, OrderService, OrderTotals
 
 ### Community 69 - "addresses-page"
 Cohesion: 0.40
@@ -314,9 +315,9 @@ Nodes (5): autoload, psr-4, App\\, Database\\Factories\\, Database\\Seeders\\
 Cohesion: 0.50
 Nodes (3): addToCart, decrement, increment
 
-### Community 80 - "Illuminate\Http\Request"
-Cohesion: 0.16
-Nodes (7): {closure#11}(), {closure#1}(), {closure#4}(), PaymentController, {closure#1}(), Order, {closure#1}()
+### Community 80 - "Order"
+Cohesion: 0.19
+Nodes (5): {closure#11}(), {closure#1}(), {closure#4}(), {closure#1}(), Order
 
 ### Community 81 - "checkout-page"
 Cohesion: 0.50
@@ -335,12 +336,12 @@ Cohesion: 0.67
 Nodes (3): extra, laravel, dont-discover
 
 ### Community 150 - "PaymentService"
-Cohesion: 0.16
+Cohesion: 0.19
 Nodes (4): CancelUnpaidOrdersCommand, PaymentException, Payment, PaymentService
 
-### Community 153 - "ScreenSmsDriver"
-Cohesion: 0.17
-Nodes (4): {closure#1}(), LogSmsDriver, ScreenSmsDriver, Mobile
+### Community 153 - "KavenegarSmsDriver"
+Cohesion: 0.33
+Nodes (3): {closure#1}(), KavenegarSmsDriver, LogSmsDriver
 
 ## Ambiguous Edges - Review These
 - `Brand Sheet Preview (preview.html)` → `Self-hosted Fonts (not Google Fonts)`  [AMBIGUOUS]
@@ -348,24 +349,24 @@ Nodes (4): {closure#1}(), LogSmsDriver, ScreenSmsDriver, Mobile
 
 ## Knowledge Gaps
 - **40 isolated node(s):** `PendingPayment`, `Paid`, `Processing`, `Shipped`, `Delivered` (+35 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 498 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **113 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 499 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **103 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `TestCase` connect `TestCase` to `ProductVariant`, `OtpLoginTest`, `OrderStatus`, `Address Book Tests`, `PaymentStatus`, `Admin Tables`, `Order Relation Managers`, `Payment Service Tests`, `DevSampleSeederTest.php`, `Orders Admin Tests`, `AddressesPageTest`, `SMS Service & Kavenegar`, `PaymentServiceTest.php`, `BottomNavTest`, `Product Images`, `Catalog Model Tests`, `CatalogAdminTest`, `FooterTest`, `Shipping Calculator`, `Product Page Tests`, `ScreenSmsDriver`, `ScreenSmsDriverTest`, `App Boot & Security`, `SeoTest`, `SupportButtonTest`, `.setUp`, `LivewireSetupTest.php`, `DashboardTest`, `CartPageTest`, `AccountOrdersTest`, `Category`, `CancelUnpaidOrdersTest.php`, `FreeShippingMessageTest`, `Filament\Resources\Pages\EditRecord`, `IntegerInput`, `OrdersAdminTest.php`, `ProductListPageTest`, `AdminPanelAccessTest`, `ErrorPagesTest`, `CheckoutPage.php`, `User`, `PagesTest`?**
-  _High betweenness centrality (0.145) - this node is a cross-community bridge._
+- **Why does `TestCase` connect `TestCase` to `ProductVariant`, `OtpLoginTest`, `OrderStatus`, `TestCase`, `OrderForm.php`, `Address Book Tests`, `CatalogAdminTest.php`, `Admin Tables`, `Order Relation Managers`, `Payment Service Tests`, `DevSampleSeederTest.php`, `Orders Admin Tests`, `SMS Service & Kavenegar`, `PaymentServiceTest.php`, `ShippingMethod`, `Product Images`, `Catalog Model Tests`, `FooterTest`, `CatalogAdminTest`, `Product Page Tests`, `ScreenSmsDriverTest`, `SeoTest`, `App Boot & Security`, `SupportButtonTest`, `ErrorPagesTest.php`, `ProductVariant`, `Page`, `CartPageTest`, `AccountOrdersTest`, `FreeShippingMessageTest`, `OrdersAdminTest.php`, `ProductListPageTest`, `AdminPanelAccessTest`, `PagesTest`?**
+  _High betweenness centrality (0.140) - this node is a cross-community bridge._
 - **What connects `PendingPayment`, `Paid`, `Processing` to the rest of the system?**
   _40 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `ProductVariant` be split into smaller, more focused modules?**
-  _Cohesion score 0.05996212918156953 - nodes in this community are weakly interconnected._
-- **Why does `User` connect `User` to `ProductVariant`, `OtpLoginTest`, `CancelUnpaidOrdersCommand.php`, `OrderStatus`, `TestCase`, `Address Book Tests`, `Illuminate\Database\Eloquent\Model`, `Admin Tables`, `Payment Service Tests`, `DevSampleSeederTest.php`, `AddressesPageTest`, `Illuminate\Database\Eloquent\Factories\Factory`, `Admin Panel Access`, `PaymentServiceTest.php`, `ScreenSmsDriver`, `FooterTest`, `App Boot & Security`, `SmsException`, `Product`, `AccountOrdersTest`, `CancelUnpaidOrdersTest.php`, `Filament\Resources\Pages\EditRecord`, `IntegerInput`, `OrdersAdminTest.php`, `UserFactory.php`, `AdminPanelAccessTest`, `ErrorPagesTest`, `CheckoutPage.php`, `CheckoutPage`?**
-  _High betweenness centrality (0.105) - this node is a cross-community bridge._
+  _Cohesion score 0.08576576576576576 - nodes in this community are weakly interconnected._
+- **Why does `User` connect `AccountOrdersTest` to `ProductVariant`, `OtpLoginTest`, `CancelUnpaidOrdersCommand.php`, `OrderStatus`, `TestCase`, `Address Book Tests`, `Illuminate\Database\Eloquent\Factories\HasFactory`, `CatalogAdminTest.php`, `Admin Tables`, `Payment Service Tests`, `DevSampleSeederTest.php`, `Admin Panel Access`, `PaymentServiceTest.php`, `ShippingMethod`, `FooterTest`, `ScreenSmsDriverTest`, `App Boot & Security`, `SmsException`, `ErrorPagesTest.php`, `Page`, `Category`, `HasPersianSlug`, `OrdersAdminTest.php`, `AdminPanelAccessTest`, `Order`?**
+  _High betweenness centrality (0.100) - this node is a cross-community bridge._
 - **Should `OtpLoginTest` be split into smaller, more focused modules?**
   _Cohesion score 0.08045977011494253 - nodes in this community are weakly interconnected._
-- **Why does `Order` connect `Illuminate\Http\Request` to `ProductVariant`, `OrderStatus`, `OrderForm.php`, `Filament Resources`, `Illuminate\Database\Eloquent\Model`, `PaymentStatus`, `web.php`, `Admin Tables`, `Payment Service Tests`, `Orders Admin Tests`, `Digits`, `Illuminate\Database\Eloquent\Factories\Factory`, `PaymentService`, `PaymentServiceTest.php`, `DashboardTest`, `StoreStats`, `AccountOrdersTest`, `CancelUnpaidOrdersTest.php`, `OrdersAdminTest.php`, `SendOrderConfirmationSms`, `CheckoutPage.php`, `User`?**
-  _High betweenness centrality (0.065) - this node is a cross-community bridge._
+- **Why does `Order` connect `Order` to `ProductVariant`, `CancelUnpaidOrdersCommand.php`, `OrderStatus`, `Filament Resources`, `Illuminate\Database\Eloquent\Factories\HasFactory`, `web.php`, `Admin Tables`, `Payment Service Tests`, `Orders Admin Tests`, `Digits`, `Illuminate\Database\Eloquent\Factories\Factory`, `PaymentService`, `PaymentServiceTest.php`, `ShippingMethod`, `StoreStats`, `AccountOrdersTest`, `Category`, `PaymentController.php`, `OrdersAdminTest.php`, `SendOrderConfirmationSms`, `Illuminate\Database\Eloquent\Builder`?**
+  _High betweenness centrality (0.067) - this node is a cross-community bridge._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._
