@@ -100,20 +100,90 @@
         </ul>
     </section>
 
-    {{-- Category shortcuts (only categories with active products); scrolls sideways on phones --}}
+    {{--
+        Categories: dark tiles with the brand's hexagon pattern, an icon per category, name, product count
+        and a "see" arrow. The first tile is "all products". Phones: one row that scrolls sideways (snaps
+        to each tile); wider screens: a grid. Only categories with active products are listed.
+    --}}
     @if ($categories->isNotEmpty())
+        @php
+            // Icon chosen from the category name (no icon field yet); unknown names get the hexagon mark.
+            $categoryIcon = function (string $name): string {
+                return match (true) {
+                    str_contains($name, 'عسل') => 'honey',
+                    str_contains($name, 'روغن') => 'oil',
+                    str_contains($name, 'زعفران') => 'saffron',
+                    str_contains($name, 'کشک') || str_contains($name, 'لبنیات') => 'jar',
+                    default => 'hex',
+                };
+            };
+            $tiles = collect([[
+                'url' => route('products.index'),
+                'name' => __('shop.all_products'),
+                'count' => $categories->sum('products_count'),
+                'icon' => 'all',
+            ]])->concat($categories->map(fn ($c) => [
+                'url' => route('products.index', ['category' => $c->slug]),
+                'name' => $c->name,
+                'count' => $c->products_count,
+                'icon' => $categoryIcon($c->name),
+            ]));
+        @endphp
+
         <section class="mx-auto max-w-6xl px-4 pt-12" aria-labelledby="categories-title">
-            <h2 id="categories-title" class="text-lg font-extrabold">{{ __('home.categories_title') }}</h2>
-            <ul class="-mx-4 mt-4 flex gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
-                @foreach ($categories as $category)
-                    <li class="shrink-0">
-                        <a href="{{ route('products.index', ['category' => $category->slug]) }}"
-                           class="group flex items-center gap-3 rounded-full border border-line bg-paper py-2 pe-5 ps-2 transition hover:border-gold-deep hover:shadow-sm">
-                            <span class="flex size-9 items-center justify-center rounded-full bg-ink text-gold transition-colors group-hover:bg-gold-deep group-hover:text-cream" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5S6.5 10 6.5 14a5.5 5.5 0 0 0 11 0C17.5 10 12 3.5 12 3.5z"/></svg>
+            <div class="border-b border-line pb-4">
+                <h2 id="categories-title" class="text-2xl font-extrabold">{{ __('home.categories_title') }}</h2>
+                <p class="mt-1 text-sm text-muted">{{ __('home.categories_subtitle') }}</p>
+            </div>
+
+            {{-- Columns follow the number of tiles (2 → 2 columns, 3 → 3, 4+ → 4), so no empty gap is left. --}}
+            <ul @class([
+                '-mx-4 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-4 px-4 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0',
+                'sm:grid-cols-2' => $tiles->count() === 2,
+                'sm:grid-cols-3' => $tiles->count() >= 3,
+                'lg:grid-cols-4' => $tiles->count() >= 4,
+            ])>
+                @foreach ($tiles as $tile)
+                    <li class="w-40 shrink-0 snap-start sm:w-auto">
+                        <a href="{{ $tile['url'] }}"
+                           class="category-tile group relative isolate flex h-full min-h-40 flex-col overflow-hidden rounded-card border border-gold/15 bg-ink p-4 text-cream shadow-[0_10px_30px_-18px_rgba(30,26,22,0.7)] transition duration-500 ease-out hover:-translate-y-1 hover:border-gold/60 hover:shadow-[0_24px_44px_-22px_rgba(168,115,27,0.65)] focus-visible:ring-2 focus-visible:ring-honey motion-reduce:transform-none sm:min-h-44 sm:p-5">
+                            {{-- Hexagon pattern and a warm glow from the top corner; both brighten on hover --}}
+                            <span class="hex-pattern absolute inset-0 -z-10 opacity-40 transition duration-700 group-hover:opacity-70" aria-hidden="true"></span>
+                            <span class="absolute -end-10 -top-10 -z-10 size-36 rounded-full bg-gold/15 blur-2xl transition duration-700 group-hover:bg-gold/30" aria-hidden="true"></span>
+
+                            {{-- Icon in a hexagon badge (the logo's frame shape) --}}
+                            <span class="relative flex size-12 items-center justify-center text-gold transition duration-500 group-hover:scale-110 group-hover:text-ink" aria-hidden="true">
+                                <svg viewBox="0 0 48 48" class="absolute inset-0 size-full"><path d="M24 2.5 42.6 13.25v21.5L24 45.5 5.4 34.75v-21.5z" class="fill-ink-soft stroke-gold/50 transition duration-500 group-hover:fill-gold group-hover:stroke-gold" stroke-width="1.5"/></svg>
+                                <svg viewBox="0 0 24 24" class="relative size-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    @switch($tile['icon'])
+                                        @case('all')
+                                            <rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/>
+                                            @break
+                                        @case('honey')
+                                            <path d="M12 3.5S6.5 10 6.5 14a5.5 5.5 0 0 0 11 0C17.5 10 12 3.5 12 3.5z"/><path d="M9.6 14.6a2.6 2.6 0 0 0 2.4 2.4"/>
+                                            @break
+                                        @case('oil')
+                                            <path d="M10 3h4v3l2 3v10.5a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 8 19.5V9l2-3z"/><path d="M8 13h8"/>
+                                            @break
+                                        @case('saffron')
+                                            <path d="M12 20v-7M12 13c-3-1-4.5-4-4-8 3 .5 4.5 3 4 8zM12 13c3-1 4.5-4 4-8-3 .5-4.5 3-4 8z"/>
+                                            @break
+                                        @case('jar')
+                                            <path d="M8 4h8M7 7h10l-.5 12.5a1.5 1.5 0 0 1-1.5 1.5H9a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M8 4v3M16 4v3"/>
+                                            @break
+                                        @default
+                                            <path d="M12 4l6.9 4v8L12 20l-6.9-4V8z"/><path d="M12 9l2.6 1.5v3L12 15l-2.6-1.5v-3z"/>
+                                    @endswitch
+                                </svg>
                             </span>
-                            <span class="font-bold">{{ $category->name }}</span>
-                            <span class="text-xs text-muted">{{ __('shop.products_count', ['count' => \App\Support\Digits::toPersian($category->products_count)]) }}</span>
+
+                            <span class="mt-auto block pt-5 text-lg font-extrabold leading-7 transition-colors duration-500 group-hover:text-gold">{{ $tile['name'] }}</span>
+                            <span class="mt-1 flex items-center justify-between gap-2 text-xs text-cream/60">
+                                {{ __('shop.products_count', ['count' => \App\Support\Digits::toPersian($tile['count'])]) }}
+                                <span class="flex size-7 items-center justify-center rounded-full border border-gold/30 text-gold transition duration-500 group-hover:-translate-x-1 group-hover:border-gold group-hover:bg-gold group-hover:text-ink" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+                                </span>
+                            </span>
                         </a>
                     </li>
                 @endforeach
@@ -139,7 +209,7 @@
         @if ($products->isEmpty())
             <p class="mt-10 text-center text-muted">{{ __('home.products_empty') }}</p>
         @else
-            <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
+            <div class="mt-6 grid auto-rows-fr grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
                 @foreach ($products as $product)
                     <x-product-card :product="$product" />
                 @endforeach

@@ -68,6 +68,14 @@
     .page-content hr { border-color: var(--color-line); }
 }
 
+/* Category tiles: a faint gold honeycomb (hexagons, the shape of the logo frame) on the dark tile. */
+.hex-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath d='M14 0 28 8.08v16.17L14 32.33 0 24.25V8.08zM14 32.33 28 40.4M14 32.33 0 40.4M14 32.33V48.5' fill='none' stroke='%23E2B45A' stroke-opacity='.18' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 28px 48.5px;
+    -webkit-mask-image: linear-gradient(to bottom left, #000, transparent 75%);
+    mask-image: linear-gradient(to bottom left, #000, transparent 75%);
+}
+
 /* Home hero: enters once on load, gently. Nothing moves for visitors who prefer reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
     @keyframes hero-rise {
