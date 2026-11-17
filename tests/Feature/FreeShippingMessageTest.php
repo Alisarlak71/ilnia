@@ -91,6 +91,9 @@ class FreeShippingMessageTest extends TestCase
     {
         ShippingMethod::factory()->create(['free_over_weight_grams' => 4000]);
 
-        $this->get('/cart')->assertDontSee('ارسال رایگان');
+        // The header strip always names the free-shipping threshold; the cart's own message must not show.
+        $this->get('/cart')
+            ->assertDontSee('ارسال رایگان می‌شود')
+            ->assertDontSee('ارسال این سفارش رایگان است');
     }
 }

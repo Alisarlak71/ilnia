@@ -1,11 +1,11 @@
-{{-- Home page: hero · three brand values · products · story («به رسم نیاکان»). See docs/DESIGN.md. --}}
+{{-- Home page (shop layout): hero · services strip · categories · newest products · brand values · story. --}}
 <x-layouts.app>
     {{--
         Hero: one full-bleed photograph (a bee on honeycomb, supplied by the owner), mirrored so the bee
         sits on the left and the calm, blurred greenery on the right holds the Persian text.
         A dark gradient from the right keeps the words readable; on phones it darkens from the foot.
     --}}
-    <section class="relative isolate flex min-h-[calc(100svh-4.8rem)] items-end overflow-hidden bg-ink text-cream md:items-center" aria-labelledby="hero-title">
+    <section class="relative isolate flex min-h-[68svh] md:min-h-[520px] lg:min-h-[560px] items-end overflow-hidden bg-ink text-cream md:items-center" aria-labelledby="hero-title">
         {{-- Backdrop: the same photo, blurred and darkened, fills the hero edge to edge --}}
         <img src="{{ asset('images/hero/bee-comb-768.jpg') }}" alt="" aria-hidden="true" decoding="async"
              class="absolute inset-0 -z-30 h-full w-full scale-110 object-cover blur-2xl brightness-[.55] saturate-[1.1]">
@@ -27,7 +27,7 @@
         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/70 to-ink/10 md:bg-gradient-to-l md:from-ink/95 md:via-ink/70 md:to-transparent xl:from-ink/90 xl:via-ink/55" aria-hidden="true"></div>
         <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-ink/60 to-transparent" aria-hidden="true"></div>
 
-        <div class="mx-auto w-full max-w-6xl px-4 pb-12 pt-[40svh] md:py-20">
+        <div class="mx-auto w-full max-w-6xl px-4 pb-14 pt-[22svh] md:pb-20 md:pt-16">
             <div class="max-w-xl text-center md:text-start">
                 <div class="hero-rise flex items-center justify-center gap-3 md:justify-start">
                     <span class="font-latin ps-[0.55em] text-xs tracking-[0.55em] text-gold" dir="ltr">ILNIA</span>
@@ -35,45 +35,129 @@
                     <span class="text-sm text-cream/80">{{ __('home.hero_eyebrow') }}</span>
                 </div>
 
-                <h1 id="hero-title" class="hero-rise hero-rise-1 mt-6 text-[2.5rem] font-black leading-[1.3] drop-shadow-[0_2px_18px_rgba(0,0,0,0.45)] sm:text-5xl lg:text-[3.75rem] lg:leading-[1.25]">
+                <h1 id="hero-title" class="hero-rise hero-rise-1 mt-4 sm:mt-6 text-[1.9rem] font-black leading-[1.35] drop-shadow-[0_2px_18px_rgba(0,0,0,0.45)] sm:text-5xl lg:text-[3.75rem] lg:leading-[1.25]">
                     <span class="block text-gold lg:whitespace-nowrap">{{ __('home.hero_title_1') }}</span>
                     <span class="block lg:whitespace-nowrap">{{ __('home.hero_title_2') }}</span>
                 </h1>
 
-                <p class="hero-rise hero-rise-2 mx-auto mt-6 max-w-md text-lg leading-9 text-cream/85 md:mx-0">{{ __('home.hero_text') }}</p>
+                <p class="hero-rise hero-rise-2 mx-auto mt-4 max-w-md text-base leading-8 text-cream/85 sm:mt-6 sm:text-lg sm:leading-9 md:mx-0">{{ __('home.hero_text') }}</p>
 
-                <div class="hero-rise hero-rise-3 mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
+                <div class="hero-rise hero-rise-3 mt-7 flex sm:mt-9 flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
                     <a href="#products"
                        class="group inline-flex w-full items-center justify-center gap-3 rounded-btn border border-gold bg-gold px-8 py-3.5 font-bold text-ink shadow-[0_10px_30px_-10px_rgba(226,180,90,0.6)] transition hover:-translate-y-px hover:border-cream hover:bg-cream active:translate-y-px sm:w-auto">
                         {{ __('home.hero_cta') }}
                         <span class="transition-transform group-hover:-translate-x-1" aria-hidden="true">←</span>
                     </a>
                     <a href="#story"
-                       class="inline-flex w-full items-center justify-center rounded-btn border border-cream/35 bg-ink/20 px-8 py-3.5 backdrop-blur-sm transition hover:-translate-y-px hover:border-gold hover:text-gold active:translate-y-px sm:w-auto">
+                       class="hidden w-full items-center justify-center rounded-btn border border-cream/35 sm:inline-flex bg-ink/20 px-8 py-3.5 backdrop-blur-sm transition hover:-translate-y-px hover:border-gold hover:text-gold active:translate-y-px sm:w-auto">
                         {{ __('home.hero_secondary') }}
                     </a>
                 </div>
 
-                @if ($shippingMethod?->free_over_weight_grams)
-                    <p class="hero-rise hero-rise-3 mt-8 flex items-center justify-center gap-2 text-sm text-cream/75 md:justify-start">
-                        <span class="size-1.5 rounded-full bg-gold" aria-hidden="true"></span>
-                        {{ __('home.hero_fact', ['weight' => \App\Support\Weight::kg($shippingMethod->free_over_weight_grams)]) }}
-                    </p>
-                @endif
             </div>
         </div>
     </section>
 
+    {{-- Services strip: overlaps the foot of the hero like a shop's info bar. True facts only. --}}
+    @php
+        $freeOver = $shippingMethod?->free_over_weight_grams;
+        $services = array_filter([
+            'post' => __('home.services.post'),
+            'free' => $freeOver ? ['title' => __('home.services.free.title'), 'text' => __('home.services.free.text', ['weight' => \App\Support\Weight::kg($freeOver)])] : null,
+            'weight' => __('home.services.weight'),
+            'login' => __('home.services.login'),
+        ]);
+    @endphp
+    <section class="relative z-10 mx-auto -mt-8 max-w-6xl px-4" aria-label="{{ __('home.services_title') }}">
+        <ul @class([
+            'grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line shadow-[0_18px_40px_-24px_rgba(30,26,22,0.45)]',
+            'lg:grid-cols-4' => count($services) === 4,
+            'lg:grid-cols-3' => count($services) === 3,
+        ])>
+            @foreach ($services as $key => $service)
+                <li @class(['flex items-center gap-3 bg-paper p-3.5 sm:p-5', 'col-span-2 lg:col-span-1' => count($services) === 3 && $loop->last])>
+                    <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-cream text-gold-deep sm:size-11" aria-hidden="true">
+                        @switch($key)
+                            @case('post')
+                                <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg>
+                                @break
+                            @case('free')
+                                <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v8H4v-8M2.5 7.5h19V12h-19zM12 20V7.5"/><path d="M12 7.5C10.5 4 7 4 7 6s3 1.5 5 1.5zM12 7.5C13.5 4 17 4 17 6s-3 1.5-5 1.5z"/></svg>
+                                @break
+                            @case('weight')
+                                <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M7 20h10M4 8h16M7 8l-3 6a3 3 0 0 0 6 0zM17 8l-3 6a3 3 0 0 0 6 0z"/></svg>
+                                @break
+                            @default
+                                <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+                        @endswitch
+                    </span>
+                    <span class="min-w-0">
+                        <span class="block text-sm font-extrabold sm:text-base">{{ $service['title'] }}</span>
+                        <span class="block text-xs leading-5 text-muted sm:leading-6">{{ $service['text'] }}</span>
+                    </span>
+                </li>
+            @endforeach
+        </ul>
+    </section>
+
+    {{-- Category shortcuts (only categories with active products); scrolls sideways on phones --}}
+    @if ($categories->isNotEmpty())
+        <section class="mx-auto max-w-6xl px-4 pt-12" aria-labelledby="categories-title">
+            <h2 id="categories-title" class="text-lg font-extrabold">{{ __('home.categories_title') }}</h2>
+            <ul class="-mx-4 mt-4 flex gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
+                @foreach ($categories as $category)
+                    <li class="shrink-0">
+                        <a href="{{ route('products.index', ['category' => $category->slug]) }}"
+                           class="group flex items-center gap-3 rounded-full border border-line bg-paper py-2 pe-5 ps-2 transition hover:border-gold-deep hover:shadow-sm">
+                            <span class="flex size-9 items-center justify-center rounded-full bg-ink text-gold transition-colors group-hover:bg-gold-deep group-hover:text-cream" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5S6.5 10 6.5 14a5.5 5.5 0 0 0 11 0C17.5 10 12 3.5 12 3.5z"/></svg>
+                            </span>
+                            <span class="font-bold">{{ $category->name }}</span>
+                            <span class="text-xs text-muted">{{ __('shop.products_count', ['count' => \App\Support\Digits::toPersian($category->products_count)]) }}</span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
+
+    {{-- Newest products: shop-style heading row (title at the start, "see all" at the end) --}}
+    <section id="products" class="mx-auto max-w-6xl scroll-mt-24 px-4 py-12 sm:py-14" aria-labelledby="products-title">
+        <div class="flex items-end justify-between gap-4 border-b border-line pb-4">
+            <div>
+                <h2 id="products-title" class="text-2xl font-extrabold">{{ __('home.products_title') }}</h2>
+                <p class="mt-1 text-sm text-muted">{{ __('home.products_subtitle') }}</p>
+            </div>
+            @if ($products->isNotEmpty())
+                <a href="{{ route('products.index') }}" class="group inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-gold-deep hover:text-ink">
+                    {{ __('home.products_all') }}
+                    <span class="transition-transform group-hover:-translate-x-1" aria-hidden="true">←</span>
+                </a>
+            @endif
+        </div>
+
+        @if ($products->isEmpty())
+            <p class="mt-10 text-center text-muted">{{ __('home.products_empty') }}</p>
+        @else
+            <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
+                @foreach ($products as $product)
+                    <x-product-card :product="$product" />
+                @endforeach
+            </div>
+        @endif
+    </section>
+
     {{-- Three brand values --}}
-    <section class="mx-auto max-w-6xl px-4 py-14 sm:py-20" aria-labelledby="values-title">
+    <section class="border-t border-line bg-paper/60" aria-labelledby="values-title">
+      <div class="mx-auto max-w-6xl px-4 py-14 sm:py-16">
         <h2 id="values-title" class="text-center text-2xl font-extrabold">{{ __('home.values_title') }}</h2>
         <x-ornament class="mt-4" />
 
-        <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        <div class="mt-10 grid gap-4 sm:grid-cols-3 sm:gap-6">
             @foreach (__('home.values') as $i => $value)
                 {{-- Card: soft shadow at rest; on hover it lifts, a gold line draws across the top,
                      the icon fills with gold. --}}
-                <div class="value-card group relative isolate overflow-hidden rounded-card border border-line bg-paper px-6 pb-8 pt-9 text-center shadow-[0_1px_2px_rgba(30,26,22,0.05),0_8px_24px_-16px_rgba(30,26,22,0.25)] transition duration-500 ease-out hover:-translate-y-1.5 hover:border-gold-deep/40 hover:shadow-[0_2px_4px_rgba(30,26,22,0.05),0_28px_50px_-24px_rgba(168,115,27,0.45)] active:translate-y-0 active:scale-[.99] motion-reduce:transform-none motion-reduce:transition-none">
+                <div class="value-card group relative isolate overflow-hidden rounded-card border border-line bg-paper px-6 pb-7 pt-8 text-center shadow-[0_1px_2px_rgba(30,26,22,0.05),0_8px_24px_-16px_rgba(30,26,22,0.25)] transition duration-500 ease-out hover:-translate-y-1.5 hover:border-gold-deep/40 hover:shadow-[0_2px_4px_rgba(30,26,22,0.05),0_28px_50px_-24px_rgba(168,115,27,0.45)] active:translate-y-0 active:scale-[.99] motion-reduce:transform-none motion-reduce:transition-none">
                     {{-- Gold line drawn from the centre on hover --}}
                     <span class="absolute inset-x-0 top-0 mx-auto h-0.5 w-0 bg-gradient-to-l from-transparent via-gold-deep to-transparent transition-all duration-700 ease-out group-hover:w-full" aria-hidden="true"></span>
 
@@ -99,35 +183,11 @@
                 </div>
             @endforeach
         </div>
-    </section>
-
-    {{-- Products --}}
-    <section id="products" class="scroll-mt-6 border-y border-line bg-paper/60" aria-labelledby="products-title">
-        <div class="mx-auto max-w-6xl px-4 py-14 sm:py-20">
-            <h2 id="products-title" class="text-center text-2xl font-extrabold">{{ __('home.products_title') }}</h2>
-            <x-ornament class="mt-4" />
-
-            @if ($products->isEmpty())
-                <p class="mt-10 text-center text-muted">{{ __('home.products_empty') }}</p>
-            @else
-                <div class="mt-10 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-                    @foreach ($products as $product)
-                        <x-product-card :product="$product" />
-                    @endforeach
-                </div>
-
-                <div class="mt-10 text-center">
-                    <a href="{{ route('products.index') }}"
-                       class="inline-block rounded-btn border border-gold-deep px-7 py-3 font-bold transition-colors hover:bg-gold-deep hover:text-cream">
-                        {{ __('shop.all_products') }}
-                    </a>
-                </div>
-            @endif
-        </div>
+      </div>
     </section>
 
     {{-- Story --}}
-    <section id="story" class="scroll-mt-6 bg-ink text-cream" aria-labelledby="story-title">
+    <section id="story" class="scroll-mt-24 bg-ink text-cream" aria-labelledby="story-title">
         <div class="mx-auto max-w-3xl px-4 py-16 text-center sm:py-20">
             <img src="{{ asset('brand/logo-mark-gold.svg') }}" width="64" height="64" alt="" class="mx-auto">
             <p class="mt-6 text-sm font-bold text-gold">{{ __('home.story_eyebrow') }}</p>

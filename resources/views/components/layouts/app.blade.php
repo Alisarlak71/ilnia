@@ -31,7 +31,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1E1A16">
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
@@ -63,7 +63,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{ $head ?? '' }}
 </head>
-<body class="flex min-h-screen flex-col bg-cream font-sans text-ink antialiased">
+{{-- Bottom padding on phones = height of the bottom bar (h-16) + the iPhone home indicator. --}}
+<body class="flex min-h-screen flex-col bg-cream pb-[calc(4rem+env(safe-area-inset-bottom))] font-sans text-ink antialiased md:pb-0">
     <a href="#main"
        class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-btn focus:bg-paper focus:px-4 focus:py-2 focus:text-ink">
         {{ __('site.skip_to_content') }}
@@ -76,5 +77,7 @@
     </main>
 
     <x-site.footer />
+
+    <x-site.bottom-nav />
 </body>
 </html>

@@ -46,7 +46,7 @@ class HomePageTest extends TestCase
         $response = $this->get('/');
 
         $response->assertSee('از ۴۸۰٬۰۰۰ تومان');
-        $response->assertSee('۱ کیلوگرم، ۲ کیلوگرم');
+        $response->assertSeeInOrder(['۱ کیلوگرم', '۲ کیلوگرم']); // weight chips
         $response->assertDontSee('ناموجود');
     }
 
